@@ -1,0 +1,24 @@
+{
+  "name": "spark-cn",
+  "version": "1.0.0",
+  "description": "Spark中文网",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Y-sir/spark-cn.git"
+  },
+  "keywords": [
+    "spark",
+    "spark中文",
+    "spark中文网",
+    "spark中文文档"
+  ],
+  "author": "WangQiang Yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Y-sir/spark-cn/issues"
+  },
+  "homepage": "https://github.com/Y-sir/spark-cn#readme"
+}
