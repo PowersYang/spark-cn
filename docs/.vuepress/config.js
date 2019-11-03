@@ -1,6 +1,6 @@
 module.exports = {
   head: [
-    ['link', { rel: 'shortcut icon', href: '/spark-logo-trademark.png', type: 'image/png' }]
+    ['link', { rel: 'shortcut icon', href: 'http://spark.apache.org/favicon.ico', type: 'image/png' }]
   ],
   locales: {
     '/': {
@@ -30,10 +30,40 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         nav: [
           { text: '首页', link: '/' },
-          { text: '下载安装', link: '/docs/releases/download' },
-          { text: '参考文档', link: '/docs/' },
-          { text: '资源教程', link: '/docs/awesome/' },
-          { text: '最新消息', link: '/docs/releases/latestnews' },
+          { text: '下载安装', link: '/releases/download' },
+          {
+            text: '官方库',
+            items: [
+              {text: 'Sql和DadaFrames', link: '/libraries/sql'},
+              {text: 'Spark Streaming', link: '/libraries/streaming'},
+              {text: 'MLlib(机器学习)', link: '/libraries/mllib'},
+              {text: 'GraphX(图)', link: '/libraries/graphx'},
+              {text: '第三方项目', link: '/libraries/third-party-projects'},
+            ]
+          },
+          { text: '官方文档', link: '/docs/' },
+          { text: '官方示例', link: '/examples/'},
+          {
+            text: '官方社区 ',
+            items: [
+              {text: 'Mailing Lists & 资源', link: '/community/community'},
+              {text: '为Spark贡献', link: '/community/contributing'},
+              {text: '改善建议 (SPIP)', link: '/community/improvement-proposals'},
+              {text: '问题追踪', link: 'https://issues.apache.org/jira/browse/SPARK'},
+              {text: '技术支持', link: '/community/powered-by'},
+              {text: '项目贡献者', link: '/community/committers'},
+              {text: '项目历史', link: '/community/history'}
+            ]
+          },
+          {
+            text: '开发者',
+            items: [
+              {text: '实用工具', link: '/developers/developer-tools'},
+              {text: '版本真个', link: '/developers/versioning-policy'},
+              {text: '发布过程', link: '/developers/release-process'},
+              {text: '安全', link: '/developers/security'}            ]
+          },
+          { text: '优质资源', link: '/docs/awesome/' },
           { text: '关于', link: '/about/' }
         ],
       },
@@ -44,12 +74,42 @@ module.exports = {
         label: 'English',
         editLinkText: 'Edit this page on GitHub',
         nav: [
-          { text: 'Home', link: '/en/' },
-          { text: 'Download', link: '/en/releases/download' },
-          { text: 'Documentation', link: '/en/docs/' },
-          { text: 'Awesome', link: '/en/awesome/' },
-          { text: 'Latest News', link: '/en/docs/releases/latestnews' },
-          { text: 'About', link: '/en/about/' }
+          { text: 'Home', link: '/' },
+          { text: 'Download', link: '/releases/download' },
+          {
+            text: 'Libraries',
+            items: [
+              {text: 'Sql and DadaFrames', link: '/libraries/sql'},
+              {text: 'Spark Streaming', link: '/libraries/streaming'},
+              {text: 'MLlib(machine learning)', link: '/libraries/mllib'},
+              {text: 'GraphX(graph)', link: '/libraries/graphx'},
+              {text: 'Third-Party Project', link: '/libraries/third-party-projects'},
+            ]
+          },
+          { text: 'Documentation', link: '/docs/' },
+          { text: 'Examples', link: '/examples/'},
+          {
+            text: 'Community ',
+            items: [
+              {text: 'Mailing Lists & Resources', link: '/community/community'},
+              {text: 'Contributing to Spark', link: '/community/contributing'},
+              {text: 'Improvement Proposals (SPIP)', link: '/community/improvement-proposals'},
+              {text: 'Issue Tracker', link: 'https://issues.apache.org/jira/browse/SPARK'},
+              {text: 'Powered By', link: '/community/powered-by'},
+              {text: 'Project Committers', link: '/community/committers'},
+              {text: 'Project History', link: '/community/history'}
+            ]
+          },
+          {
+            text: 'Developers',
+            items: [
+              {text: 'Useful Developer Tools', link: '/developers/developer-tools'},
+              {text: 'Versioning Policy', link: '/developers/versioning-policy'},
+              {text: 'Release Process', link: '/developers/release-process'},
+              {text: 'Security', link: '/developers/security'}            ]
+          },
+          { text: 'Awesome', link: '/docs/awesome/' },
+          { text: 'About', link: '/about/' }
         ],
       }
     }
