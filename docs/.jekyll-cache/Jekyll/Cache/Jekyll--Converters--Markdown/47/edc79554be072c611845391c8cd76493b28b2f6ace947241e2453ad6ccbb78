@@ -1,0 +1,72 @@
+I"²<h3 id="description">Description</h3>
+
+<p>The <code>ANALYZE TABLE</code> statement collects statistics about the table to be used by the query optimizer to find a better query execution plan.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="p">[</span> <span class="n">PARTITION</span> <span class="p">(</span> <span class="n">partition_col_name</span> <span class="p">[</span> <span class="o">=</span> <span class="n">partition_col_val</span> <span class="p">]</span> <span class="p">[</span> <span class="p">,</span> <span class="p">...</span> <span class="p">]</span> <span class="p">)</span> <span class="p">]</span>
+    <span class="n">COMPUTE</span> <span class="k">STATISTICS</span> <span class="p">[</span> <span class="n">NOSCAN</span> <span class="o">|</span> <span class="k">FOR</span> <span class="n">COLUMNS</span> <span class="n">col</span> <span class="p">[</span> <span class="p">,</span> <span class="p">...</span> <span class="p">]</span> <span class="o">|</span> <span class="k">FOR</span> <span class="k">ALL</span> <span class="n">COLUMNS</span> <span class="p">]</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>table_name</em></code></dt>
+  <dd>The name of an existing table.</dd>
+</dl>
+
+<dl>
+  <dt><code><em>PARTITION ( partition_col_name [ = partition_col_val ] [ , ... ] )</em></code></dt>
+  <dd>Specifies one or more partition column and value pairs. The partition value is optional.</dd>
+</dl>
+
+<dl>
+  <dt><code><em>[ NOSCAN | FOR COLUMNS col [ , ... ] | FOR ALL COLUMNS ]</em></code></dt>
+    <dd>
+      <ul>
+        <li> If no analyze option is specified, <code>ANALYZE TABLE</code> collects the table's number of rows and size in bytes. </li>
+        <li> <b>NOSCAN</b>
+          <br /> Collect only the table's size in bytes ( which does not require scanning the entire table ). </li>
+        <li> <b>FOR COLUMNS col [ , ... ] <code> | </code> FOR ALL COLUMNS</b>
+          <br /> Collect column statistics for each column specified, or alternatively for every column, as well as table statistics.
+        </li>
+      </ul>
+     </dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"> <span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="n">students</span> <span class="n">COMPUTE</span> <span class="k">STATISTICS</span> <span class="n">NOSCAN</span><span class="p">;</span>
+
+ <span class="k">DESC</span> <span class="n">EXTENDED</span> <span class="n">students</span><span class="p">;</span>
+     <span class="p">......</span>
+     <span class="k">Statistics</span>	<span class="mi">2820</span> <span class="n">bytes</span>
+     <span class="p">......</span>
+
+ <span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="n">students</span> <span class="n">COMPUTE</span> <span class="k">STATISTICS</span><span class="p">;</span>
+
+ <span class="k">DESC</span> <span class="n">EXTENDED</span> <span class="n">students</span><span class="p">;</span>
+     <span class="p">......</span>
+     <span class="k">Statistics</span>	<span class="mi">2820</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">3</span> <span class="k">rows</span>
+     <span class="p">......</span>
+
+ <span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="n">students</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="n">student_id</span> <span class="o">=</span> <span class="mi">111111</span><span class="p">)</span> <span class="n">COMPUTE</span> <span class="k">STATISTICS</span><span class="p">;</span>
+
+ <span class="k">DESC</span> <span class="n">EXTENDED</span> <span class="n">students</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="n">student_id</span> <span class="o">=</span> <span class="mi">111111</span><span class="p">);</span>
+     <span class="p">......</span>
+     <span class="n">Partition</span> <span class="k">Statistics</span>	<span class="mi">919</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">1</span> <span class="k">rows</span>
+     <span class="p">......</span>
+
+ <span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="n">students</span> <span class="n">COMPUTE</span> <span class="k">STATISTICS</span> <span class="k">FOR</span> <span class="n">COLUMNS</span> <span class="n">name</span><span class="p">;</span>
+
+ <span class="k">DESC</span> <span class="n">EXTENDED</span> <span class="n">students</span> <span class="n">name</span><span class="p">;</span>
+     <span class="o">=</span><span class="k">default</span> <span class="n">tbl</span><span class="o">=</span><span class="n">students</span>
+     <span class="n">col_name</span>	<span class="n">name</span>
+     <span class="n">data_type</span>	<span class="n">string</span>
+     <span class="k">comment</span>	<span class="k">NULL</span>
+     <span class="k">min</span>	<span class="k">NULL</span>
+     <span class="k">max</span>	<span class="k">NULL</span>
+     <span class="n">num_nulls</span>	<span class="mi">0</span>
+     <span class="n">distinct_count</span>	<span class="mi">3</span>
+     <span class="n">avg_col_len</span>	<span class="mi">11</span>
+     <span class="n">max_col_len</span>	<span class="mi">13</span>
+     <span class="n">histogram</span>	<span class="k">NULL</span></code></pre></figure>
+:ET

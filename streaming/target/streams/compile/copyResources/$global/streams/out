@@ -1,0 +1,9 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark/streaming,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark/streaming)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark/streaming/ui,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark/streaming/ui)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark/streaming/ui/static,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark/streaming/ui/static)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark/streaming/ui/static/streaming-page.js,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark/streaming/ui/static/streaming-page.js)[0m
+[0m[[0mdebug[0m] [0m	(/Users/ysir/Documents/GitHub/spark/streaming/src/main/resources/org/apache/spark/streaming/ui/static/streaming-page.css,/Users/ysir/Documents/GitHub/spark/streaming/target/scala-2.12/classes/org/apache/spark/streaming/ui/static/streaming-page.css)[0m

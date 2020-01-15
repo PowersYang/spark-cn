@@ -1,51 +1,105 @@
 ---
-home: true
-heroImage: /spark-logo-trademark.png
-
-actionText: 快速上手 
-actionLink: /docs/
-
-
-footer: MIT Licensed | Copyright © 2018-present Evan You
+license: |
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+ 
+     http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 ---
 
-::: warning 提示
-各路英雄豪杰、武林盟主、绿林好汉：
-    
-你们好！
-    
-本站刚搭建不久，内容还在丰富中。若各路英雄有意参与本站建设、贡献翻译以及提出优化建议等，请与站长[联系](/about/)。
-:::
+Welcome to the Spark documentation!
 
-<div class="features">
-  <div class="feature">
-    <h2>快速</h2>
-    <h5>将工作负载运行速度提高100倍</h5>
-    <p>Apache Spark使用最先进的DAG调度程序，查询优化器和物理执行引擎，为批处理数据和流数据提供了高性能。</p>
-  </div>
-  <div class="feature">
-    <h2>易用</h2>
-    <h5>使用Java，Scala，Python，R和SQL快速编写应用程序</h5>
-    <p>Spark提供了80多个高级操作，可轻松构建并行应用程序。你可以从Scala、Python、R和SQL Shell交互使用它。</p>
-  </div>
-  <div class="feature">
-    <h2>通用</h2>
-    <h5>结合使用SQL，流式计算和复杂的分析</h5>
-    <p>Spark为SQL和DataFrames、用于机器学习的MLlib、GraphX和Spark Streaming的提供了强大的库。你可以在同一应用程序中无缝组合这些库。</p>
-  </div>
-</div>
+This readme will walk you through navigating and building the Spark documentation, which is included
+here with the Spark source code. You can also find documentation specific to release versions of
+Spark at https://spark.apache.org/documentation.html.
 
-### 就像1、2、3一样简单
+Read on to learn more about viewing documentation in plain text (i.e., markdown) or building the
+documentation yourself. Why build it yourself? So that you have the docs that correspond to
+whichever version of Spark you currently have checked out of revision control.
 
-```bash
-# 1、启动Spark Shell
-./bin/spark-shell
+## Prerequisites
 
-# 2、读取文件
-scala> val textFile = spark.read.textFile("README.md")
-textFile: org.apache.spark.sql.Dataset[String] = [value: string]
+The Spark documentation build uses a number of tools to build HTML docs and API docs in Scala, Java,
+Python, R and SQL.
 
-# 3、统计文件中“Spark”出现的次数
-scala> textFile.filter(line => line.contains("Spark")).count()
-res3: Long = 15
+You need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and
+[Python](https://docs.python.org/2/using/unix.html#getting-and-installing-the-latest-version-of-python)
+installed. Also install the following libraries:
+
+```sh
+$ sudo gem install jekyll jekyll-redirect-from pygments.rb
+$ sudo pip install Pygments
+# Following is needed only for generating API docs
+$ sudo pip install sphinx pypandoc mkdocs
+$ sudo Rscript -e 'install.packages(c("knitr", "devtools", "rmarkdown"), repos="https://cloud.r-project.org/")'
+$ sudo Rscript -e 'devtools::install_version("roxygen2", version = "5.0.1", repos="https://cloud.r-project.org/")'
+$ sudo Rscript -e 'devtools::install_version("testthat", version = "1.0.2", repos="https://cloud.r-project.org/")'
 ```
+
+Note: If you are on a system with both Ruby 1.9 and Ruby 2.0 you may need to replace gem with gem2.0.
+
+Note: Other versions of roxygen2 might work in SparkR documentation generation but `RoxygenNote` field in `$SPARK_HOME/R/pkg/DESCRIPTION` is 5.0.1, which is updated if the version is mismatched.
+
+## Generating the Documentation HTML
+
+We include the Spark documentation as part of the source (as opposed to using a hosted wiki, such as
+the github wiki, as the definitive documentation) to enable the documentation to evolve along with
+the source code and be captured by revision control (currently git). This way the code automatically
+includes the version of the documentation that is relevant regardless of which version or release
+you have checked out or downloaded.
+
+In this directory you will find text files formatted using Markdown, with an ".md" suffix. You can
+read those text files directly if you want. Start with `index.md`.
+
+Execute `jekyll build` from the `docs/` directory to compile the site. Compiling the site with
+Jekyll will create a directory called `_site` containing `index.html` as well as the rest of the
+compiled files.
+
+```sh
+$ cd docs
+$ jekyll build
+```
+
+You can modify the default Jekyll build as follows:
+
+```sh
+# Skip generating API docs (which takes a while)
+$ SKIP_API=1 jekyll build
+
+# Serve content locally on port 4000
+$ jekyll serve --watch
+
+# Build the site with extra features used on the live page
+$ PRODUCTION=1 jekyll build
+```
+
+## API Docs (Scaladoc, Javadoc, Sphinx, roxygen2, MkDocs)
+
+You can build just the Spark scaladoc and javadoc by running `./build/sbt unidoc` from the `$SPARK_HOME` directory.
+
+Similarly, you can build just the PySpark docs by running `make html` from the
+`$SPARK_HOME/python/docs` directory. Documentation is only generated for classes that are listed as
+public in `__init__.py`. The SparkR docs can be built by running `$SPARK_HOME/R/create-docs.sh`, and
+the SQL docs can be built by running `$SPARK_HOME/sql/create-docs.sh`
+after [building Spark](https://github.com/apache/spark#building-spark) first.
+
+When you run `jekyll build` in the `docs` directory, it will also copy over the scaladoc and javadoc for the various
+Spark subprojects into the `docs` directory (and then also into the `_site` directory). We use a
+jekyll plugin to run `./build/sbt unidoc` before building the site so if you haven't run it (recently) it
+may take some time as it generates all of the scaladoc and javadoc using [Unidoc](https://github.com/sbt/sbt-unidoc).
+The jekyll plugin also generates the PySpark docs using [Sphinx](http://sphinx-doc.org/), SparkR docs
+using [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html) and SQL docs
+using [MkDocs](https://www.mkdocs.org/).
+
+NOTE: To skip the step of building and copying over the Scala, Java, Python, R and SQL API docs, run `SKIP_API=1
+jekyll build`. In addition, `SKIP_SCALADOC=1`, `SKIP_PYTHONDOC=1`, `SKIP_RDOC=1` and `SKIP_SQLDOC=1` can be used
+to skip a single step of the corresponding language. `SKIP_SCALADOC` indicates skipping both the Scala and Java docs.

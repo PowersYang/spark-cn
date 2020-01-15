@@ -1,0 +1,43 @@
+I"»<h3 id="description">Description</h3>
+<p><code>SHOW CREATE TABLE</code> returns the <a href="sql-ref-syntax-ddl-create-table.html">CREATE TABLE statement</a> or <a href="sql-ref-syntax-ddl-create-view.html">CREATE VIEW statement</a> that was used to create a given table or view. <code>SHOW CREATE TABLE</code> on a non-existent table or a temporary view throws an exception.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SHOW</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">name</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+ <dt><code><em>name</em></code></dt>
+ <dd>The name of the table or view to be used for SHOW CREATE TABLE.</dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">test</span> <span class="p">(</span><span class="k">c</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+    <span class="n">STORED</span> <span class="k">AS</span> <span class="n">TEXTFILE</span>
+    <span class="n">TBLPROPERTIES</span> <span class="p">(</span><span class="s1">'prop1'</span> <span class="o">=</span> <span class="s1">'value1'</span><span class="p">,</span> <span class="s1">'prop2'</span> <span class="o">=</span> <span class="s1">'value2'</span><span class="p">);</span>
+
+<span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="n">test</span><span class="p">;</span>
+
+<span class="c1">-- the result of SHOW CREATE TABLE test</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">`test`</span><span class="p">(</span><span class="nv">`c`</span> <span class="nb">INT</span><span class="p">)</span>
+<span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">SERDE</span> <span class="s1">'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'</span>
+<span class="k">WITH</span> <span class="n">SERDEPROPERTIES</span> <span class="p">(</span>
+  <span class="s1">'field.delim'</span> <span class="o">=</span> <span class="s1">','</span><span class="p">,</span>
+  <span class="s1">'serialization.format'</span> <span class="o">=</span> <span class="s1">','</span>
+<span class="p">)</span>
+<span class="n">STORED</span> <span class="k">AS</span>
+  <span class="n">INPUTFORMAT</span> <span class="s1">'org.apache.hadoop.mapred.TextInputFormat'</span>
+  <span class="n">OUTPUTFORMAT</span> <span class="s1">'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'</span>
+<span class="n">TBLPROPERTIES</span> <span class="p">(</span>
+  <span class="s1">'transient_lastDdlTime'</span> <span class="o">=</span> <span class="s1">'1569350233'</span><span class="p">,</span>
+  <span class="s1">'prop1'</span> <span class="o">=</span> <span class="s1">'value1'</span><span class="p">,</span>
+  <span class="s1">'prop2'</span> <span class="o">=</span> <span class="s1">'value2'</span>
+<span class="p">)</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-ddl-create-table.html">CREATE TABLE</a></li>
+  <li><a href="sql-ref-syntax-ddl-create-view.html">CREATE VIEW</a></li>
+</ul>
+:ET

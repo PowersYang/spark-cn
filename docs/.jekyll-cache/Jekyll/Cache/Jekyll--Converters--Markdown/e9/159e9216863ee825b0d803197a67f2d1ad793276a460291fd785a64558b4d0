@@ -1,0 +1,40 @@
+I"±	<h3 id="description">Description</h3>
+<p><code>USE</code> statement is used to set the current database. After the current database is set,
+the unqualified database artifacts such as tables, functions and views that are 
+referenced by SQLs are resolved from the current database. 
+The default database name is &#8216;default&#8217;.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">USE</span> <span class="n">database_name</span></code></pre></figure>
+
+<h3 id="parameter">Parameter</h3>
+
+<dl>
+  <dt><code><em>database_name</em></code></dt>
+  <dd>
+     Name of the database will be used. If the database does not exist, an exception will be thrown.
+  </dd>
+</dl>
+
+<h3 id="example">Example</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- Use the 'userdb' which exists.</span>
+<span class="n">USE</span> <span class="n">userdb</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">---------+--+</span>
+<span class="o">|</span> <span class="k">Result</span>  <span class="o">|</span>
+<span class="o">+</span><span class="c1">---------+--+</span>
+<span class="o">+</span><span class="c1">---------+--+</span>
+
+<span class="c1">-- Use the 'userdb1' which doesn't exist</span>
+<span class="n">USE</span> <span class="n">userdb1</span><span class="p">;</span>
+<span class="n">Error</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="n">catalyst</span><span class="p">.</span><span class="n">analysis</span><span class="p">.</span><span class="n">NoSuchDatabaseException</span><span class="p">:</span> <span class="k">Database</span> <span class="s1">'userdb1'</span> <span class="k">not</span> <span class="k">found</span><span class="p">;(</span><span class="k">state</span><span class="o">=</span><span class="p">,</span><span class="n">code</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="related-statements">Related statements.</h3>
+<ul>
+  <li><a href="sql-ref-syntax-ddl-create-database.html">CREATE DATABASE</a></li>
+  <li><a href="sql-ref-syntax-ddl-drop-database.html">DROP DATABASE</a></li>
+  <li><a href="sql-ref-syntax-ddl-create-table.html">CREATE TABLE </a></li>
+</ul>
+
+:ET

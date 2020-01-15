@@ -1,0 +1,67 @@
+I"f<h3 id="description">Description</h3>
+<p>The <code>INSERT OVERWRITE DIRECTORY</code> with Hive format overwrites the existing data in the directory with the new values using Hive <code>SerDe</code>.
+Hive support must be enabled to use this command. The inserted rows can be specified by value expressions or result from a query.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="p">[</span> <span class="k">LOCAL</span> <span class="p">]</span> <span class="n">DIRECTORY</span> <span class="n">directory_path</span>
+   <span class="p">[</span> <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">row_format</span> <span class="p">]</span> <span class="p">[</span> <span class="n">STORED</span> <span class="k">AS</span> <span class="n">file_format</span> <span class="p">]</span>
+   <span class="err">{</span> <span class="err">{</span> <span class="k">VALUES</span> <span class="p">(</span> <span class="err">{</span> <span class="n">value</span> <span class="o">|</span> <span class="k">NULL</span> <span class="err">}</span> <span class="p">[</span> <span class="p">,</span> <span class="p">...</span> <span class="p">]</span> <span class="p">)</span> <span class="p">[</span> <span class="p">,</span> <span class="p">(</span> <span class="p">...</span> <span class="p">)</span> <span class="p">]</span> <span class="err">}</span> <span class="o">|</span> <span class="n">query</span> <span class="err">}</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>directory_path</em></code></dt>
+  <dd>
+  Specifies the destination directory. The <code>LOCAL</code> keyword is used to specify that the directory is on the local file system.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>row_format</em></code></dt>
+  <dd>
+  Specifies the row format for this insert. Valid options are <code>SERDE</code> clause and <code>DELIMITED</code> clause. <code>SERDE</code> clause can be used to specify a custom <code>SerDe</code> for this insert. Alternatively, <code>DELIMITED</code> clause can be used to specify the native <code>SerDe</code> and state the delimiter, escape character, null character, and so on.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>file_format</em></code></dt>
+  <dd>
+  Specifies the file format for this insert. Valid options are <code>TEXTFILE</code>, <code>SEQUENCEFILE</code>, <code>RCFILE</code>, <code>ORC</code>, <code>PARQUET</code>, and <code>AVRO</code>. You can also specify your own input and output format using <code>INPUTFORMAT</code> and <code>OUTPUTFORMAT</code>. <code>ROW FORMAT SERDE</code> can only be used with <code>TEXTFILE</code>, <code>SEQUENCEFILE</code>, or <code>RCFILE</code>, while <code>ROW FORMAT DELIMITED</code> can only be used with <code>TEXTFILE</code>.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>VALUES ( { value | NULL } [ , ... ] ) [ , ( ... ) ]</em></code></dt>
+  <dd>
+  Specifies the values to be inserted. Either an explicitly specified value or a NULL can be inserted. A comma must be used to seperate each value in the clause. More than one set of values can be specified to insert multiple rows.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>query</em></code></dt>
+  <dd>A query that produces the rows to be inserted. It can be in one of following formats:
+    <ul>
+      <li>a <code>SELECT</code> statement</li>
+      <li>a <code>TABLE</code> statement</li>
+      <li>a <code>FROM</code> statement</li>
+    </ul>
+   </dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"> <span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">LOCAL</span> <span class="n">DIRECTORY</span> <span class="s1">'/tmp/destination'</span>
+     <span class="n">STORED</span> <span class="k">AS</span> <span class="n">orc</span>
+     <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">test_table</span><span class="p">;</span>
+
+ <span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">LOCAL</span> <span class="n">DIRECTORY</span> <span class="s1">'/tmp/destination'</span>
+     <span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span> <span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span>
+     <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">test_table</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-dml-insert-into.html">INSERT INTO statement</a></li>
+  <li><a href="sql-ref-syntax-dml-insert-overwrite-table.html">INSERT OVERWRITE statement</a></li>
+  <li><a href="sql-ref-syntax-dml-insert-overwrite-directory.html">INSERT OVERWRITE DIRECTORY statement</a></li>
+</ul>
+:ET

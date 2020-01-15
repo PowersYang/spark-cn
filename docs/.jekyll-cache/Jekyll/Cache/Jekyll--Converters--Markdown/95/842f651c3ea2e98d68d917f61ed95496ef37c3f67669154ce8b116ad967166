@@ -1,0 +1,92 @@
+I"¹0<h3 id="description">Description</h3>
+
+<p><code>DESCRIBE FUNCTION</code> statement returns the basic metadata information of an
+existing function. The metadata information includes the function name, implementing
+class and the usage details.  If the optional <code>EXTENDED</code> option is specified, the basic
+metadata information is returned along with the extended usage information.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="err">{</span><span class="k">DESC</span> <span class="o">|</span> <span class="k">DESCRIBE</span><span class="err">}</span> <span class="k">FUNCTION</span> <span class="p">[</span><span class="n">EXTENDED</span><span class="p">]</span> <span class="n">function_name</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>function_name</em></code></dt>
+  <dd>
+    Specifies a name of an existing function in the system. The function name may be
+    optionally qualified with a database name. If `function_name` is qualified with
+    a database then the function is resolved from the user specified database, otherwise
+    it is resolved from the current database.<br /><br />
+    <b>Syntax:</b>
+      <code>
+        [database_name.]function_name
+      </code>
+  </dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- Describe a builtin scalar function.</span>
+<span class="c1">-- Returns function name, implementing class and usage</span>
+<span class="k">DESC</span> <span class="k">FUNCTION</span> <span class="k">abs</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="n">function_desc</span>                                                      <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="k">Function</span><span class="p">:</span> <span class="k">abs</span>                                                      <span class="o">|</span>
+  <span class="o">|</span><span class="k">Class</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="n">catalyst</span><span class="p">.</span><span class="n">expressions</span><span class="p">.</span><span class="k">Abs</span>               <span class="o">|</span>
+  <span class="o">|</span><span class="k">Usage</span><span class="p">:</span> <span class="k">abs</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">-</span> <span class="k">Returns</span> <span class="n">the</span> <span class="k">absolute</span> <span class="n">value</span> <span class="k">of</span> <span class="n">the</span> <span class="nb">numeric</span> <span class="n">value</span><span class="p">.</span><span class="o">|</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+
+<span class="c1">-- Describe a builtin scalar function.</span>
+<span class="c1">-- Returns function name, implementing class and usage and examples.</span>
+<span class="k">DESC</span> <span class="k">FUNCTION</span> <span class="n">EXTENDED</span> <span class="k">abs</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="n">function_desc</span>                                                      <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="k">Function</span><span class="p">:</span> <span class="k">abs</span>                                                      <span class="o">|</span>
+  <span class="o">|</span><span class="k">Class</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="n">catalyst</span><span class="p">.</span><span class="n">expressions</span><span class="p">.</span><span class="k">Abs</span>               <span class="o">|</span>
+  <span class="o">|</span><span class="k">Usage</span><span class="p">:</span> <span class="k">abs</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">-</span> <span class="k">Returns</span> <span class="n">the</span> <span class="k">absolute</span> <span class="n">value</span> <span class="k">of</span> <span class="n">the</span> <span class="nb">numeric</span> <span class="n">value</span><span class="p">.</span><span class="o">|</span>
+  <span class="o">|</span><span class="n">Extended</span> <span class="k">Usage</span><span class="p">:</span>                                                    <span class="o">|</span>
+  <span class="o">|</span>    <span class="n">Examples</span><span class="p">:</span>                                                      <span class="o">|</span>
+  <span class="o">|</span>      <span class="o">&gt;</span> <span class="k">SELECT</span> <span class="k">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>                                            <span class="o">|</span>
+  <span class="o">|</span>       <span class="mi">1</span>                                                           <span class="o">|</span>
+  <span class="o">|</span>                                                                   <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-------------------------------------------------------------------+</span>
+
+<span class="c1">-- Describe a builtin aggregate function</span>
+<span class="k">DESC</span> <span class="k">FUNCTION</span> <span class="k">max</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">--------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="n">function_desc</span>                                                 <span class="o">|</span>
+  <span class="o">+</span><span class="c1">--------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="k">Function</span><span class="p">:</span> <span class="k">max</span>                                                 <span class="o">|</span>
+  <span class="o">|</span><span class="k">Class</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="n">catalyst</span><span class="p">.</span><span class="n">expressions</span><span class="p">.</span><span class="k">aggregate</span><span class="p">.</span><span class="k">Max</span><span class="o">|</span>
+  <span class="o">|</span><span class="k">Usage</span><span class="p">:</span> <span class="k">max</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">-</span> <span class="k">Returns</span> <span class="n">the</span> <span class="n">maximum</span> <span class="n">value</span> <span class="k">of</span> <span class="nv">`expr`</span><span class="p">.</span>       <span class="o">|</span>
+  <span class="o">+</span><span class="c1">--------------------------------------------------------------+</span>
+
+<span class="c1">-- Describe a builtin user defined aggregate function</span>
+<span class="c1">-- Returns function name, implementing class and usage and examples.</span>
+<span class="k">DESC</span> <span class="k">FUNCTION</span> <span class="n">EXTENDED</span> <span class="n">explode</span>
+  <span class="o">+</span><span class="c1">---------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="n">function_desc</span>                                                  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">---------------------------------------------------------------+</span>
+  <span class="o">|</span><span class="k">Function</span><span class="p">:</span> <span class="n">explode</span>                                              <span class="o">|</span>
+  <span class="o">|</span><span class="k">Class</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="n">catalyst</span><span class="p">.</span><span class="n">expressions</span><span class="p">.</span><span class="n">Explode</span>       <span class="o">|</span> 
+  <span class="o">|</span><span class="k">Usage</span><span class="p">:</span> <span class="n">explode</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">-</span> <span class="n">Separates</span> <span class="n">the</span> <span class="n">elements</span> <span class="k">of</span> <span class="n">array</span> <span class="nv">`expr`</span>  <span class="o">|</span>
+  <span class="o">|</span> <span class="k">into</span> <span class="n">multiple</span> <span class="k">rows</span><span class="p">,</span> <span class="k">or</span> <span class="n">the</span> <span class="n">elements</span> <span class="k">of</span> <span class="k">map</span> <span class="nv">`expr`</span> <span class="k">into</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="n">multiple</span> <span class="k">rows</span> <span class="k">and</span> <span class="n">columns</span><span class="p">.</span> <span class="n">Unless</span> <span class="n">specified</span> <span class="n">otherwise</span><span class="p">,</span> <span class="n">uses</span>   <span class="o">|</span>
+  <span class="o">|</span> <span class="n">the</span> <span class="k">default</span> <span class="k">column</span> <span class="n">name</span> <span class="nv">`col`</span> <span class="k">for</span> <span class="n">elements</span> <span class="k">of</span> <span class="n">the</span> <span class="n">array</span> <span class="k">or</span>    <span class="o">|</span>
+  <span class="o">|</span> <span class="nv">`key`</span> <span class="k">and</span> <span class="nv">`value`</span> <span class="k">for</span> <span class="n">the</span> <span class="n">elements</span> <span class="k">of</span> <span class="n">the</span> <span class="k">map</span><span class="p">.</span>                <span class="o">|</span>
+  <span class="o">|</span><span class="n">Extended</span> <span class="k">Usage</span><span class="p">:</span>                                                <span class="o">|</span>
+  <span class="o">|</span>    <span class="n">Examples</span><span class="p">:</span>                                                  <span class="o">|</span>
+  <span class="o">|</span>      <span class="o">&gt;</span> <span class="k">SELECT</span> <span class="n">explode</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>                         <span class="o">|</span>
+  <span class="o">|</span>       <span class="mi">10</span>                                                      <span class="o">|</span>
+  <span class="o">|</span>       <span class="mi">20</span>                                                      <span class="o">|</span>
+  <span class="o">+</span><span class="c1">---------------------------------------------------------------+</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-aux-describe-database.html">DESCRIBE DATABASE</a></li>
+  <li><a href="sql-ref-syntax-aux-describe-table.html">DESCRIBE TABLE</a></li>
+  <li><a href="sql-ref-syntax-aux-describe-query.html">DESCRIBE QUERY</a></li>
+</ul>
+:ET

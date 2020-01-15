@@ -1,0 +1,42 @@
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala:58: constructor AmazonKinesisClient in class AmazonKinesisClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    val client = new AmazonKinesisClient(KinesisTestUtils.getAWSCredentials())[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala:59: method setEndpoint in class AmazonWebServiceClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    client.setEndpoint(endpointUrl)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala:64: constructor AmazonDynamoDBClient in class AmazonDynamoDBClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    val dynamoDBClient = new AmazonDynamoDBClient(new DefaultAWSCredentialsProviderChain())[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala:65: method setRegion in class AmazonWebServiceClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    dynamoDBClient.setRegion(RegionUtils.getRegion(regionName))[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/SparkAWSCredentials.scala:74: method withLongLivedCredentialsProvider in class Builder is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m      .withLongLivedCredentialsProvider(longLivedCreds.provider)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala:107: constructor AmazonKinesisClient in class AmazonKinesisClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    val kinesisClient = new AmazonKinesisClient(credentials)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala:108: method setEndpoint in class AmazonWebServiceClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    kinesisClient.setEndpoint(endpointUrl)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala:223: constructor AmazonKinesisClient in class AmazonKinesisClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    val kinesisClient = new AmazonKinesisClient(new DefaultAWSCredentialsProviderChain())[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala:224: method setEndpoint in class AmazonWebServiceClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    kinesisClient.setEndpoint(endpoint)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReceiver.scala:192: constructor Worker in class Worker is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    worker = new Worker(recordProcessorFactory, kinesisClientLibConfiguration)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala:142: constructor AmazonKinesisClient in class AmazonKinesisClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m  private val client = new AmazonKinesisClient(credentials)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala:152: method setEndpoint in class AmazonWebServiceClient is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m  client.setEndpoint(endpointUrl)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala:221: method setRequestCredentials in class AmazonWebServiceRequest is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    getRecordsRequest.setRequestCredentials(credentials)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala:242: method setRequestCredentials in class AmazonWebServiceRequest is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    getShardIteratorRequest.setRequestCredentials(credentials)[0m
+[0m[[33mwarn[0m] [0m[0m

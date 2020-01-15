@@ -1,0 +1,49 @@
+I"$<h3 id="description">Description</h3>
+<p>The SET command sets a property, returns the value of an existing property or returns all SQLConf properties with value and meaning.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SET</span>
+<span class="k">SET</span> <span class="p">[</span> <span class="o">-</span><span class="n">v</span> <span class="p">]</span>
+<span class="k">SET</span> <span class="n">property_key</span><span class="p">[</span> <span class="o">=</span> <span class="n">property_value</span> <span class="p">]</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>-v</em></code></dt>
+  <dd>Outputs the key, value and meaning of existing SQLConf properties.</dd>
+</dl>
+
+<dl>
+  <dt><code><em>property_key</em></code></dt>
+  <dd>Returns the value of specified property key.</dd>
+</dl>
+
+<dl>
+  <dt><code><em>property_key=property_value</em></code></dt>
+  <dd>Sets the value for a given property key. If an old value exists for a given property key, then it gets overridden by the new value.</dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- Set a property.</span>
+<span class="k">SET</span>  <span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="k">variable</span><span class="p">.</span><span class="n">substitute</span><span class="o">=</span><span class="k">false</span><span class="p">;</span>
+
+<span class="c1">-- List all SQLConf properties with value and meaning.</span>
+<span class="k">SET</span> <span class="o">-</span><span class="n">v</span><span class="p">;</span>
+
+<span class="c1">-- List all SQLConf properties with value for current session.</span>
+<span class="k">SET</span><span class="p">;</span>
+
+<span class="c1">-- List the value of specified property key.</span>
+<span class="k">SET</span>  <span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="k">variable</span><span class="p">.</span><span class="n">substitute</span><span class="p">;</span>
+    <span class="o">+</span><span class="c1">--------------------------------+--------+</span>
+    <span class="o">|</span>              <span class="k">key</span>               <span class="o">|</span> <span class="n">value</span>  <span class="o">|</span>
+    <span class="o">+</span><span class="c1">--------------------------------+--------+</span>
+    <span class="o">|</span> <span class="n">spark</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="k">variable</span><span class="p">.</span><span class="n">substitute</span>  <span class="o">|</span> <span class="k">false</span>  <span class="o">|</span>
+    <span class="o">+</span><span class="c1">--------------------------------+--------+</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-aux-conf-mgmt-reset.html">RESET</a></li>
+</ul>
+:ET

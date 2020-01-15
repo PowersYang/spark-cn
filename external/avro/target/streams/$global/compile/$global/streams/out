@@ -1,0 +1,9 @@
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/avro/src/main/scala/org/apache/spark/sql/avro/AvroFileFormat.scala:98: value ignoreExtension in class AvroOptions is deprecated (since 3.0): Use the general data source option pathGlobFilter for filtering file names[0m
+[0m[[33mwarn[0m] [0m      if (parsedOptions.ignoreExtension || file.filePath.endsWith(".avro")) {[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/avro/src/main/scala/org/apache/spark/sql/v2/avro/AvroPartitionReaderFactory.scala:64: value ignoreExtension in class AvroOptions is deprecated (since 3.0): Use the general data source option pathGlobFilter for filtering file names[0m
+[0m[[33mwarn[0m] [0m    if (parsedOptions.ignoreExtension || partitionedFile.filePath.endsWith(".avro")) {[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/ysir/Documents/GitHub/spark/external/avro/src/main/scala/org/apache/spark/sql/avro/AvroUtils.scala:55: value ignoreExtension in class AvroOptions is deprecated (since 3.0): Use the general data source option pathGlobFilter for filtering file names[0m
+[0m[[33mwarn[0m] [0m        inferAvroSchemaFromFiles(files, conf, parsedOptions.ignoreExtension,[0m
+[0m[[33mwarn[0m] [0m[0m

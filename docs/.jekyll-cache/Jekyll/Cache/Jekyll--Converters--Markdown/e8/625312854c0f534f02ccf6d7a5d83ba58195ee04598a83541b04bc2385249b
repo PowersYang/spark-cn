@@ -1,0 +1,22 @@
+I"9<h3 id="description">Description</h3>
+<p><code>UNCACHE TABLE</code> removes the entries and associated data from the in-memory and/or on-disk cache for a given table or view. The
+underlying entries should already have been brought to cache by previous <code>CACHE TABLE</code> operation. <code>UNCACHE TABLE</code> on a non-existent table throws Exception if <code>IF EXISTS</code> is not specified.</p>
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">UNCACHE</span> <span class="k">TABLE</span> <span class="p">[</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="p">]</span> <span class="k">table_name</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+ <dt><code><em>table_name</em></code></dt>
+ <dd>The name of the table or view to be uncached.</dd>
+</dl>
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">UNCACHE</span> <span class="k">TABLE</span> <span class="n">t1</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-aux-cache-cache-table.html">CACHE TABLE</a></li>
+  <li><a href="sql-ref-syntax-aux-cache-clear-cache.html">CLEAR CACHE</a></li>
+</ul>
+:ET
