@@ -1,34 +1,29 @@
-I"��<ul id="markdown-toc">
+I"�<ul id="markdown-toc">
   <li><a href="#安全" id="markdown-toc-安全">安全</a></li>
-  <li><a href="#interactive-analysis-with-the-spark-shell" id="markdown-toc-interactive-analysis-with-the-spark-shell">Interactive Analysis with the Spark Shell</a>    <ul>
-      <li><a href="#basics" id="markdown-toc-basics">Basics</a></li>
-      <li><a href="#more-on-dataset-operations" id="markdown-toc-more-on-dataset-operations">More on Dataset Operations</a></li>
-      <li><a href="#caching" id="markdown-toc-caching">Caching</a></li>
+  <li><a href="#使用spark-shell进行交互式分析" id="markdown-toc-使用spark-shell进行交互式分析">使用Spark Shell进行交互式分析</a>    <ul>
+      <li><a href="#基础" id="markdown-toc-基础">基础</a></li>
+      <li><a href="#有关数据集操作的更多信息" id="markdown-toc-有关数据集操作的更多信息">有关数据集操作的更多信息</a></li>
+      <li><a href="#缓存" id="markdown-toc-缓存">缓存</a></li>
     </ul>
   </li>
-  <li><a href="#self-contained-applications" id="markdown-toc-self-contained-applications">Self-Contained Applications</a></li>
-  <li><a href="#where-to-go-from-here" id="markdown-toc-where-to-go-from-here">Where to Go from Here</a></li>
+  <li><a href="#独立的应用" id="markdown-toc-独立的应用">独立的应用</a></li>
+  <li><a href="#下一步做什么" id="markdown-toc-下一步做什么">下一步做什么</a></li>
 </ul>
 <p>本教程提供了使用Spark的快速介绍。我们将首先通过Spark的交互式Shell（在Python或Scala中）介绍API，然后展示如何用Java，Scala和Python编写应用程序。</p>
 
-<p>To follow along with this guide, first, download a packaged release of Spark from the
-<a href="https://spark.apache.org/downloads.html">Spark website</a>. Since we won&#8217;t be using HDFS,
-you can download a package for any version of Hadoop.</p>
+<p>要学习本指南，请首先从<a href="https://spark.apache.org/downloads.html">Spark网站</a>下载Spark的package版本 。由于我们不会使用HDFS，因此你可以下载任何版本的Hadoop。</p>
 
-<p>Note that, before Spark 2.0, the main programming interface of Spark was the Resilient Distributed Dataset (RDD). After Spark 2.0, RDDs are replaced by Dataset, which is strongly-typed like an RDD, but with richer optimizations under the hood. The RDD interface is still supported, and you can get a more detailed reference at the <a href="rdd-programming-guide.html">RDD programming guide</a>. However, we highly recommend you to switch to use Dataset, which has better performance than RDD. See the <a href="sql-programming-guide.html">SQL programming guide</a> to get more information about Dataset.</p>
+<p>请注意，在Spark 2.0之前，Spark的主要编程接口是弹性分布式数据集（RDD）。在Spark 2.0之后，RDD被Dataset取代，Dataset的类型像RDD一样强，但具有更丰富的优化功能。仍支持RDD界面，你可以在<a href="rdd-programming-guide.html">RDD编程指南中</a>获得更详细的参考。但是，我们强烈建议你切换到使用数据集，该数据集的性能比RDD更好。请参阅《<a href="sql-programming-guide.html">SQL编程指南》</a>以获取有关数据集的更多信息。</p>
 
 <h1 id="安全">安全</h1>
 
-<p>Security in Spark is OFF by default. This could mean you are vulnerable to attack by default.
-Please see <a href="security.html">Spark Security</a> before running Spark.</p>
+<p>默认情况下，Spark中的安全性处于关闭状态。这可能意味着你默认情况下容易受到攻击。运行Spark之前，请参阅<a href="security.html">Spark Security</a>。</p>
 
-<h1 id="interactive-analysis-with-the-spark-shell">Interactive Analysis with the Spark Shell</h1>
+<h1 id="使用spark-shell进行交互式分析">使用Spark Shell进行交互式分析</h1>
 
-<h2 id="basics">Basics</h2>
+<h2 id="基础">基础</h2>
 
-<p>Spark&#8217;s shell provides a simple way to learn the API, as well as a powerful tool to analyze data interactively.
-It is available in either Scala (which runs on the Java VM and is thus a good way to use existing Java libraries)
-or Python. Start it by running the following in the Spark directory:</p>
+<p>Spark shell提供了学习API的简单方法，以及强大的工具来交互式地分析数据。它可以在Scala（可在Java VM上运行，因此是使用现有Java库的好方法）或Python中提供。通过在Spark目录中运行以下命令来启动它：</p>
 
 <div class="codetabs">
 <div data-lang="scala">
@@ -36,12 +31,12 @@ or Python. Start it by running the following in the Spark directory:</p>
     <pre><code>./bin/spark-shell
 </code></pre>
 
-    <p>Spark&#8217;s primary abstraction is a distributed collection of items called a Dataset. Datasets can be created from Hadoop InputFormats (such as HDFS files) or by transforming other Datasets. Let&#8217;s make a new Dataset from the text of the README file in the Spark source directory:</p>
+    <p>Spark的主要抽象是称为Dataset的分布式集合。可以从Hadoop InputFormats（例如HDFS文件）或通过转换其他数据集来创建DataSet。让我们从Spark源目录中的README文件的文本中创建一个新的数据集：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="nv">textFile</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">read</span><span class="o">.</span><span class="py">textFile</span><span class="o">(</span><span class="s">"README.md"</span><span class="o">)</span>
 <span class="n">textFile</span><span class="k">:</span> <span class="kt">org.apache.spark.sql.Dataset</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">[</span><span class="kt">value:</span> <span class="kt">string</span><span class="o">]</span></code></pre></figure>
 
-    <p>You can get values from Dataset directly, by calling some actions, or transform the Dataset to get a new one. For more details, please read the <em><a href="api/scala/index.html#org.apache.spark.sql.Dataset">API doc</a></em>.</p>
+    <p>你可以通过调用某些操作直接从数据集中获取值，或转换数据集以获取新值。有关更多详细信息，请阅读<em><a href="api/scala/index.html#org.apache.spark.sql.Dataset">API文档</a></em>。</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">count</span><span class="o">()</span> <span class="c1">// Number of items in this Dataset
 </span><span class="n">res0</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">126</span> <span class="c1">// May be different from yours as README.md will change over time, similar to other outputs
@@ -49,12 +44,12 @@ or Python. Start it by running the following in the Spark directory:</p>
 <span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">first</span><span class="o">()</span> <span class="c1">// First item in this Dataset
 </span><span class="n">res1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">#</span> <span class="nc">Apache</span> <span class="nc">Spark</span></code></pre></figure>
 
-    <p>Now let&#8217;s transform this Dataset into a new one. We call <code>filter</code> to return a new Dataset with a subset of the items in the file.</p>
+    <p>现在，让我们将此数据集转换为新的数据集。我们调用<code>filter</code>返回一个新的数据集，其中包含文件中项的子集。</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="nv">linesWithSpark</span> <span class="k">=</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"Spark"</span><span class="o">))</span>
 <span class="n">linesWithSpark</span><span class="k">:</span> <span class="kt">org.apache.spark.sql.Dataset</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">[</span><span class="kt">value:</span> <span class="kt">string</span><span class="o">]</span></code></pre></figure>
 
-    <p>We can chain together transformations and actions:</p>
+    <p>我们可以将转换和动作链接在一起：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"Spark"</span><span class="o">)).</span><span class="py">count</span><span class="o">()</span> <span class="c1">// How many lines contain "Spark"?
 </span><span class="n">res3</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
@@ -65,16 +60,16 @@ or Python. Start it by running the following in the Spark directory:</p>
     <pre><code>./bin/pyspark
 </code></pre>
 
-    <p>Or if PySpark is installed with pip in your current environment:</p>
+    <p>或者在当前环境中使用pip安装PySpark的包：</p>
 
     <pre><code>pyspark
 </code></pre>
 
-    <p>Spark&#8217;s primary abstraction is a distributed collection of items called a Dataset. Datasets can be created from Hadoop InputFormats (such as HDFS files) or by transforming other Datasets. Due to Python&#8217;s dynamic nature, we don&#8217;t need the Dataset to be strongly-typed in Python. As a result, all Datasets in Python are Dataset[Row], and we call it <code>DataFrame</code> to be consistent with the data frame concept in Pandas and R. Let&#8217;s make a new DataFrame from the text of the README file in the Spark source directory:</p>
+    <p>Spark的主要抽象是称为数据集的项目的分布式集合。可以从Hadoop InputFormats（例如HDFS文件）或通过转换其他数据集来创建数据集。由于Python的动态性质，我们不需要在Python中对数据集进行强类型化。Python中的所有数据集都是Dataset [Row]，我们称其<code>DataFrame</code>与Pandas和R中的数据框概念一致。让我们从Spark源目录中的README文件的文本中创建一个新的DataFrame：</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">textFile</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s">"README.md"</span><span class="p">)</span></code></pre></figure>
 
-    <p>You can get values from DataFrame directly, by calling some actions, or transform the DataFrame to get a new one. For more details, please read the <em><a href="api/python/index.html#pyspark.sql.DataFrame">API doc</a></em>.</p>
+    <p>你可以通过调用一些操作直接从DataFrame中获取值，或转换DataFrame以获取新的值。有关更多详细信息，请阅读<em><a href="api/python/index.html#pyspark.sql.DataFrame">API文档</a></em>。</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">textFile</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># Number of rows in this DataFrame
 </span><span class="mi">126</span>
@@ -82,11 +77,11 @@ or Python. Start it by running the following in the Spark directory:</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">textFile</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  <span class="c1"># First row in this DataFrame
 </span><span class="n">Row</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">u'# Apache Spark'</span><span class="p">)</span></code></pre></figure>
 
-    <p>Now let&#8217;s transform this DataFrame to a new one. We call <code>filter</code> to return a new DataFrame with a subset of the lines in the file.</p>
+    <p>现在，让我们将此DataFrame转换为一个新的。我们调用<code>filter</code>返回一个新的DataFrame，其中包含文件中各行的子集。</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">linesWithSpark</span> <span class="o">=</span> <span class="n">textFile</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">textFile</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s">"Spark"</span><span class="p">))</span></code></pre></figure>
 
-    <p>We can chain together transformations and actions:</p>
+    <p>我们可以将转换和动作链接在一起：</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">textFile</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">textFile</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s">"Spark"</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># How many lines contain "Spark"?
 </span><span class="mi">15</span></code></pre></figure>
@@ -94,8 +89,9 @@ or Python. Start it by running the following in the Spark directory:</p>
   </div>
 </div>
 
-<h2 id="more-on-dataset-operations">More on Dataset Operations</h2>
-<p>Dataset actions and transformations can be used for more complex computations. Let&#8217;s say we want to find the line with the most words:</p>
+<h2 id="有关数据集操作的更多信息">有关数据集操作的更多信息</h2>
+
+<p>DataSet动作和转换可用于更复杂的计算。假设我们要查找包含最多单词的行：</p>
 
 <div class="codetabs">
 <div data-lang="scala">
@@ -103,7 +99,7 @@ or Python. Start it by running the following in the Spark directory:</p>
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="py">size</span><span class="o">).</span><span class="py">reduce</span><span class="o">((</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">if</span> <span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="o">)</span> <span class="n">a</span> <span class="k">else</span> <span class="n">b</span><span class="o">)</span>
 <span class="n">res4</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
 
-    <p>This first maps a line to an integer value, creating a new Dataset. <code>reduce</code> is called on that Dataset to find the largest word count. The arguments to <code>map</code> and <code>reduce</code> are Scala function literals (closures), and can use any language feature or Scala/Java library. For example, we can easily call functions declared elsewhere. We&#8217;ll use <code>Math.max()</code> function to make this code easier to understand:</p>
+    <p>首先，将一行内容映射到一个整数值以创建一个新的DataSet。<code>reduce</code>在该数据集上调用，以找到最大的字数。传给<code>map</code>和<code>reduce</code>的参数是Scala的闭包函数，同时也可以使用Scala和Java的库函数。例如，我们可以轻松地在其他地方调用声明的函数。我们将使用<code>Math.max()</code>函数使此代码更易于理解：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">java.lang.Math</span>
 <span class="k">import</span> <span class="nn">java.lang.Math</span>
@@ -111,12 +107,12 @@ or Python. Start it by running the following in the Spark directory:</p>
 <span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">).</span><span class="py">size</span><span class="o">).</span><span class="py">reduce</span><span class="o">((</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Math</span><span class="o">.</span><span class="py">max</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">))</span>
 <span class="n">res5</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
 
-    <p>One common data flow pattern is MapReduce, as popularized by Hadoop. Spark can implement MapReduce flows easily:</p>
+    <p>一种常见的数据流模式是Hadoop流行的MapReduce。Spark可以轻松实现MapReduce流：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="nv">wordCounts</span> <span class="k">=</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">)).</span><span class="py">groupByKey</span><span class="o">(</span><span class="n">identity</span><span class="o">).</span><span class="py">count</span><span class="o">()</span>
 <span class="n">wordCounts</span><span class="k">:</span> <span class="kt">org.apache.spark.sql.Dataset</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Long</span><span class="o">)]</span> <span class="k">=</span> <span class="o">[</span><span class="kt">value:</span> <span class="kt">string</span>, <span class="kt">count</span><span class="o">(</span><span class="err">1</span><span class="o">)</span><span class="kt">:</span> <span class="kt">bigint</span><span class="o">]</span></code></pre></figure>
 
-    <p>Here, we call <code>flatMap</code> to transform a Dataset of lines to a Dataset of words, and then combine <code>groupByKey</code> and <code>count</code> to compute the per-word counts in the file as a Dataset of (String, Long) pairs. To collect the word counts in our shell, we can call <code>collect</code>:</p>
+    <p>在这里，我们调用<code>flatMap</code>将行的数据集转换为单词的数据集，然后组合<code>groupByKey</code>并使用<code>count</code>来计算文件中每个单词的计数，最后返回（String, Long）类型的数据对。要收集shell中的数据，可以调用<code>collect</code>：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">wordCounts</span><span class="o">.</span><span class="py">collect</span><span class="o">()</span>
 <span class="n">res6</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">((</span><span class="n">means</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="n">under</span><span class="o">,</span><span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="k">this</span><span class="o">,</span><span class="mi">3</span><span class="o">),</span> <span class="o">(</span><span class="nc">Because</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="nc">Python</span><span class="o">,</span><span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="n">agree</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="n">cluster</span><span class="o">.,</span><span class="mi">1</span><span class="o">),</span> <span class="o">...)</span></code></pre></figure>
@@ -128,13 +124,13 @@ or Python. Start it by running the following in the Spark directory:</p>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">textFile</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">textFile</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s">"</span><span class="err">\</span><span class="s">s+"</span><span class="p">))</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s">"numWords"</span><span class="p">))</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s">"numWords"</span><span class="p">)))</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="p">[</span><span class="n">Row</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">numWords</span><span class="p">)</span><span class="o">=</span><span class="mi">15</span><span class="p">)]</span></code></pre></figure>
 
-    <p>This first maps a line to an integer value and aliases it as &#8220;numWords&#8221;, creating a new DataFrame. <code>agg</code> is called on that DataFrame to find the largest word count. The arguments to <code>select</code> and <code>agg</code> are both <em><a href="api/python/index.html#pyspark.sql.Column">Column</a></em>, we can use <code>df.colName</code> to get a column from a DataFrame. We can also import pyspark.sql.functions, which provides a lot of convenient functions to build a new Column from an old one.</p>
+    <p>首先，将一行内容映射到一个整数值，并将其取名为“ numWords”，从而创建一个新的DataFrame。在该DataFrame上调用<code>agg</code>以找到最大的字数。传给<code>select</code>和<code>agg</code>的参数都是<em><a href="api/python/index.html#pyspark.sql.Column">Column对象</a></em>，我们可以使用<code>df.colName</code>从DataFrame中获得一列。我们还可以导入pyspark.sql.functions，它提供了许多从旧的列构建新列的函数。</p>
 
-    <p>One common data flow pattern is MapReduce, as popularized by Hadoop. Spark can implement MapReduce flows easily:</p>
+    <p>一种常见的数据流模式是Hadoop流行的MapReduce。Spark可以轻松实现MapReduce流</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">wordCounts</span> <span class="o">=</span> <span class="n">textFile</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">explode</span><span class="p">(</span><span class="n">split</span><span class="p">(</span><span class="n">textFile</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s">"</span><span class="err">\</span><span class="s">s+"</span><span class="p">))</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s">"word"</span><span class="p">))</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s">"word"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span></code></pre></figure>
 
-    <p>Here, we use the <code>explode</code> function in <code>select</code>, to transform a Dataset of lines to a Dataset of words, and then combine <code>groupBy</code> and <code>count</code> to compute the per-word counts in the file as a DataFrame of 2 columns: &#8220;word&#8221; and &#8220;count&#8221;. To collect the word counts in our shell, we can call <code>collect</code>:</p>
+    <p>这里我们在 <code>select</code>中使用了 <code>explode</code> 函数将行的数据集转换为单词的数据集，然后结合 <code>groupBy</code> 和 <code>count</code> 来计算每一个单词在文件中出现的次数，最后输出一个包含两个Column（&#8221;word&#8221; and &#8220;count&#8221;）的DataFrame。 可以使用 <code>collect</code>函数收集计算结果：</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">wordCounts</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="p">[</span><span class="n">Row</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">u'online'</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">Row</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">u'graphs'</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span></code></pre></figure>
@@ -142,8 +138,9 @@ or Python. Start it by running the following in the Spark directory:</p>
   </div>
 </div>
 
-<h2 id="caching">Caching</h2>
-<p>Spark also supports pulling data sets into a cluster-wide in-memory cache. This is very useful when data is accessed repeatedly, such as when querying a small &#8220;hot&#8221; dataset or when running an iterative algorithm like PageRank. As a simple example, let&#8217;s mark our <code>linesWithSpark</code> dataset to be cached:</p>
+<h2 id="缓存">缓存</h2>
+
+<p>Spark还支持将数据集提取到集群范围的内存缓存中。当重复访问比较小的数据集或运行迭代算法（如PageRank）时，这非常有用。举一个简单的例子，让我们标记<code>linesWithSpark</code>要缓存的数据集：</p>
 
 <div class="codetabs">
 <div data-lang="scala">
@@ -157,12 +154,10 @@ or Python. Start it by running the following in the Spark directory:</p>
 <span class="n">scala</span><span class="o">&gt;</span> <span class="nv">linesWithSpark</span><span class="o">.</span><span class="py">count</span><span class="o">()</span>
 <span class="n">res9</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
 
-    <p>It may seem silly to use Spark to explore and cache a 100-line text file. The interesting part is
-that these same functions can be used on very large data sets, even when they are striped across
-tens or hundreds of nodes. You can also do this interactively by connecting <code>bin/spark-shell</code> to
-a cluster, as described in the <a href="rdd-programming-guide.html#using-the-shell">RDD programming guide</a>.</p>
+    <p>使用Spark计算和缓存100行文本文件似乎很愚蠢。有趣的是，即使在数十或数百个节点上，这些相同的函数也可以用于非常大的数据集。你也可以<code>bin/spark-shell</code>按照<a href="rdd-programming-guide.html#using-the-shell">RDD编程指南</a>中的说明，通过连接到计算以交互的方式进行操作。</p>
 
   </div>
+
 <div data-lang="python">
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">linesWithSpark</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
@@ -173,23 +168,17 @@ a cluster, as described in the <a href="rdd-programming-guide.html#using-the-she
 <span class="o">&gt;&gt;&gt;</span> <span class="n">linesWithSpark</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 <span class="mi">15</span></code></pre></figure>
 
-    <p>It may seem silly to use Spark to explore and cache a 100-line text file. The interesting part is
-that these same functions can be used on very large data sets, even when they are striped across
-tens or hundreds of nodes. You can also do this interactively by connecting <code>bin/pyspark</code> to
-a cluster, as described in the <a href="rdd-programming-guide.html#using-the-shell">RDD programming guide</a>.</p>
+    <p>使用Spark计算和缓存100行文本文件似乎很愚蠢。有趣的是，即使在数十或数百个节点上，这些相同的函数也可以用于非常大的数据集。你也可以<code>bin/pyspark</code>按照<a href="rdd-programming-guide.html#using-the-shell">RDD编程指南</a>中的说明，通过连接到计算以交互的方式进行操作。</p>
 
   </div>
 </div>
 
-<h1 id="self-contained-applications">Self-Contained Applications</h1>
-<p>Suppose we wish to write a self-contained application using the Spark API. We will walk through a
-simple application in Scala (with sbt), Java (with Maven), and Python (pip).</p>
+<h1 id="独立的应用">独立的应用</h1>
+<p>假设我们希望使用Spark API编写一个独立的应用程序。我们将逐步介绍一个Scala（带有sbt），Java（带有Maven）和Python（pip）的简单应用程序。</p>
 
 <div class="codetabs">
 <div data-lang="scala">
-
-    <p>We&#8217;ll create a very simple Spark application in Scala&#8211;so simple, in fact, that it&#8217;s
-named <code>SimpleApp.scala</code>:</p>
+    <p>我们将在Scala中创建一个非常简单的Spark应用程序，名为<code>SimpleApp.scala</code>：</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="cm">/* SimpleApp.scala */</span>
 <span class="k">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span>
@@ -206,19 +195,13 @@ named <code>SimpleApp.scala</code>:</p>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-    <p>Note that applications should define a <code>main()</code> method instead of extending <code>scala.App</code>.
-Subclasses of <code>scala.App</code> may not work correctly.</p>
+    <p>注意，这个应用程序我们应该定义一个 <code>main()</code> 方法而不是去继承scala.App<code>。使用 </code>scala.App` 的子类可能不会正常运行。</p>
 
-    <p>This program just counts the number of lines containing &#8216;a&#8217; and the number containing &#8216;b&#8217; in the
-Spark README. Note that you&#8217;ll need to replace YOUR_SPARK_HOME with the location where Spark is
-installed. Unlike the earlier examples with the Spark shell, which initializes its own SparkSession,
-we initialize a SparkSession as part of the program.</p>
+    <p>该程序只计算Spark README文件中包含“ a”的行数和包含“ b”的行数。请注意，你需要将YOUR_SPARK_HOME替换为你自己电脑中Spark的安装路径。与前面带有Spark shell的示例（其初始化其自己的SparkSession）不同，我们将SparkSession初始化为程序的一部分。</p>
 
-    <p>We call <code>SparkSession.builder</code> to construct a [[SparkSession]], then set the application name, and finally call <code>getOrCreate</code> to get the [[SparkSession]] instance.</p>
+    <p>我们调用<code>SparkSession.builder</code>构造一个[[SparkSession]]，然后设置应用程序名称，最后调用<code>getOrCreate</code>以获得[[SparkSession]]实例。</p>
 
-    <p>Our application depends on the Spark API, so we&#8217;ll also include an sbt configuration file,
-<code>build.sbt</code>, which explains that Spark is a dependency. This file also adds a repository that
-Spark depends on:</p>
+    <p>我们的应用依赖了 Spark API，所以我们将包含一个名为 <code>build.sbt</code> 的 sbt 配置文件，它描述了 Spark 的依赖。该文件也会添加一个 Spark 依赖的 repository:</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">name</span> <span class="o">:=</span> <span class="s">"Simple Project"</span>
 
@@ -228,11 +211,9 @@ Spark depends on:</p>
 
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"org.apache.spark"</span> <span class="o">%%</span> <span class="s">"spark-sql"</span> <span class="o">%</span> <span class="s">"3.0.0-SNAPSHOT"</span></code></pre></figure>
 
-    <p>For sbt to work correctly, we&#8217;ll need to layout <code>SimpleApp.scala</code> and <code>build.sbt</code>
-according to the typical directory structure. Once that is in place, we can create a JAR package
-containing the application&#8217;s code, then use the <code>spark-submit</code> script to run our program.</p>
+    <p>为了让 sbt 正常运行，我们需要根据经典的目录结构来布局 <code>SimpleApp.scala</code> 和 <code>build.sbt</code> 文件。在成功后，我们可以创建一个包含应用程序代码的 JAR 包，然后使用 <code>spark-submit</code> 脚本来运行我们的程序。</p>
 
-    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Your directory layout should look like this</span>
+    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 你的目录结构应该是这样子的</span>
 <span class="nv">$ </span>find <span class="nb">.</span>
 <span class="nb">.</span>
 ./build.sbt
@@ -241,12 +222,12 @@ containing the application&#8217;s code, then use the <code>spark-submit</code> 
 ./src/main/scala
 ./src/main/scala/SimpleApp.scala
 
-<span class="c"># Package a jar containing your application</span>
+<span class="c"># 将你的程序打包</span>
 <span class="nv">$ </span>sbt package
 ...
 <span class="o">[</span>info] Packaging <span class="o">{</span>..<span class="o">}</span>/<span class="o">{</span>..<span class="o">}</span>/target/scala-2.12/simple-project_2.12-1.0.jar
 
-<span class="c"># Use spark-submit to run your application</span>
+<span class="c"># 使用spark-submit运行你的程序</span>
 <span class="nv">$ </span>YOUR_SPARK_HOME/bin/spark-submit <span class="se">\</span>
   <span class="nt">--class</span> <span class="s2">"SimpleApp"</span> <span class="se">\</span>
   <span class="nt">--master</span> <span class="nb">local</span><span class="o">[</span>4] <span class="se">\</span>
@@ -255,10 +236,11 @@ containing the application&#8217;s code, then use the <code>spark-submit</code> 
 Lines with a: 46, Lines with b: 23</code></pre></figure>
 
   </div>
-<div data-lang="java">
-    <p>This example will use Maven to compile an application JAR, but any similar build system will work.</p>
 
-    <p>We&#8217;ll create a very simple Spark application, <code>SimpleApp.java</code>:</p>
+<div data-lang="java">
+    <p>本示例将使用Maven编译应用程序的JAR包，但是类似的构建工具都可以使用。</p>
+
+    <p>我们将创建一个非常简单的Spark应用程序<code>SimpleApp.java</code>：</p>
 
     <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/* SimpleApp.java */</span>
 <span class="kn">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span><span class="o">;</span>
@@ -279,13 +261,9 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
-    <p>This program just counts the number of lines containing &#8216;a&#8217; and the number containing &#8216;b&#8217; in the
-Spark README. Note that you&#8217;ll need to replace YOUR_SPARK_HOME with the location where Spark is
-installed. Unlike the earlier examples with the Spark shell, which initializes its own SparkSession,
-we initialize a SparkSession as part of the program.</p>
+    <p>该程序只计算SparkREADME文件中包含“ a”的行数和包含“ b”的行数。请注意，你需要将YOUR_SPARK_HOME替换为自己电脑中Spark的安装路径。与前面带有Spark shell的示例（其初始化其自己的SparkSession）不同，我们将SparkSession初始化为程序的一部分。</p>
 
-    <p>To build the program, we also write a Maven <code>pom.xml</code> file that lists Spark as a dependency.
-Note that Spark artifacts are tagged with a Scala version.</p>
+    <p>为了构建程序，我们还编写了一个Maven <code>pom.xml</code>文件，其中将Spark作为依赖项。请注意，Spark artifacts中带有Scala版本信息。</p>
 
     <figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;project&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>edu.berkeley<span class="nt">&lt;/groupId&gt;</span>
@@ -304,7 +282,7 @@ Note that Spark artifacts are tagged with a Scala version.</p>
   <span class="nt">&lt;/dependencies&gt;</span>
 <span class="nt">&lt;/project&gt;</span></code></pre></figure>
 
-    <p>We lay out these files according to the canonical Maven directory structure:</p>
+    <p>我们根据规范的Maven目录结构对这些文件进行布局：</p>
 
     <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>find <span class="nb">.</span>
 ./pom.xml
@@ -313,14 +291,14 @@ Note that Spark artifacts are tagged with a Scala version.</p>
 ./src/main/java
 ./src/main/java/SimpleApp.java</code></pre></figure>
 
-    <p>Now, we can package the application using Maven and execute it with <code>./bin/spark-submit</code>.</p>
+    <p>现在，我们可以使用Maven打包应用程序并使用<code>./bin/spark-submit</code>来执行它。</p>
 
-    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Package a JAR containing your application</span>
+    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 将你的应用程序打成jar包</span>
 <span class="nv">$ </span>mvn package
 ...
 <span class="o">[</span>INFO] Building jar: <span class="o">{</span>..<span class="o">}</span>/<span class="o">{</span>..<span class="o">}</span>/target/simple-project-1.0.jar
 
-<span class="c"># Use spark-submit to run your application</span>
+<span class="c"># 使用spark-submit运行你的程序</span>
 <span class="nv">$ </span>YOUR_SPARK_HOME/bin/spark-submit <span class="se">\</span>
   <span class="nt">--class</span> <span class="s2">"SimpleApp"</span> <span class="se">\</span>
   <span class="nt">--master</span> <span class="nb">local</span><span class="o">[</span>4] <span class="se">\</span>
@@ -330,16 +308,15 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
 
   </div>
 <div data-lang="python">
+    <p>现在，我们将展示如何使用Python API（PySpark）编写应用程序。</p>
 
-    <p>Now we will show how to write an application using the Python API (PySpark).</p>
-
-    <p>If you are building a packaged PySpark application or library you can add it to your setup.py file as:</p>
+    <p>如果要构建打包的PySpark应用程序或库，则可以按以下方式将其添加到setup.py文件中：</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
         <span class="s">'pyspark=={site.SPARK_VERSION}'</span>
     <span class="p">]</span></code></pre></figure>
 
-    <p>As an example, we&#8217;ll create a simple Spark application, <code>SimpleApp.py</code>:</p>
+    <p>作为示例，我们将创建一个简单的Spark应用程序<code>SimpleApp.py</code>：</p>
 
     <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">"""SimpleApp.py"""</span>
 <span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
@@ -355,18 +332,11 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
 
 <span class="n">spark</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></code></pre></figure>
 
-    <p>This program just counts the number of lines containing &#8216;a&#8217; and the number containing &#8216;b&#8217; in a
-text file.
-Note that you&#8217;ll need to replace YOUR_SPARK_HOME with the location where Spark is installed.
-As with the Scala and Java examples, we use a SparkSession to create Datasets.
-For applications that use custom classes or third-party libraries, we can also add code
-dependencies to <code>spark-submit</code> through its <code>--py-files</code> argument by packaging them into a
-.zip file (see <code>spark-submit --help</code> for details).
-<code>SimpleApp</code> is simple enough that we do not need to specify any code dependencies.</p>
+    <p>该程序只计算文本文件中包含“ a”的行数和包含“ b”的行数。请注意，你需要将YOUR_SPARK_HOME替换为自己电脑Spark的安装路径。与Scala和Java示例一样，我们使用SparkSession创建DataSet。对于使用自定义类或第三方库的应用程序，我们还可以使用<code>spark-submit</code>将其打包到.zip文件中，同时使用参数<code>--py-files</code>指定代码。有关详细信息，请参见<code>spark-submit --help</code>。 <code>SimpleApp</code>非常简单，我们不需要指定任何代码依赖项。</p>
 
-    <p>We can run this application using the <code>bin/spark-submit</code> script:</p>
+    <p>我们可以使用以下<code>bin/spark-submit</code>脚本运行此应用程序：</p>
 
-    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Use spark-submit to run your application</span>
+    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 使用spark-submit运行你的程序</span>
 <span class="nv">$ </span>YOUR_SPARK_HOME/bin/spark-submit <span class="se">\</span>
   <span class="nt">--master</span> <span class="nb">local</span><span class="o">[</span>4] <span class="se">\</span>
   SimpleApp.py
@@ -375,7 +345,7 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
 
     <p>If you have PySpark pip installed into your environment (e.g., <code>pip install pyspark</code>), you can run your application with the regular Python interpreter or use the provided &#8216;spark-submit&#8217; as you prefer.</p>
 
-    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Use the Python interpreter to run your application</span>
+    <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 使用Python解释器运行你的程序</span>
 <span class="nv">$ </span>python SimpleApp.py
 ...
 Lines with a: 46, Lines with b: 23</code></pre></figure>
@@ -383,27 +353,22 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
   </div>
 </div>
 
-<h1 id="where-to-go-from-here">Where to Go from Here</h1>
-<p>Congratulations on running your first Spark application!</p>
+<h1 id="下一步做什么">下一步做什么</h1>
+<p>祝贺你运行了第一个Spark应用程序！</p>
 
 <ul>
-  <li>For an in-depth overview of the API, start with the <a href="rdd-programming-guide.html">RDD programming guide</a> and the <a href="sql-programming-guide.html">SQL programming guide</a>, or see &#8220;Programming Guides&#8221; menu for other components.</li>
-  <li>For running applications on a cluster, head to the <a href="cluster-overview.html">deployment overview</a>.</li>
-  <li>Finally, Spark includes several samples in the <code>examples</code> directory
-(<a href="https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples">Scala</a>,
- <a href="https://github.com/apache/spark/tree/master/examples/src/main/java/org/apache/spark/examples">Java</a>,
- <a href="https://github.com/apache/spark/tree/master/examples/src/main/python">Python</a>,
- <a href="https://github.com/apache/spark/tree/master/examples/src/main/r">R</a>).
-You can run them as follows:</li>
+  <li>有关API的深入概述，请从<a href="rdd-programming-guide.html">RDD编程指南</a>和<a href="sql-programming-guide.html">SQL编程指南</a>开始，或参阅“编程指南”菜单以获取其他组件。</li>
+  <li>要在集群上运行应用程序，请转至<a href="cluster-overview.html">部署概述</a>。</li>
+  <li>最后，Spark在<code>examples</code>目录（<a href="https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples">Scala</a>， <a href="https://github.com/apache/spark/tree/master/examples/src/main/java/org/apache/spark/examples">Java</a>， <a href="https://github.com/apache/spark/tree/master/examples/src/main/python">Python</a>， <a href="https://github.com/apache/spark/tree/master/examples/src/main/r">R</a>）中包含几个示例。你可以按下面的方式运行它们：</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># For Scala and Java, use run-example:</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># 对于Scala和Java的示例，使用run-example：</span>
 ./bin/run-example SparkPi
 
-<span class="c"># For Python examples, use spark-submit directly:</span>
+<span class="c"># 对于Python的示例，直接使用 spark-submit：</span>
 ./bin/spark-submit examples/src/main/python/pi.py
 
-<span class="c"># For R examples, use spark-submit directly:</span>
-./bin/spark-submit examples/src/main/r/dataframe.R</code></pre></figure>
+<span class="c"># 对于R语言的示例，直接使用 spark-submit：</span>
 
+./bin/spark-submit examples/src/main/r/dataframe.R</code></pre></figure>
 :ET

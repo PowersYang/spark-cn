@@ -1,7 +1,7 @@
 ---
 layout: global
-displayTitle: Spark Overview
-title: Overview
+displayTitle: Spark概述 
+title: 概述
 description: Apache Spark SPARK_VERSION_SHORT documentation homepage
 license: |
   Licensed to the Apache Software Foundation (ASF) under one or more
