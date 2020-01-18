@@ -3,21 +3,6 @@ layout: global
 displayTitle: Spark概述 
 title: 概述
 description: Apache Spark SPARK_VERSION_SHORT documentation homepage
-license: |
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
- 
-     http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
 ---
 
 Apache Spark是用于大规模数据处理的统一分析引擎。它提供Java，Scala，Python和R中的高级API，以及支持常规执行图的优化引擎。它还支持一组丰富的更高级别的工具，包括用于SQL和结构化数据的处理的 [Spark SQL](sql-programming-guide.html), 用于机器学习的[MLlib](ml-guide.html), 用于图像处理的[GraphX](graphx-programming-guide.html), 以及的增量计算和流处理的[Structured Streaming](structured-streaming-programming-guide.html)。

@@ -1,95 +1,70 @@
 ---
 layout: global
-title: RDD Programming Guide
-description: Spark SPARK_VERSION_SHORT programming guide in Java, Scala and Python
-license: |
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
- 
-     http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+title: RDD编程指南
+description: Spark SPARK_VERSION_SHORT 编程指南
 ---
 
 * This will become a table of contents (this text will be scraped).
 {:toc}
 
 
-# Overview
+# 概述
 
-At a high level, every Spark application consists of a *driver program* that runs the user's `main` function and executes various *parallel operations* on a cluster. The main abstraction Spark provides is a *resilient distributed dataset* (RDD), which is a collection of elements partitioned across the nodes of the cluster that can be operated on in parallel. RDDs are created by starting with a file in the Hadoop file system (or any other Hadoop-supported file system), or an existing Scala collection in the driver program, and transforming it. Users may also ask Spark to *persist* an RDD in memory, allowing it to be reused efficiently across parallel operations. Finally, RDDs automatically recover from node failures.
+在较高级别上，每个Spark应用程序都包含一个*驱动程序*，该*程序*运行用户的`main`函数并在集群上执行各种*并行操作*。Spark提供的主要抽象是*弹性分布式数据集*（RDD），它是跨集群节点划分的元素的集合，可以并行操作。通过从Hadoop文件系统（或任何其它Hadoop支持的文件系统）中的文件或驱动程序中现有的Scala集合开始并进行转换来创建RDD。用户还可以要求Spark将RDD *保留*在内存中，以使其能够在并行操作中有效地重用。最后，RDD自动从节点故障中恢复。
 
-A second abstraction in Spark is *shared variables* that can be used in parallel operations. By default, when Spark runs a function in parallel as a set of tasks on different nodes, it ships a copy of each variable used in the function to each task. Sometimes, a variable needs to be shared across tasks, or between tasks and the driver program. Spark supports two types of shared variables: *broadcast variables*, which can be used to cache a value in memory on all nodes, and *accumulators*, which are variables that are only "added" to, such as counters and sums.
+Spark中的第二个抽象是可以在并行操作中使用的*共享变量*。默认情况下，当Spark作为一组任务在不同节点上并行运行一个函数时，它会将函数中使用的每个变量的副本传送给每个任务。因为有时候需要在任务之间或任务与驱动程序之间共享变量。Spark支持两种类型的共享变量：*广播变量*（可用于在所有节点上的内存中缓存值）和累加器（只能做“添加”操作，例如计数器和求和）。
 
-This guide shows each of these features in each of Spark's supported languages. It is easiest to follow
-along with if you launch Spark's interactive shell -- either `bin/spark-shell` for the Scala shell or
-`bin/pyspark` for the Python one.
+本指南将会使用Spark支持的各种语言来进行。如果启动Spark的交互式shell也很简单，Scala用户可以使用`bin/spark-shell`，Python用户可以使用`bin/pyspark` 。
 
-# Linking with Spark
+# 与Spark建立连接
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
+默认情况下，Spark {{site.SPARK_VERSION}} 已经构建好并与 Scala {{site.SCALA_BINARY_VERSION}}一起使用。 （也可以构建Spark和其它版本的Scala一起使用。）要在Scala中编写应用程序，你将需要使用兼容的Scala版本（例如 {{site.SCALA_BINARY_VERSION}}.X）。
 
-Spark {{site.SPARK_VERSION}} is built and distributed to work with Scala {{site.SCALA_BINARY_VERSION}}
-by default. (Spark can be built to work with other versions of Scala, too.) To write
-applications in Scala, you will need to use a compatible Scala version (e.g. {{site.SCALA_BINARY_VERSION}}.X).
-
-To write a Spark application, you need to add a Maven dependency on Spark. Spark is available through Maven Central at:
+要编写Spark应用程序，你需要在Spark上添加Maven依赖项。可通过Maven Central在以下位置获得Spark：
 
     groupId = org.apache.spark
     artifactId = spark-core_{{site.SCALA_BINARY_VERSION}}
     version = {{site.SPARK_VERSION}}
 
-In addition, if you wish to access an HDFS cluster, you need to add a dependency on
-`hadoop-client` for your version of HDFS.
+另外，如果你想访问HDFS群集，则需要添加`hadoop-client`依赖项 。
 
     groupId = org.apache.hadoop
     artifactId = hadoop-client
     version = <your-hdfs-version>
 
-Finally, you need to import some Spark classes into your program. Add the following lines:
+最后，你需要将一些Spark类导入到程序中。添加以下行：
 
 {% highlight scala %}
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkConf
 {% endhighlight %}
 
-(Before Spark 1.3.0, you need to explicitly `import org.apache.spark.SparkContext._` to enable essential implicit conversions.)
+（在Spark 1.3.0之前，你需要显式`import org.apache.spark.SparkContext._`启用必要的隐式转换。）
 
 </div>
 
 <div data-lang="java"  markdown="1">
 
-Spark {{site.SPARK_VERSION}} supports
-[lambda expressions](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)
-for concisely writing functions, otherwise you can use the classes in the
-[org.apache.spark.api.java.function](api/java/index.html?org/apache/spark/api/java/function/package-summary.html) package.
+Spark {{site.SPARK_VERSION}} 支持 [lambda表达式](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html) 以简洁地编写函数，或者，你可以使用[org.apache.spark.api.java.function](api/java/index.html?org/apache/spark/api/java/function/package-summary.html)包中的类 。
 
-Note that support for Java 7 was removed in Spark 2.2.0.
+请注意，在Spark 2.2.0中已删除了对Java 7的支持。
 
-To write a Spark application in Java, you need to add a dependency on Spark. Spark is available through Maven Central at:
+要使用Java编写Spark应用程序，你需要添加对Spark的依赖。可通过Maven Central在以下位置获得Spark：
 
     groupId = org.apache.spark
     artifactId = spark-core_{{site.SCALA_BINARY_VERSION}}
     version = {{site.SPARK_VERSION}}
 
-In addition, if you wish to access an HDFS cluster, you need to add a dependency on
-`hadoop-client` for your version of HDFS.
+另外，如果你想访问HDFS群集，则需要添加`hadoop-client`依赖项。
 
     groupId = org.apache.hadoop
     artifactId = hadoop-client
     version = <your-hdfs-version>
 
-Finally, you need to import some Spark classes into your program. Add the following lines:
+最后，你需要将一些Spark类导入到程序中。添加以下行：
 
 {% highlight java %}
 import org.apache.spark.api.java.JavaSparkContext;
@@ -100,13 +75,11 @@ import org.apache.spark.SparkConf;
 </div>
 
 <div data-lang="python"  markdown="1">
+Spark {{site.SPARK_VERSION}} 适用于Python 2.7+或Python 3.4+。它可以使用标准的CPython解释器，因此可以使用NumPy之类的C库。它还适用于PyPy 2.3+。
 
-Spark {{site.SPARK_VERSION}} works with Python 2.7+ or Python 3.4+. It can use the standard CPython interpreter,
-so C libraries like NumPy can be used. It also works with PyPy 2.3+.
+请注意，自Spark 3.0.0起不推荐使用Python 2。
 
-Note that Python 2 support is deprecated as of Spark 3.0.0.
-
-Spark applications in Python can either be run with the `bin/spark-submit` script which includes Spark at runtime, or by including it in your setup.py as:
+Python中的Spark应用程序既可以使用`bin/spark-submit` 运行包含Spark 的脚本，也可以通过将其包含在setup.py中的方式运行为：
 
 {% highlight python %}
     install_requires=[
@@ -115,23 +88,17 @@ Spark applications in Python can either be run with the `bin/spark-submit` scrip
 {% endhighlight %}
 
 
-To run Spark applications in Python without pip installing PySpark, use the `bin/spark-submit` script located in the Spark directory.
-This script will load Spark's Java/Scala libraries and allow you to submit applications to a cluster.
-You can also use `bin/pyspark` to launch an interactive Python shell.
+要在Python中运行Spark应用程序而无需pip安装PySpark，请使用Spark目录中的`bin/spark-submit`脚本。该脚本将加载Spark的Java / Scala库，并允许你将应用程序提交到集群。你还可以`bin/pyspark`用来启动交互式Python Shell。
 
-If you wish to access HDFS data, you need to use a build of PySpark linking
-to your version of HDFS.
-[Prebuilt packages](https://spark.apache.org/downloads.html) are also available on the Spark homepage
-for common HDFS versions.
+如果你想访问HDFS数据，则需要使用构建好的PySpark链接到你相应版本的HDFS。 对于常用的HDFS版本，Spark主页上也提供了[预构建的软件包](https://spark.apache.org/downloads.html)。
 
-Finally, you need to import some Spark classes into your program. Add the following line:
+最后，你需要将一些Spark类导入到程序中。添加以下行：
 
 {% highlight python %}
 from pyspark import SparkContext, SparkConf
 {% endhighlight %}
 
-PySpark requires the same minor version of Python in both driver and workers. It uses the default python version in PATH,
-you can specify which version of Python you want to use by `PYSPARK_PYTHON`, for example:
+PySpark要求driver和workes使用相同的Python版本。默认情况下使用的是PATH中的python版本。你可以通过 `PYSPARK_PYTHON`指定相应的python版本，如：
 
 {% highlight bash %}
 $ PYSPARK_PYTHON=python3.4 bin/pyspark
@@ -143,17 +110,14 @@ $ PYSPARK_PYTHON=/opt/pypy-2.5/bin/pypy bin/spark-submit examples/src/main/pytho
 </div>
 
 
-# Initializing Spark
+# 初始化 Spark
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
+Spark程序必须做的第一件事是创建一个[SparkContext](api/scala/index.html#org.apache.spark.SparkContext)对象，该对象告诉Spark如何访问集群。要创建一个`SparkContext`你首先需要构建一个[SparkConf](api/scala/index.html#org.apache.spark.SparkConf)对象，其中包含有关你的应用程序的信息。
 
-The first thing a Spark program must do is to create a [SparkContext](api/scala/index.html#org.apache.spark.SparkContext) object, which tells Spark
-how to access a cluster. To create a `SparkContext` you first need to build a [SparkConf](api/scala/index.html#org.apache.spark.SparkConf) object
-that contains information about your application.
-
-Only one SparkContext should be active per JVM. You must `stop()` the active SparkContext before creating a new one.
+每个JVM只能激活一个SparkContext。在创建新的SparkContext之前，你必须先`stop()`已经激活的SparkContext。
 
 {% highlight scala %}
 val conf = new SparkConf().setAppName(appName).setMaster(master)
@@ -164,9 +128,7 @@ new SparkContext(conf)
 
 <div data-lang="java"  markdown="1">
 
-The first thing a Spark program must do is to create a [JavaSparkContext](api/java/index.html?org/apache/spark/api/java/JavaSparkContext.html) object, which tells Spark
-how to access a cluster. To create a `SparkContext` you first need to build a [SparkConf](api/java/index.html?org/apache/spark/SparkConf.html) object
-that contains information about your application.
+Spark程序必须做的第一件事是创建一个[JavaSparkContext](api/java/index.html?org/apache/spark/api/java/JavaSparkContext.html)对象，该对象告诉Spark如何访问集群。要创建一个`SparkContext`你首先需要构建一个[SparkConf](api/java/index.html?org/apache/spark/SparkConf.html)对象，其中包含有关你的应用程序的信息。
 
 {% highlight java %}
 SparkConf conf = new SparkConf().setAppName(appName).setMaster(master);
@@ -176,10 +138,7 @@ JavaSparkContext sc = new JavaSparkContext(conf);
 </div>
 
 <div data-lang="python"  markdown="1">
-
-The first thing a Spark program must do is to create a [SparkContext](api/python/pyspark.html#pyspark.SparkContext) object, which tells Spark
-how to access a cluster. To create a `SparkContext` you first need to build a [SparkConf](api/python/pyspark.html#pyspark.SparkConf) object
-that contains information about your application.
+Spark程序必须做的第一件事是创建一个[SparkContext](api/python/pyspark.html#pyspark.SparkContext)对象，该对象告诉Spark如何访问集群。要创建一个`SparkContext`你首先需要构建一个[SparkConf](api/python/pyspark.html#pyspark.SparkConf)对象，其中包含有关你的应用程序的信息。
 
 {% highlight python %}
 conf = SparkConf().setAppName(appName).setMaster(master)
@@ -190,263 +149,215 @@ sc = SparkContext(conf=conf)
 
 </div>
 
-The `appName` parameter is a name for your application to show on the cluster UI.
-`master` is a [Spark, Mesos or YARN cluster URL](submitting-applications.html#master-urls),
-or a special "local" string to run in local mode.
-In practice, when running on a cluster, you will not want to hardcode `master` in the program,
-but rather [launch the application with `spark-submit`](submitting-applications.html) and
-receive it there. However, for local testing and unit tests, you can pass "local" to run Spark
-in-process.
+该`appName`参数是你的应用程序显示在集群UI上的名称。 `master`是[Spark，Mesos或YARN群集URL](submitting-applications.html#master-urls)或特殊的“local”字符串以本地模式运行。实际上，当在集群上运行时，你将不希望`master`在程序中进行硬编码，而是在[启动应用程序`spark-submit`](submitting-applications.html)时通过参数接收。但是，对于本地测试和单元测试，你可以传递“ local”以在内部运行Spark。
 
 
-## Using the Shell
+## 使用 Shell
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
-
-In the Spark shell, a special interpreter-aware SparkContext is already created for you, in the
-variable called `sc`. Making your own SparkContext will not work. You can set which master the
-context connects to using the `--master` argument, and you can add JARs to the classpath
-by passing a comma-separated list to the `--jars` argument. You can also add dependencies
-(e.g. Spark Packages) to your shell session by supplying a comma-separated list of Maven coordinates
-to the `--packages` argument. Any additional repositories where dependencies might exist (e.g. Sonatype)
-can be passed to the `--repositories` argument. For example, to run `bin/spark-shell` on exactly
-four cores, use:
+在Spark Shell中，已经在名为`sc`的变量中为你创建了一个特殊的可识别解释器的SparkContext对象。你自己创建的SparkContext对象不会起作用。你可以通过 `--master` 参数指定要连接的主机，可以通过将逗号分隔的列表传递给参数`--jars` 来将JAR添加到类路径。你还可以通过在`--packages`参数中提供逗号分隔的Maven坐标列表，从而将依赖项（例如Spark Packages）添加到Shell会话中。可能存在依赖项的任何其它repository（例如Sonatype）都可以传递给`--repositories`参数。例如，要`bin/spark-shell`在四个内核上运行，请使用：
 
 {% highlight bash %}
 $ ./bin/spark-shell --master local[4]
 {% endhighlight %}
 
-Or, to also add `code.jar` to its classpath, use:
+或者，也可以添加`code.jar`到其类路径中，使用：
 
 {% highlight bash %}
 $ ./bin/spark-shell --master local[4] --jars code.jar
 {% endhighlight %}
 
-To include a dependency using Maven coordinates:
+要使用Maven坐标包含依赖项，请执行以下操作：
 
 {% highlight bash %}
 $ ./bin/spark-shell --master local[4] --packages "org.example:example:0.1"
 {% endhighlight %}
 
-For a complete list of options, run `spark-shell --help`. Behind the scenes,
-`spark-shell` invokes the more general [`spark-submit` script](submitting-applications.html).
+有关选项的完整列表，请运行`spark-shell --help`。 `spark-shell`会在后台调用更通用的[`spark-submit`脚本](submitting-applications.html)。
 
 </div>
 
 <div data-lang="python"  markdown="1">
-
-In the PySpark shell, a special interpreter-aware SparkContext is already created for you, in the
-variable called `sc`. Making your own SparkContext will not work. You can set which master the
-context connects to using the `--master` argument, and you can add Python .zip, .egg or .py files
-to the runtime path by passing a comma-separated list to `--py-files`. You can also add dependencies
-(e.g. Spark Packages) to your shell session by supplying a comma-separated list of Maven coordinates
-to the `--packages` argument. Any additional repositories where dependencies might exist (e.g. Sonatype)
-can be passed to the `--repositories` argument. Any Python dependencies a Spark package has (listed in
-the requirements.txt of that package) must be manually installed using `pip` when necessary.
-For example, to run `bin/pyspark` on exactly four cores, use:
+在Spark Shell中，已经在名为`sc`的变量中为你创建了一个特殊的可识别解释器的SparkContext对象。你自己创建的SparkContext对象不会起作用。你可以通过 `--master` 参数指定要连接的主机，也可以通过将逗号分隔的列表传递到来将Python .zip，.egg或.py文件添加到运行时路径中的`--py-files`参数。你还可以通过在`--packages`参数中提供逗号分隔的Maven坐标列表，从而将依赖项（例如Spark Packages）添加到Shell会话中。可能存在依赖项的任何其它repository（例如Sonatype）都可以传递给`--repositories`参数。Spark软件包具有的所有Python依赖项（在该软件包的requirements.txt中列出）都必须`pip`在必要时使用手动安装。例如在四个内核上运行`bin/pyspark` ，使用：
 
 {% highlight bash %}
 $ ./bin/pyspark --master local[4]
 {% endhighlight %}
 
-Or, to also add `code.py` to the search path (in order to later be able to `import code`), use:
+或者，也可以添加`code.py`到搜索路径中（以便以后`import code`使用），请使用：
 
 {% highlight bash %}
 $ ./bin/pyspark --master local[4] --py-files code.py
 {% endhighlight %}
 
-For a complete list of options, run `pyspark --help`. Behind the scenes,
-`pyspark` invokes the more general [`spark-submit` script](submitting-applications.html).
+有关选项的完整列表，请运行`pyspark --help`。 `pyspark`会在后台调用更通用的[`spark-submit`脚本](submitting-applications.html)。
 
-It is also possible to launch the PySpark shell in [IPython](http://ipython.org), the
-enhanced Python interpreter. PySpark works with IPython 1.0.0 and later. To
-use IPython, set the `PYSPARK_DRIVER_PYTHON` variable to `ipython` when running `bin/pyspark`:
+也可以在增强的Python解释器[IPython中](http://ipython.org/)启动PySpark Shell 。PySpark可与IPython 1.0.0及更高版本一起使用。要使用IPython，请在运行时将`PYSPARK_DRIVER_PYTHON`变量设置为：`ipython``bin/pyspark`
 
 {% highlight bash %}
 $ PYSPARK_DRIVER_PYTHON=ipython ./bin/pyspark
 {% endhighlight %}
 
-To use the Jupyter notebook (previously known as the IPython notebook),
+要使用Jupyter笔记本（以前称为IPython笔记本），
 
 {% highlight bash %}
 $ PYSPARK_DRIVER_PYTHON=jupyter PYSPARK_DRIVER_PYTHON_OPTS=notebook ./bin/pyspark
 {% endhighlight %}
 
-You can customize the `ipython` or `jupyter` commands by setting `PYSPARK_DRIVER_PYTHON_OPTS`.
+你可以通过设置来自定义`ipython`或`jupyter`命令`PYSPARK_DRIVER_PYTHON_OPTS`。
 
-After the Jupyter Notebook server is launched, you can create a new "Python 2" notebook from
-the "Files" tab. Inside the notebook, you can input the command `%pylab inline` as part of
-your notebook before you start to try Spark from the Jupyter notebook.
+启动Jupyter Notebook服务器后，你可以从“Files”中创建一个新的“ Python 2”notebook。在notebook内部，你可以在尝试Spark之前输入`%pylab inline`命令。
 
 </div>
 
 </div>
 
-# Resilient Distributed Datasets (RDDs)
+# 弹性分布式数据集（RDD）
 
-Spark revolves around the concept of a _resilient distributed dataset_ (RDD), which is a fault-tolerant collection of elements that can be operated on in parallel. There are two ways to create RDDs: *parallelizing*
-an existing collection in your driver program, or referencing a dataset in an external storage system, such as a
-shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat.
+Spark围绕*弹性分布式数据集*（RDD）的概念展开，RDD是可并行操作的元素的容错集合。创建RDD的方法有两种：*并行化* 驱动程序中的现有集合，或引用外部存储系统（例如共享文件系统，HDFS，HBase或提供Hadoop InputFormat的任何数据源）中的数据集。
 
-## Parallelized Collections
+##  并行集合
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
-
-Parallelized collections are created by calling `SparkContext`'s `parallelize` method on an existing collection in your driver program (a Scala `Seq`). The elements of the collection are copied to form a distributed dataset that can be operated on in parallel. For example, here is how to create a parallelized collection holding the numbers 1 to 5:
+通过在驱动程序（Scala ）中的现有集合上调用`SparkContext`的`parallelize`方法来创建并行集合`Seq`。复制集合的元素以形成可以并行操作的分布式数据集。例如，以下是创建包含数字1到5的并行化集合的方法：
 
 {% highlight scala %}
 val data = Array(1, 2, 3, 4, 5)
 val distData = sc.parallelize(data)
 {% endhighlight %}
 
-Once created, the distributed dataset (`distData`) can be operated on in parallel. For example, we might call `distData.reduce((a, b) => a + b)` to add up the elements of the array. We describe operations on distributed datasets later on.
+创建后，分布式数据集（`distData`）可以并行操作。例如，我们可能会调用`distData.reduce((a, b) => a + b)`以对数组中的的元素求和。我们稍后将描述对分布式数据集的操作。
 
 </div>
 
 <div data-lang="java"  markdown="1">
 
-Parallelized collections are created by calling `JavaSparkContext`'s `parallelize` method on an existing `Collection` in your driver program. The elements of the collection are copied to form a distributed dataset that can be operated on in parallel. For example, here is how to create a parallelized collection holding the numbers 1 to 5:
+通过在驱动程序中现有的上调用`JavaSparkContext`的`parallelize`方法来创建并行集合`Collection`。复制集合的元素以形成可以并行操作的分布式数据集。例如，以下是创建包含数字1到5的并行化集合的方法：
 
 {% highlight java %}
 List<Integer> data = Arrays.asList(1, 2, 3, 4, 5);
 JavaRDD<Integer> distData = sc.parallelize(data);
 {% endhighlight %}
 
-Once created, the distributed dataset (`distData`) can be operated on in parallel. For example, we might call `distData.reduce((a, b) -> a + b)` to add up the elements of the list.
-We describe operations on distributed datasets later on.
+创建后，分布式数据集（`distData`）可以并行操作。例如，我们可能会调用`distData.reduce((a, b) -> a + b)`以对列表中的元素求和。我们稍后将描述对分布式数据集的操作。
 
 </div>
 
 <div data-lang="python"  markdown="1">
 
-Parallelized collections are created by calling `SparkContext`'s `parallelize` method on an existing iterable or collection in your driver program. The elements of the collection are copied to form a distributed dataset that can be operated on in parallel. For example, here is how to create a parallelized collection holding the numbers 1 to 5:
+通过在驱动程序中现有的可迭代对象或集合上调用`SparkContext`的`parallelize`方法来创建并行集合。复制集合的元素以形成可以并行操作的分布式数据集。例如，以下是创建包含数字1到5的并行化集合的方法：
 
 {% highlight python %}
 data = [1, 2, 3, 4, 5]
 distData = sc.parallelize(data)
 {% endhighlight %}
 
-Once created, the distributed dataset (`distData`) can be operated on in parallel. For example, we can call `distData.reduce(lambda a, b: a + b)` to add up the elements of the list.
-We describe operations on distributed datasets later on.
+创建后，分布式数据集（`distData`）可以并行操作。例如，我们可以调用`distData.reduce(lambda a, b: a + b)`来对列表中的元素求和。我们稍后将描述对分布式数据集的操作。
 
 </div>
 
 </div>
 
-One important parameter for parallel collections is the number of *partitions* to cut the dataset into. Spark will run one task for each partition of the cluster. Typically you want 2-4 partitions for each CPU in your cluster. Normally, Spark tries to set the number of partitions automatically based on your cluster. However, you can also set it manually by passing it as a second parameter to `parallelize` (e.g. `sc.parallelize(data, 10)`). Note: some places in the code use the term slices (a synonym for partitions) to maintain backward compatibility.
+并行集合的一个重要参数是数据集的*分区*数。Spark将为集群的每个分区运行一个任务。通常，集群中的每个CPU都可以分配2-4个分区。不过Spark也会尝试根据你的集群自动设置分区数。但是你也可以通过将其作为第二个参数传递给`parallelize`（例如`sc.parallelize(data, 10)`）来手动设置它。注意：代码中的某些位置使用术语“切片”（分区的同义词）来保持向后兼容性。
 
-## External Datasets
+## 外部数据集
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
+Spark可以从Hadoop支持的任何存储源创建分布式数据集，包括你的本地文件系统，HDFS，Cassandra，HBase，[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。Spark支持文本文件，[SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)和任何其它Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html)。
 
-Spark can create distributed datasets from any storage source supported by Hadoop, including your local file system, HDFS, Cassandra, HBase, [Amazon S3](http://wiki.apache.org/hadoop/AmazonS3), etc. Spark supports text files, [SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html), and any other Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html).
-
-Text file RDDs can be created using `SparkContext`'s `textFile` method. This method takes a URI for the file (either a local path on the machine, or a `hdfs://`, `s3a://`, etc URI) and reads it as a collection of lines. Here is an example invocation:
+可以使用`SparkContext`的`textFile`方法创建文本文件RDD 。此方法需要一个文件的URI（本地路径，或`hdfs://`，`s3a://`等），并读取其作为文件中每一行的集合。如：
 
 {% highlight scala %}
 scala> val distFile = sc.textFile("data.txt")
 distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at textFile at <console>:26
 {% endhighlight %}
 
-Once created, `distFile` can be acted on by dataset operations. For example, we can add up the sizes of all the lines using the `map` and `reduce` operations as follows: `distFile.map(s => s.length).reduce((a, b) => a + b)`.
+一旦创建，`distFile`就可以对数据集进行操作。例如，我们可以使用`map`和`reduce`操作将所有行的长度相加，如下所示：`distFile.map(s => s.length).reduce((a, b) => a + b)`。
 
-Some notes on reading files with Spark:
+关于使用Spark读取文件的一些注意事项：
 
-* If using a path on the local filesystem, the file must also be accessible at the same path on worker nodes. Either copy the file to all workers or use a network-mounted shared file system.
+* 如果使用本地文件系统，则需要每个worker节点都可以访问到该文件。将文件复制到所有worker服务器，或者使用网络安装的共享文件系统。
+* Spark的所有基于文件的输入方法（包括`textFile`）都支持在目录，压缩文件和通配符上运行。例如，你可以使用`textFile("/my/directory")`，`textFile("/my/directory/*.txt")`和`textFile("/my/directory/*.gz")`。
+* 该`textFile`方法还采用可选的第二个参数来控制文件的分区数。默认情况下，Spark为文件的每个块创建一个分区（HDFS中的块默认为128MB），但是你也可以通过传递更大的值来请求更大数量的分区。请注意，分区数不能比块数量少。
 
-* All of Spark's file-based input methods, including `textFile`, support running on directories, compressed files, and wildcards as well. For example, you can use `textFile("/my/directory")`, `textFile("/my/directory/*.txt")`, and `textFile("/my/directory/*.gz")`.
+除了文本文件，Spark的Scala API还支持其它几种数据格式：
 
-* The `textFile` method also takes an optional second argument for controlling the number of partitions of the file. By default, Spark creates one partition for each block of the file (blocks being 128MB by default in HDFS), but you can also ask for a higher number of partitions by passing a larger value. Note that you cannot have fewer partitions than blocks.
-
-Apart from text files, Spark's Scala API also supports several other data formats:
-
-* `SparkContext.wholeTextFiles` lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with `textFile`, which would return one record per line in each file. Partitioning is determined by data locality which, in some cases, may result in too few partitions. For those cases, `wholeTextFiles` provides an optional second argument for controlling the minimal number of partitions.
-
-* For [SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html), use SparkContext's `sequenceFile[K, V]` method where `K` and `V` are the types of key and values in the file. These should be subclasses of Hadoop's [Writable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Writable.html) interface, like [IntWritable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/IntWritable.html) and [Text](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Text.html). In addition, Spark allows you to specify native types for a few common Writables; for example, `sequenceFile[Int, String]` will automatically read IntWritables and Texts.
-
-* For other Hadoop InputFormats, you can use the `SparkContext.hadoopRDD` method, which takes an arbitrary `JobConf` and input format class, key class and value class. Set these the same way you would for a Hadoop job with your input source. You can also use `SparkContext.newAPIHadoopRDD` for InputFormats based on the "new" MapReduce API (`org.apache.hadoop.mapreduce`).
-
-* `RDD.saveAsObjectFile` and `SparkContext.objectFile` support saving an RDD in a simple format consisting of serialized Java objects. While this is not as efficient as specialized formats like Avro, it offers an easy way to save any RDD.
+* `SparkContext.wholeTextFiles`使你可以读取包含多个小文本文件的目录，并将每个小文本文件作为 (filename, content) 对返回。相比于`textFile`方法，该方法会在每个文件的每一行返回一条记录。分区由数据局部性决定，在某些情况下，数据局部性可能导致分区太少。对于这些情况，`wholeTextFiles`提供一个可选的第二个参数来控制最小数量的分区。
+* 对于[SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)，请使用SparkContext的`sequenceFile[K, V]`方法，其中`K`和`V`是文件中键和值的类型。这些应该是Hadoop的[Writable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Writable.html)接口的子类，例如[IntWritable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/IntWritable.html)和[Text](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Text.html)。此外，Spark允许你为一些常见的可写对象指定本机类型。例如，`sequenceFile[Int, String]`将自动读取IntWritables和Texts。
+* 对于其它Hadoop InputFormat，可以使用该`SparkContext.hadoopRDD`方法，该方法采用任意`JobConf`input format类，键类和值类。可以使用和Hadoop作业相同的输入源。你还可以使用基于新MapReduce API（`org.apache.hadoop.mapreduce`）的`SparkContext.newAPIHadoopRDD`并将其用于InputFormats 。
+* `RDD.saveAsObjectFile` 和 `SparkContext.objectFile` 支持将RDD保存在一个简单的Java序列化对象中。尽管它不如Avro这样的专用格式有效，但它提供了一种保存任何RDD的简便方法。
 
 </div>
 
 <div data-lang="java"  markdown="1">
 
-Spark can create distributed datasets from any storage source supported by Hadoop, including your local file system, HDFS, Cassandra, HBase, [Amazon S3](http://wiki.apache.org/hadoop/AmazonS3), etc. Spark supports text files, [SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html), and any other Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html).
+Spark可以从Hadoop支持的任何存储源创建分布式数据集，包括你的本地文件系统，HDFS，Cassandra，HBase，[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。Spark支持文本文件，[SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)和任何其它Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html)。
 
-Text file RDDs can be created using `SparkContext`'s `textFile` method. This method takes a URI for the file (either a local path on the machine, or a `hdfs://`, `s3a://`, etc URI) and reads it as a collection of lines. Here is an example invocation:
+可以使用`SparkContext`的`textFile`方法创建文本文件RDD 。此方法需要一个文件的URI（本地路径，或`hdfs://`，`s3a://`等），并读取其作为行的集合。如：
 
 {% highlight java %}
 JavaRDD<String> distFile = sc.textFile("data.txt");
 {% endhighlight %}
 
-Once created, `distFile` can be acted on by dataset operations. For example, we can add up the sizes of all the lines using the `map` and `reduce` operations as follows: `distFile.map(s -> s.length()).reduce((a, b) -> a + b)`.
+一旦创建，`distFile`就可以对数据集操作。例如，我们可以使用`map`和`reduce`操作将所有行的长度相加，如下所示：`distFile.map(s -> s.length()).reduce((a, b) -> a + b)`。
 
-Some notes on reading files with Spark:
+关于使用Spark读取文件的一些注意事项：
 
-* If using a path on the local filesystem, the file must also be accessible at the same path on worker nodes. Either copy the file to all workers or use a network-mounted shared file system.
+* 如果使用本地文件系统，则需要每个worker节点都可以访问到该文件。将文件复制到所有worker服务器，或者使用网络安装的共享文件系统。
 
-* All of Spark's file-based input methods, including `textFile`, support running on directories, compressed files, and wildcards as well. For example, you can use `textFile("/my/directory")`, `textFile("/my/directory/*.txt")`, and `textFile("/my/directory/*.gz")`.
+* Spark的所有基于文件的输入方法（包括`textFile`）都支持在目录，压缩文件和通配符上运行。例如，你可以使用`textFile("/my/directory")`，`textFile("/my/directory/*.txt")`和`textFile("/my/directory/*.gz")`。
 
-* The `textFile` method also takes an optional second argument for controlling the number of partitions of the file. By default, Spark creates one partition for each block of the file (blocks being 128MB by default in HDFS), but you can also ask for a higher number of partitions by passing a larger value. Note that you cannot have fewer partitions than blocks.
+* 该`textFile`方法还采用可选的第二个参数来控制文件的分区数。默认情况下，Spark为文件的每个块创建一个分区（HDFS中的块默认为128MB），但是你也可以通过传递更大的值来请求更大数量的分区。分区数不能比块数量少。
 
-Apart from text files, Spark's Java API also supports several other data formats:
+除了文本文件，Spark的Java API还支持其它几种数据格式：
 
-* `JavaSparkContext.wholeTextFiles` lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with `textFile`, which would return one record per line in each file.
-
-* For [SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html), use SparkContext's `sequenceFile[K, V]` method where `K` and `V` are the types of key and values in the file. These should be subclasses of Hadoop's [Writable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Writable.html) interface, like [IntWritable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/IntWritable.html) and [Text](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Text.html).
-
-* For other Hadoop InputFormats, you can use the `JavaSparkContext.hadoopRDD` method, which takes an arbitrary `JobConf` and input format class, key class and value class. Set these the same way you would for a Hadoop job with your input source. You can also use `JavaSparkContext.newAPIHadoopRDD` for InputFormats based on the "new" MapReduce API (`org.apache.hadoop.mapreduce`).
-
-* `JavaRDD.saveAsObjectFile` and `JavaSparkContext.objectFile` support saving an RDD in a simple format consisting of serialized Java objects. While this is not as efficient as specialized formats like Avro, it offers an easy way to save any RDD.
+* `JavaSparkContext.wholeTextFiles`使你可以读取包含多个小文本文件的目录，并将每个小文本文件作为 (filename, content)对返回。与相比`textFile`，该方法会在每个文件的每一行返回一条记录。
+* 对于[SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)，请使用SparkContext的`sequenceFile[K, V]`方法，其中`K`和`V`是文件中键和值的类型。这些是Hadoop的[Writable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Writable.html)接口的子类，例如[IntWritable](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/IntWritable.html)和[Text](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/io/Text.html)。
+* 对于其它Hadoop InputFormat，可以使用该`JavaSparkContext.hadoopRDD`方法，该方法采用任意`JobConf`input format类，键类和值类。可以使用和Hadoop作业相同的输入源。你还可以使用基于新MapReduce API（`org.apache.hadoop.mapreduce`）的`JavaSparkContext.newAPIHadoopRDD`并将其用于InputFormats 。
+* `JavaRDD.saveAsObjectFile`和`JavaSparkContext.objectFile`支持以包含序列化Java对象的格式保存RDD。尽管它不如Avro这样的专用格式有效，但它提供了一种保存任何RDD的简便方法。
 
 </div>
 
 <div data-lang="python"  markdown="1">
 
-PySpark can create distributed datasets from any storage source supported by Hadoop, including your local file system, HDFS, Cassandra, HBase, [Amazon S3](http://wiki.apache.org/hadoop/AmazonS3), etc. Spark supports text files, [SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html), and any other Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html).
+PySpark可以从Hadoop支持的任何存储源创建分布式数据集，包括你的本地文件系统，HDFS，Cassandra，HBase，[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。Spark支持文本文件，[SequenceFiles](https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)和任何其它Hadoop [InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html)。
 
-Text file RDDs can be created using `SparkContext`'s `textFile` method. This method takes a URI for the file (either a local path on the machine, or a `hdfs://`, `s3a://`, etc URI) and reads it as a collection of lines. Here is an example invocation:
+可以使用`SparkContext`的`textFile`方法创建文本文件RDD 。此方法需要一个文件URI（本地路径，或`hdfs://`，`s3a://`等），并读取其作为行的集合。如：
 
 {% highlight python %}
 >>> distFile = sc.textFile("data.txt")
 {% endhighlight %}
 
-Once created, `distFile` can be acted on by dataset operations. For example, we can add up the sizes of all the lines using the `map` and `reduce` operations as follows: `distFile.map(lambda s: len(s)).reduce(lambda a, b: a + b)`.
+一旦创建，`distFile`就可以通过数据集操作对其进行操作。例如，我们可以使用`map`和`reduce`操作将所有行的长度相加，如下所示：`distFile.map(lambda s: len(s)).reduce(lambda a, b: a + b)`。
 
-Some notes on reading files with Spark:
+关于使用Spark读取文件的一些注意事项：
 
-* If using a path on the local filesystem, the file must also be accessible at the same path on worker nodes. Either copy the file to all workers or use a network-mounted shared file system.
+* 如果使用本地文件系统，则需要每个worker节点都可以访问到该文件。将文件复制到所有worker服务器，或者使用网络安装的共享文件系统。
+* Spark的所有基于文件的输入方法（包括`textFile`）都支持在目录，压缩文件和通配符上运行。例如，你可以使用`textFile("/my/directory")`，`textFile("/my/directory/*.txt")`和`textFile("/my/directory/*.gz")`。
 
-* All of Spark's file-based input methods, including `textFile`, support running on directories, compressed files, and wildcards as well. For example, you can use `textFile("/my/directory")`, `textFile("/my/directory/*.txt")`, and `textFile("/my/directory/*.gz")`.
+* 该`textFile`方法还采用可选的第二个参数来控制文件的分区数。默认情况下，Spark为文件的每个块创建一个分区（HDFS中的块默认为128MB），但是你也可以通过传递更大的值来请求更大数量的分区。分区数不能比块数量少。
 
-* The `textFile` method also takes an optional second argument for controlling the number of partitions of the file. By default, Spark creates one partition for each block of the file (blocks being 128MB by default in HDFS), but you can also ask for a higher number of partitions by passing a larger value. Note that you cannot have fewer partitions than blocks.
+除了文本文件，Spark的Java API还支持其它几种数据格式：
 
-Apart from text files, Spark's Python API also supports several other data formats:
+* `JavaSparkContext.wholeTextFiles`使你可以读取包含多个小文本文件的目录，并将每个小文本文件作为 (filename, content)对返回。与相比`textFile`，该方法会在每个文件的每一行返回一条记录。
+* `RDD.saveAsPickleFile`并`SparkContext.pickleFile`支持以包含pickled Python对象的简单格式保存RDD。批处理用于pickled 序列化，默认批处理大小为10。
 
-* `SparkContext.wholeTextFiles` lets you read a directory containing multiple small text files, and returns each of them as (filename, content) pairs. This is in contrast with `textFile`, which would return one record per line in each file.
+* SequenceFile 和 Hadoop Input/Output 格式
 
-* `RDD.saveAsPickleFile` and `SparkContext.pickleFile` support saving an RDD in a simple format consisting of pickled Python objects. Batching is used on pickle serialization, with default batch size 10.
+**请注意，**此功能当前已标记`Experimental`，仅供高级用户使用。将来可能会替换为基于Spark SQL的读/写支持，在这种情况下，Spark SQL是首选方法。
 
-* SequenceFile and Hadoop Input/Output Formats
+**可写支持**
 
-**Note** this feature is currently marked ```Experimental``` and is intended for advanced users. It may be replaced in future with read/write support based on Spark SQL, in which case Spark SQL is the preferred approach.
-
-**Writable Support**
-
-PySpark SequenceFile support loads an RDD of key-value pairs within Java, converts Writables to base Java types, and pickles the
-resulting Java objects using [Pyrolite](https://github.com/irmen/Pyrolite/). When saving an RDD of key-value pairs to SequenceFile,
-PySpark does the reverse. It unpickles Python objects into Java objects and then converts them to Writables. The following
-Writables are automatically converted:
+PySpark SequenceFile支持在Java内加载键-值对的RDD，将Writables转换为基本Java类型，并使用[Pyrolite pickled所得的Java对象。将键/值对的RDD保存到SequenceFile时，PySpark会执行相反的操作。它将Python对象分解为Java对象，然后将它们转换为Writables。以下可写对象将自动转换：
 
 <table class="table">
-<tr><th>Writable Type</th><th>Python Type</th></tr>
+<tr><th>可写类型</th><th>Python类型</th></tr>
 <tr><td>Text</td><td>unicode str</td></tr>
 <tr><td>IntWritable</td><td>int</td></tr>
 <tr><td>FloatWritable</td><td>float</td></tr>
@@ -457,15 +368,11 @@ Writables are automatically converted:
 <tr><td>MapWritable</td><td>dict</td></tr>
 </table>
 
-Arrays are not handled out-of-the-box. Users need to specify custom `ArrayWritable` subtypes when reading or writing. When writing,
-users also need to specify custom converters that convert arrays to custom `ArrayWritable` subtypes. When reading, the default
-converter will convert custom `ArrayWritable` subtypes to Java `Object[]`, which then get pickled to Python tuples. To get
-Python `array.array` for arrays of primitive types, users need to specify custom converters.
+Arrays不是开箱即用的，用户在读取或写入时需要自定义`ArrayWritable`的子类。写入时，用户还需要指定将数组转换为自定义`ArrayWritable`子类型的自定义转换器。读取时，默认转换器会将自定义`ArrayWritable`子类型转换为Java `Object[]`，然后将其pickled为Python元组。要获取`array.array`用于基本类型数组的Python ，用户需要指定自定义转换器。
 
-**Saving and Loading SequenceFiles**
+**保存和加载SequenceFile**
 
-Similarly to text files, SequenceFiles can be saved and loaded by specifying the path. The key and value
-classes can be specified, but for standard Writables this is not required.
+与文本文件类似，可以通过指定路径来保存和加载SequenceFiles。可以指定键和值类，但对于标准可写对象则不需要。
 
 {% highlight python %}
 >>> rdd = sc.parallelize(range(1, 4)).map(lambda x: (x, "a" * x))
@@ -474,11 +381,9 @@ classes can be specified, but for standard Writables this is not required.
 [(1, u'a'), (2, u'aa'), (3, u'aaa')]
 {% endhighlight %}
 
-**Saving and Loading Other Hadoop Input/Output Formats**
+**保存和加载其它Hadoop输入/输出格式**
 
-PySpark can also read any Hadoop InputFormat or write any Hadoop OutputFormat, for both 'new' and 'old' Hadoop MapReduce APIs.
-If required, a Hadoop configuration can be passed in as a Python dict. Here is an example using the
-Elasticsearch ESInputFormat:
+对于“新”和“旧” Hadoop MapReduce API，PySpark都可以读任何Hadoop InputFormat或写任何Hadoop OutputFormat。如果需要，可以将Hadoop配置信息作为Python字典传递。这是使用Elasticsearch ESInputFormat的示例：
 
 {% highlight python %}
 $ ./bin/pyspark --jars /path/to/elasticsearch-hadoop.jar
@@ -494,39 +399,30 @@ $ ./bin/pyspark --jars /path/to/elasticsearch-hadoop.jar
   u'field3': 12345})
 {% endhighlight %}
 
-Note that, if the InputFormat simply depends on a Hadoop configuration and/or input path, and
-the key and value classes can easily be converted according to the above table,
-then this approach should work well for such cases.
+请注意，如果InputFormat仅取决于Hadoop配置和/或输入路径，并且可以根据上表轻松地转换键和值类，则这种方法在这种情况下应该很好用。
 
-If you have custom serialized binary data (such as loading data from Cassandra / HBase), then you will first need to
-transform that data on the Scala/Java side to something which can be handled by Pyrolite's pickler.
-A [Converter](api/scala/index.html#org.apache.spark.api.python.Converter) trait is provided
-for this. Simply extend this trait and implement your transformation code in the ```convert```
-method. Remember to ensure that this class, along with any dependencies required to access your ```InputFormat```, are packaged into your Spark job jar and included on the PySpark
-classpath.
+如果你具有自定义的序列化二进制数据（例如从Cassandra / HBase加载数据），则首先需要将Scala / Java端上的数据转换为可由Pyrolite的picker处理的数据。一个[转换器](api/scala/index.html#org.apache.spark.api.python.Converter)特性提供了这一点。只需扩展此特征并在该`convert` 方法中实现你的转换代码即可。请记住，确保将此类以及访问所需的任何依赖项`InputFormat`打包到Spark作业jar中，并包含在PySpark类路径中。
 
-See the [Python examples]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/python) and
-the [Converter examples]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters)
-for examples of using Cassandra / HBase ```InputFormat``` and ```OutputFormat``` with custom converters.
+有关 使用Cassandra / HBase 和自定义转换[器的示例](https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters)，请参见[Python示例](https://github.com/apache/spark/tree/master/examples/src/main/python)和[Converter示例](https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters)。`InputFormat``OutputFormat`
 
 </div>
 </div>
 
-## RDD Operations
+## RDD操作
 
-RDDs support two types of operations: *transformations*, which create a new dataset from an existing one, and *actions*, which return a value to the driver program after running a computation on the dataset. For example, `map` is a transformation that passes each dataset element through a function and returns a new RDD representing the results. On the other hand, `reduce` is an action that aggregates all the elements of the RDD using some function and returns the final result to the driver program (although there is also a parallel `reduceByKey` that returns a distributed dataset).
+RDD支持两种类型的操作：*transformations*（从现有操作中创建新数据集）和*actions*，在对数据集执行计算后，将值返回给驱动程序。例如，`map`是一个transformation，该transformation将每个数据集元素都传递给一个函数，并返回代表结果的新RDD。`reduce`是一个使用某些函数聚合RDD的所有元素并将最终结果返回到驱动程序的操作（有并行操作的reduceByKey`也可以返回分布式数据集）。
 
-All transformations in Spark are <i>lazy</i>, in that they do not compute their results right away. Instead, they just remember the transformations applied to some base dataset (e.g. a file). The transformations are only computed when an action requires a result to be returned to the driver program. This design enables Spark to run more efficiently. For example, we can realize that a dataset created through `map` will be used in a `reduce` and return only the result of the `reduce` to the driver, rather than the larger mapped dataset.
+Spark中的所有转换都是*惰性的*，因为它们不会立即计算出结果。相反，他们只记得应用于某些基本数据集（例如文件）的转换。仅当actions要求将结果返回给驱动程序时才计算转换。这种设计使Spark可以更高效地运行。例如，我们可以了解到，`map` 所创建的数据集将被用在 `reduce` 中，并且只有 `reduce` 的计算结果返回给驱动程序，而不是映射一个更大的数据集。
 
-By default, each transformed RDD may be recomputed each time you run an action on it. However, you may also *persist* an RDD in memory using the `persist` (or `cache`) method, in which case Spark will keep the elements around on the cluster for much faster access the next time you query it. There is also support for persisting RDDs on disk, or replicated across multiple nodes.
+默认情况下，每次你在 RDD 运行一个 action 时，每个 transformed RDD 都会被重新计算。但是，你也可用 `persist`（或 `cache`）方法将 RDD persist（持久化）到内存中；在这种情况下，Spark 为了下次查询时可以更快地访问，会把数据保存在集群上。此外，还支持持续持久化 RDDs 到磁盘，或复制到多个结点。
 
-### Basics
+### 基础
 
 <div class="codetabs">
 
 <div data-lang="scala" markdown="1">
 
-To illustrate RDD basics, consider the simple program below:
+为了说明 RDD 基础，请思考下面这个的简单程序：
 
 {% highlight scala %}
 val lines = sc.textFile("data.txt")
@@ -534,27 +430,21 @@ val lineLengths = lines.map(s => s.length)
 val totalLength = lineLengths.reduce((a, b) => a + b)
 {% endhighlight %}
 
-The first line defines a base RDD from an external file. This dataset is not loaded in memory or
-otherwise acted on: `lines` is merely a pointer to the file.
-The second line defines `lineLengths` as the result of a `map` transformation. Again, `lineLengths`
-is *not* immediately computed, due to laziness.
-Finally, we run `reduce`, which is an action. At this point Spark breaks the computation into tasks
-to run on separate machines, and each machine runs both its part of the map and a local reduction,
-returning only its answer to the driver program.
+第一行从外部文件定义基本RDD。该数据集未加载到内存中或执行其它action：`lines`仅是文件的指针。第二行定义`lineLengths`为`map`转换的结果。再次，由于懒加载，`lineLengths` *不是*马上计算。最后，我们运行`reduce`，这是一个动作。此时，Spark将计算分解为任务，以在不同的机器上运行，并且每台机器都运行其map的一部分和reduce任务，最后仅将其答案返回给驱动程序。
 
-If we also wanted to use `lineLengths` again later, we could add:
+如果我们也希望以后再次使用 `lineLengths`，我们还可以添加：
 
 {% highlight scala %}
 lineLengths.persist()
 {% endhighlight %}
 
-before the `reduce`, which would cause `lineLengths` to be saved in memory after the first time it is computed.
+在 `reduce` 之前，这会使得 `lineLengths` 在第一次计算之后就被保存在内存中。
 
 </div>
 
 <div data-lang="java" markdown="1">
 
-To illustrate RDD basics, consider the simple program below:
+为了说明 RDD 基础，请思考下面这个的简单程序：
 
 {% highlight java %}
 JavaRDD<String> lines = sc.textFile("data.txt");
@@ -562,27 +452,21 @@ JavaRDD<Integer> lineLengths = lines.map(s -> s.length());
 int totalLength = lineLengths.reduce((a, b) -> a + b);
 {% endhighlight %}
 
-The first line defines a base RDD from an external file. This dataset is not loaded in memory or
-otherwise acted on: `lines` is merely a pointer to the file.
-The second line defines `lineLengths` as the result of a `map` transformation. Again, `lineLengths`
-is *not* immediately computed, due to laziness.
-Finally, we run `reduce`, which is an action. At this point Spark breaks the computation into tasks
-to run on separate machines, and each machine runs both its part of the map and a local reduction,
-returning only its answer to the driver program.
+第一行从外部文件定义基本RDD。该数据集未加载到内存中或执行其它action：`lines`仅是文件的指针。第二行定义`lineLengths`为`map`转换的结果。再次，由于懒加载，`lineLengths` *不是*马上计算。最后，我们运行`reduce`，这是一个动作。此时，Spark将计算分解为任务，以在不同的机器上运行，并且每台机器都运行其map的一部分和reduce任务，最后仅将其答案返回给驱动程序。
 
-If we also wanted to use `lineLengths` again later, we could add:
+如果我们`lineLengths`以后还想使用，可以添加：
 
 {% highlight java %}
 lineLengths.persist(StorageLevel.MEMORY_ONLY());
 {% endhighlight %}
 
-before the `reduce`, which would cause `lineLengths` to be saved in memory after the first time it is computed.
+在 `reduce`之前，这会使得`lineLengths`在第一次计算后将其保存在内存中。
 
 </div>
 
 <div data-lang="python" markdown="1">
 
-To illustrate RDD basics, consider the simple program below:
+为了说明RDD基础知识，请考虑以下简单程序：
 
 {% highlight python %}
 lines = sc.textFile("data.txt")
@@ -590,39 +474,30 @@ lineLengths = lines.map(lambda s: len(s))
 totalLength = lineLengths.reduce(lambda a, b: a + b)
 {% endhighlight %}
 
-The first line defines a base RDD from an external file. This dataset is not loaded in memory or
-otherwise acted on: `lines` is merely a pointer to the file.
-The second line defines `lineLengths` as the result of a `map` transformation. Again, `lineLengths`
-is *not* immediately computed, due to laziness.
-Finally, we run `reduce`, which is an action. At this point Spark breaks the computation into tasks
-to run on separate machines, and each machine runs both its part of the map and a local reduction,
-returning only its answer to the driver program.
+第一行从外部文件定义基本RDD。该数据集未加载到内存中或执行其它action：`lines`仅是文件的指针。第二行定义`lineLengths`为`map`转换的结果。再次，由于懒加载，`lineLengths` *不是*马上计算。最后，我们运行`reduce`，这是一个动作。此时，Spark将计算分解为任务，以在不同的机器上运行，并且每台机器都运行其map的一部分和reduce任务，最后仅将其答案返回给驱动程序。
 
-If we also wanted to use `lineLengths` again later, we could add:
+如果我们`lineLengths`以后还想使用，可以添加：
 
 {% highlight python %}
 lineLengths.persist()
 {% endhighlight %}
 
-before the `reduce`, which would cause `lineLengths` to be saved in memory after the first time it is computed.
+在 `reduce`之前，这会使得`lineLengths`在第一次计算后将其保存在内存中。
 
 </div>
 
 </div>
 
-### Passing Functions to Spark
+###  给Spark传递函数
 
 <div class="codetabs">
 
 <div data-lang="scala" markdown="1">
 
-Spark's API relies heavily on passing functions in the driver program to run on the cluster.
-There are two recommended ways to do this:
+Spark的API在很大程度上依赖于在驱动程序中传递函数以在集群上运行。有两种推荐的方法可以做到这一点：
 
-* [Anonymous function syntax](http://docs.scala-lang.org/tour/basics.html#functions),
-  which can be used for short pieces of code.
-* Static methods in a global singleton object. For example, you can define `object MyFunctions` and then
-  pass `MyFunctions.func1`, as follows:
+* [匿名函数语法](http://docs.scala-lang.org/tour/basics.html#functions)，可用于简短的代码段。
+* 全局单例对象中的静态方法。例如，你可以如下定义`object MyFunctions`并传递`MyFunctions.func1`：
 
 {% highlight scala %}
 object MyFunctions {
@@ -632,9 +507,7 @@ object MyFunctions {
 myRdd.map(MyFunctions.func1)
 {% endhighlight %}
 
-Note that while it is also possible to pass a reference to a method in a class instance (as opposed to
-a singleton object), this requires sending the object that contains that class along with the method.
-For example, consider:
+请注意，虽然也可以在类实例中传递对方法的引用（与单例对象相对），但需要将包含该类的对象与方法一起发送。例如：
 
 {% highlight scala %}
 class MyClass {
@@ -643,11 +516,9 @@ class MyClass {
 }
 {% endhighlight %}
 
-Here, if we create a new `MyClass` instance and call `doStuff` on it, the `map` inside there references the
-`func1` method *of that `MyClass` instance*, so the whole object needs to be sent to the cluster. It is
-similar to writing `rdd.map(x => this.func1(x))`.
+在这里，如果我们创建一个`MyClass`实例，并调用`doStuff`，`map`里面引用的 `func1`方法*是`MyClass`实例*，所以整个对象需要被发送到集群。类似于`rdd.map(x => this.func1(x))`。
 
-In a similar way, accessing fields of the outer object will reference the whole object:
+以类似的方式，访问外部对象的字段将引用整个对象：
 
 {% highlight scala %}
 class MyClass {
@@ -656,8 +527,7 @@ class MyClass {
 }
 {% endhighlight %}
 
-is equivalent to writing `rdd.map(x => this.field + x)`, which references all of `this`. To avoid this
-issue, the simplest way is to copy `field` into a local variable instead of accessing it externally:
+等同于写作`rdd.map(x => this.field + x)`，这样就会引用`this`对象。为避免此问题，最简单的方法是将其复制`field`到局部变量中，而不是从外部访问它：
 
 {% highlight scala %}
 def doStuff(rdd: RDD[String]): RDD[String] = {
@@ -669,19 +539,12 @@ def doStuff(rdd: RDD[String]): RDD[String] = {
 </div>
 
 <div data-lang="java"  markdown="1">
+Spark的API在很大程度上依赖于在驱动程序中传递函数以在群集上运行。在Java中，函数由实现[org.apache.spark.api.java.function](api/java/index.html?org/apache/spark/api/java/function/package-summary.html)包中的接口类表示 。有两种创建此类函数的方法：
 
-Spark's API relies heavily on passing functions in the driver program to run on the cluster.
-In Java, functions are represented by classes implementing the interfaces in the
-[org.apache.spark.api.java.function](api/java/index.html?org/apache/spark/api/java/function/package-summary.html) package.
-There are two ways to create such functions:
+* 在你自己的类中（作为匿名内部类或命名类）实现Function接口，并将其实例传递给Spark。
+* 使用[lambda表达式](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html) 来简洁地定义一个实现。
 
-* Implement the Function interfaces in your own class, either as an anonymous inner class or a named one,
-  and pass an instance of it to Spark.
-* Use [lambda expressions](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html)
-  to concisely define an implementation.
-
-While much of this guide uses lambda syntax for conciseness, it is easy to use all the same APIs
-in long-form. For example, we could have written our code above as follows:
+尽管本指南中的大部分内容都使用lambda语法来简化，但使用较为啰嗦的长格式API实现相同功能还是很容易的。例如，我们可以将上面的代码编写如下：
 
 {% highlight java %}
 JavaRDD<String> lines = sc.textFile("data.txt");
@@ -693,7 +556,7 @@ int totalLength = lineLengths.reduce(new Function2<Integer, Integer, Integer>() 
 });
 {% endhighlight %}
 
-Or, if writing the functions inline is unwieldy:
+如果你觉得写内部类比较麻烦的话可以这样做：
 
 {% highlight java %}
 class GetLength implements Function<String, Integer> {
@@ -708,25 +571,23 @@ JavaRDD<Integer> lineLengths = lines.map(new GetLength());
 int totalLength = lineLengths.reduce(new Sum());
 {% endhighlight %}
 
-Note that anonymous inner classes in Java can also access variables in the enclosing scope as long
-as they are marked `final`. Spark will ship copies of these variables to each worker node as it does
-for other languages.
+请注意，Java中的匿名内部类也可以访问封闭范围内的变量，只要它们被标记为`final`即可。与其它语言一样，Spark会将这些变量的副本发送到每个工作程序节点。
 
 </div>
 
 <div data-lang="python"  markdown="1">
 
-Spark's API relies heavily on passing functions in the driver program to run on the cluster.
-There are three recommended ways to do this:
+Spark的API在很大程度上依赖于在驱动程序中传递函数以在群集上运行。建议使用三种方法来执行此操作：
 
-* [Lambda expressions](https://docs.python.org/2/tutorial/controlflow.html#lambda-expressions),
-  for simple functions that can be written as an expression. (Lambdas do not support multi-statement
-  functions or statements that do not return a value.)
+* [Lambda表达式](https://docs.python.org/2/tutorial/controlflow.html#lambda-expressions)，用于可以作为表达式编写的简单函数。（Lambda不支持多语句函数和没有返回值的语句。）
+* 对比较长的代码段，可以在Spark中调用`def`定义的函数。
 * Local `def`s inside the function calling into Spark, for longer code.
-* Top-level functions in a module.
+* 模块中的顶级函数。
 
 For example, to pass a longer function than can be supported using a `lambda`, consider
 the code below:
+
+如，要传递比lambda表达式所支持的更长的函数，可以使用下面这种方式：
 
 {% highlight python %}
 """MyScript.py"""
@@ -739,9 +600,7 @@ if __name__ == "__main__":
     sc.textFile("file.txt").map(myFunc)
 {% endhighlight %}
 
-Note that while it is also possible to pass a reference to a method in a class instance (as opposed to
-a singleton object), this requires sending the object that contains that class along with the method.
-For example, consider:
+请注意，虽然也可以在类实例中传递对方法的引用（与单例对象相对），但需要将包含该类的对象与方法一起发送。例如，考虑：
 
 {% highlight python %}
 class MyClass(object):
@@ -751,10 +610,9 @@ class MyClass(object):
         return rdd.map(self.func)
 {% endhighlight %}
 
-Here, if we create a `new MyClass` and call `doStuff` on it, the `map` inside there references the
-`func` method *of that `MyClass` instance*, so the whole object needs to be sent to the cluster.
+在这里，如果我们创建了一个`MyClass`并调用`doStuff`，`map`里面有引用的 `func`方法*是的`MyClass`实例*，所以整个对象需要被发送到群集。
 
-In a similar way, accessing fields of the outer object will reference the whole object:
+以类似的方式，访问外部对象的字段将引用整个对象：
 
 {% highlight python %}
 class MyClass(object):
@@ -764,8 +622,7 @@ class MyClass(object):
         return rdd.map(lambda s: self.field + s)
 {% endhighlight %}
 
-To avoid this issue, the simplest way is to copy `field` into a local variable instead
-of accessing it externally:
+为避免此问题，最简单的方法是将其复制`field`到局部变量中，而不是从外部访问它：
 
 {% highlight python %}
 def doStuff(self, rdd):
@@ -777,12 +634,13 @@ def doStuff(self, rdd):
 
 </div>
 
-### Understanding closures <a name="ClosuresLink"></a>
-One of the harder things about Spark is understanding the scope and life cycle of variables and methods when executing code across a cluster. RDD operations that modify variables outside of their scope can be a frequent source of confusion. In the example below we'll look at code that uses `foreach()` to increment a counter, but similar issues can occur for other operations as well.
+### 了解闭包
 
-#### Example
+关于Spark的难点之一是在跨集群执行代码时了解变量和方法的执行范围和生命周期。修改超出其范围的变量的RDD操作可能经常引起混乱。在下面的示例中，我们将查看使用`foreach()`实现计数器的代码，但是其它操作也会发生类似的问题。
 
-Consider the naive RDD element sum below, which may behave differently depending on whether execution is happening within the same JVM. A common example of this is when running Spark in `local` mode (`--master = local[n]`) versus deploying a Spark application to a cluster (e.g. via spark-submit to YARN):
+#### 例子
+
+考虑一个简单的 RDD 元素求和，以下行为可能不同，具体取决于是否在同一个 JVM 中执行。一个常见的例子是当 Spark 运行在 `local` 本地模式（`--master = local[n]`）时，与部署 Spark 应用到群集（例如，通过 spark-submit 到 YARN）:
 
 <div class="codetabs">
 
@@ -790,7 +648,6 @@ Consider the naive RDD element sum below, which may behave differently depending
 {% highlight scala %}
 var counter = 0
 var rdd = sc.parallelize(data)
-
 // Wrong: Don't do this!!
 rdd.foreach(x => counter += x)
 
@@ -827,40 +684,32 @@ print("Counter value: ", counter)
 
 </div>
 
-#### Local vs. cluster modes
+#### 本地模式与集群模式
 
-The behavior of the above code is undefined, and may not work as intended. To execute jobs, Spark breaks up the processing of RDD operations into tasks, each of which is executed by an executor. Prior to execution, Spark computes the task's **closure**. The closure is those variables and methods which must be visible for the executor to perform its computations on the RDD (in this case `foreach()`). This closure is serialized and sent to each executor.
+上面的代码行为是不确定的，并且可能无法按预期正常工作。执行作业时，Spark 会分解 RDD 操作到每个 executor 中的 task 里。在执行之前，Spark 计算任务的 **closure**（闭包）。闭包是指 executor 要在RDD上进行计算时必须对执行节点可见的那些变量和方法（在这里是foreach()）。闭包被序列化并被发送到每个 executor。
 
-The variables within the closure sent to each executor are now copies and thus, when **counter** is referenced within the `foreach` function, it's no longer the **counter** on the driver node. There is still a **counter** in the memory of the driver node but this is no longer visible to the executors! The executors only see the copy from the serialized closure. Thus, the final value of **counter** will still be zero since all operations on **counter** were referencing the value within the serialized closure.
+发送给每个executor的闭包中的变量是driver中的副本，因此，在`foreach`中引用的**counter**不是executor节点上的**counter**。driver节点的内存中也存在一个**counter**，但是executor看不到该**counter**！executor仅从序列化闭包中看到一个副本。因此，**counter**的所有操作都引用了序列化闭包内的值，所以**counter**的最终值仍将为零。
 
-In local mode, in some circumstances, the `foreach` function will actually execute within the same JVM as the driver and will reference the same original **counter**, and may actually update it.
+本地模式在某些情况下，该`foreach`函数实际上是在与driver相同的JVM中执行，并且将引用相同的原始**counter**，所以可能会对其进行更新。
 
-To ensure well-defined behavior in these sorts of scenarios one should use an [`Accumulator`](#accumulators). Accumulators in Spark are used specifically to provide a mechanism for safely updating a variable when execution is split up across worker nodes in a cluster. The Accumulators section of this guide discusses these in more detail.
+为确保在此类情况下行为明确，应使用[`Accumulator`](rdd-programming-guide.html#accumulators)（累加器）。Spark中的累加器专门用于提供一种机制，用于在集群中的各个工作节点之间拆分执行时安全地更新变量。本指南的“累加器”部分将详细讨论这些内容。
 
-In general, closures - constructs like loops or locally defined methods, should not be used to mutate some global state. Spark does not define or guarantee the behavior of mutations to objects referenced from outside of closures. Some code that does this may work in local mode, but that's just by accident and such code will not behave as expected in distributed mode. Use an Accumulator instead if some global aggregation is needed.
+通常，闭包以及像循环或局部定义的方法之类的结构，不应用于某些全局状态。Spark不能定义或保证从闭包外部引用的对象的突变行为。某些执行此操作的代码可能会在本地模式下工作，但这只是偶然的情况，此类代码在分布式模式下将无法正常运行。如果需要一些全局聚合，请使用累加器。
 
-#### Printing elements of an RDD
-Another common idiom is attempting to print out the elements of an RDD using `rdd.foreach(println)` or `rdd.map(println)`. On a single machine, this will generate the expected output and print all the RDD's elements. However, in `cluster` mode, the output to `stdout` being called by the executors is now writing to the executor's `stdout` instead, not the one on the driver, so `stdout` on the driver won't show these! To print all elements on the driver, one can use the `collect()` method to first bring the RDD to the driver node thus: `rdd.collect().foreach(println)`. This can cause the driver to run out of memory, though, because `collect()` fetches the entire RDD to a single machine; if you only need to print a few elements of the RDD, a safer approach is to use the `take()`: `rdd.take(100).foreach(println)`.
+#### 打印RDD中的元素
 
-### Working with Key-Value Pairs
+还有两个常见的打印RDD中元素的方法是`rdd.foreach(println)` 和 `rdd.map(println)`。在单台机器上，这将产生预期的输出并打印 RDD 的所有元素。但是在集群 `cluster` 模式下，driver中的`stdout`会被executor中的`stdout`给代替。要打印 `driver` 程序的所有元素，可以使用 `collect()` 方法首先把RDD中所有元素放到driver程序节点上：`rdd.collect().foreach(println)`。但是这种操作可能会导致driver的内存不足。因为`collect()`会将整个RDD提取到一台计算机上。如果只需要打印RDD的一些元素，则更安全的方法是使用`take()`：`rdd.take(100).foreach(println)`。
+
+### 使用键值对
 
 <div class="codetabs">
 
 <div data-lang="scala" markdown="1">
+大多数Spark操作可在包含任何类型的RDD对象上运行，但一些特殊操作仅可用于键-值对的RDD。最常见的是分布式“shuffle”操作，例如通过键对元素进行分组或聚合。
 
-While most Spark operations work on RDDs containing any type of objects, a few special operations are
-only available on RDDs of key-value pairs.
-The most common ones are distributed "shuffle" operations, such as grouping or aggregating the elements
-by a key.
+在Scala中，这些操作在包含[Tuple2](http://www.scala-lang.org/api/2.12.10/index.html#scala.Tuple2)对象（该语言的内置元组，只需编写`(a, b)`即可创建）的[RDD](http://www.scala-lang.org/api/2.12.10/index.html#scala.Tuple2)上自动可用 。[PairRDDFunctions](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)类中提供键值对操作， 该类会自动包装RDD元组。
 
-In Scala, these operations are automatically available on RDDs containing
-[Tuple2](http://www.scala-lang.org/api/{{site.SCALA_VERSION}}/index.html#scala.Tuple2) objects
-(the built-in tuples in the language, created by simply writing `(a, b)`). The key-value pair operations are available in the
-[PairRDDFunctions](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions) class,
-which automatically wraps around an RDD of tuples.
-
-For example, the following code uses the `reduceByKey` operation on key-value pairs to count how
-many times each line of text occurs in a file:
+例如，以下代码对键值对使用`reduceByKey`运算来计算文件中每一行文本出现的次数：
 
 {% highlight scala %}
 val lines = sc.textFile("data.txt")
@@ -868,36 +717,20 @@ val pairs = lines.map(s => (s, 1))
 val counts = pairs.reduceByKey((a, b) => a + b)
 {% endhighlight %}
 
-We could also use `counts.sortByKey()`, for example, to sort the pairs alphabetically, and finally
-`counts.collect()` to bring them back to the driver program as an array of objects.
+我们也可以使用`counts.sortByKey()`按字母顺序对键值对排序，最后使用 `counts.collect()`将它们作为数组对象带到driver中。
 
-**Note:** when using custom objects as the key in key-value pair operations, you must be sure that a
-custom `equals()` method is accompanied with a matching `hashCode()` method.  For full details, see
-the contract outlined in the [Object.hashCode()
-documentation](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--).
+**注意：**在键-值对操作中使用自定义对象作为键时，必须确保自定义`equals()`方法与`hashCode()`方法一起使用。有关完整的详细信息，请参见[Object.hashCode（）文档中](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--)的概述。
 
 </div>
 
 <div data-lang="java" markdown="1">
+大多数Spark操作可在包含任何类型的RDD对象上运行，但一些特殊操作仅可用于键-值对的RDD。最常见的是分布式“shuffle”操作，例如通过键对元素进行分组或聚合。
 
-While most Spark operations work on RDDs containing any type of objects, a few special operations are
-only available on RDDs of key-value pairs.
-The most common ones are distributed "shuffle" operations, such as grouping or aggregating the elements
-by a key.
+在Java中，键值对使用Scala标准库中的[scala.Tuple2](http://www.scala-lang.org/api/2.12.10/index.html#scala.Tuple2)类表示 。你可以简单的调用`new Tuple2(a, b)`来创建一个元组，然后使用`tuple._1()`和`tuple._2()`来访问它的字段。
 
-In Java, key-value pairs are represented using the
-[scala.Tuple2](http://www.scala-lang.org/api/{{site.SCALA_VERSION}}/index.html#scala.Tuple2) class
-from the Scala standard library. You can simply call `new Tuple2(a, b)` to create a tuple, and access
-its fields later with `tuple._1()` and `tuple._2()`.
+键值对的[RDD](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html)由[JavaPairRDD](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html)类表示 。你可以使用特殊的`map`操作（例如 `mapToPair`和`flatMapToPair`）从JavaRDD来构造JavaPairRDD 。JavaPairRDD将同时具有标准的RDD功能和特殊的键值对功能。
 
-RDDs of key-value pairs are represented by the
-[JavaPairRDD](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html) class. You can construct
-JavaPairRDDs from JavaRDDs using special versions of the `map` operations, like
-`mapToPair` and `flatMapToPair`. The JavaPairRDD will have both standard RDD functions and special
-key-value ones.
-
-For example, the following code uses the `reduceByKey` operation on key-value pairs to count how
-many times each line of text occurs in a file:
+例如，以下代码对键值对使用`reduceByKey`运算来计算文件中每一行文本出现的次数：
 
 {% highlight scala %}
 JavaRDD<String> lines = sc.textFile("data.txt");
@@ -905,28 +738,18 @@ JavaPairRDD<String, Integer> pairs = lines.mapToPair(s -> new Tuple2(s, 1));
 JavaPairRDD<String, Integer> counts = pairs.reduceByKey((a, b) -> a + b);
 {% endhighlight %}
 
-We could also use `counts.sortByKey()`, for example, to sort the pairs alphabetically, and finally
-`counts.collect()` to bring them back to the driver program as an array of objects.
+我们也可以使用`couns.sortByKey()`按字母顺序对键值对排序，最后使用 `counts.collect()`将它们作为数组对象带到driver中。
 
-**Note:** when using custom objects as the key in key-value pair operations, you must be sure that a
-custom `equals()` method is accompanied with a matching `hashCode()` method.  For full details, see
-the contract outlined in the [Object.hashCode()
-documentation](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--).
+**注意：**在键-值对操作中使用自定义对象作为键时，必须确保自定义`equals()`方法与hashCode()`方法一起使用。有关完整的详细信息，请参见[Object.hashCode（）文档中](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#hashCode--)概述的。
 
 </div>
 
 <div data-lang="python" markdown="1">
+大多数Spark操作可在包含任何类型的RDD对象上运行，但一些特殊操作仅可用于键-值对的RDD。最常见的是分布式“shuffle”操作，例如通过键对元素进行分组或聚合。
 
-While most Spark operations work on RDDs containing any type of objects, a few special operations are
-only available on RDDs of key-value pairs.
-The most common ones are distributed "shuffle" operations, such as grouping or aggregating the elements
-by a key.
+在Python中，这些操作适用于包含内置Python元组（如`(1, 2)`）的RDD 。只需创建这样的元组，然后调用所需的操作即可。
 
-In Python, these operations work on RDDs containing built-in Python tuples such as `(1, 2)`.
-Simply create such tuples and then call your desired operation.
-
-For example, the following code uses the `reduceByKey` operation on key-value pairs to count how
-many times each line of text occurs in a file:
+例如，以下代码`reduceByKey`对键值对使用运算来计算文件中每一行文本出现的次数：
 
 {% highlight python %}
 lines = sc.textFile("data.txt")
@@ -934,390 +757,277 @@ pairs = lines.map(lambda s: (s, 1))
 counts = pairs.reduceByKey(lambda a, b: a + b)
 {% endhighlight %}
 
-We could also use `counts.sortByKey()`, for example, to sort the pairs alphabetically, and finally
-`counts.collect()` to bring them back to the driver program as a list of objects.
-
+我们也可以使用`couns.sortByKey()`按字母顺序对键值对排序，最后使用 `counts.collect()`将它们作为数组对象带到driver中。
 </div>
-
 </div>
 
 
-### Transformations
-
-The following table lists some of the common transformations supported by Spark. Refer to the
-RDD API doc
-([Scala](api/scala/index.html#org.apache.spark.rdd.RDD),
- [Java](api/java/index.html?org/apache/spark/api/java/JavaRDD.html),
- [Python](api/python/pyspark.html#pyspark.RDD),
- [R](api/R/index.html))
-and pair RDD functions doc
-([Scala](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions),
- [Java](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html))
-for details.
+### Transformations（转换）
+下表列出了Spark支持的一些常见转换。有关详细信息，请参考RDD API文档（[Scala](api/scala/index.html#org.apache.spark.rdd.RDD)， [Java](api/java/index.html?org/apache/spark/api/java/JavaRDD.html)， [Python](api/python/pyspark.html#pyspark.RDD)， [R](api/R/index.html)）和RDD函数对doc（[Scala](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)， [Java](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html)）。
 
 <table class="table">
-<tr><th style="width:25%">Transformation</th><th>Meaning</th></tr>
+<tr><th style="width:25%">Transformation</th><th>含义</th></tr>
 <tr>
   <td> <b>map</b>(<i>func</i>) </td>
-  <td> Return a new distributed dataset formed by passing each element of the source through a function <i>func</i>. </td>
+  <td> 返回一个新的分布式数据集，该数据集是通过将源数据的每个元素传递给
+ <i>func</i>函数形成的 </td>
 </tr>
 <tr>
   <td> <b>filter</b>(<i>func</i>) </td>
-  <td> Return a new dataset formed by selecting those elements of the source on which <i>func</i> returns true. </td>
+  <td> 返回一个新的分布式数据集，它由每个源数据中应用一个函数<i>func</i>且返回值为true的元素组成。</td>
 </tr>
 <tr>
   <td> <b>flatMap</b>(<i>func</i>) </td>
-  <td> Similar to map, but each input item can be mapped to 0 or more output items (so <i>func</i> should return a Seq rather than a single item). </td>
+  <td> 与map相似，但是每个输入项都可以映射到0个或多个输出项（因此<i>func</i>应该返回Seq而不是单个项）。</td>
 </tr>
 <tr>
   <td> <b>mapPartitions</b>(<i>func</i>) <a name="MapPartLink"></a> </td>
-  <td> Similar to map, but runs separately on each partition (block) of the RDD, so <i>func</i> must be of type
-    Iterator&lt;T&gt; => Iterator&lt;U&gt; when running on an RDD of type T. </td>
+  <td> 与map相似，但是分别在RDD的每个分区（块）上运行，因此<i>func</i>在类型T的RDD上运行时必须为Iterator&lt;T&gt; => Iterator&lt;U&gt; </td>
 </tr>
 <tr>
   <td> <b>mapPartitionsWithIndex</b>(<i>func</i>) </td>
-  <td> Similar to mapPartitions, but also provides <i>func</i> with an integer value representing the index of
-  the partition, so <i>func</i> must be of type (Int, Iterator&lt;T&gt;) => Iterator&lt;U&gt; when running on an RDD of type T.
+  <td> 
+    与mapPartitions类似，但它还为func提供表示分区索引的整数值，因此当在类型T的RDD上运行时，<i>func</i>必须为(Int, Iterator&lt;T&gt;) => Iterator&lt;U&gt;类型。
   </td>
 </tr>
 <tr>
   <td> <b>sample</b>(<i>withReplacement</i>, <i>fraction</i>, <i>seed</i>) </td>
-  <td> Sample a fraction <i>fraction</i> of the data, with or without replacement, using a given random number generator seed. </td>
+  <td> 样本数据，设置是否放回（withReplacement），采样的百分比（_fraction_）、使用指定的随机数生成器的种子（seed）。</td>
 </tr>
 <tr>
   <td> <b>union</b>(<i>otherDataset</i>) </td>
-  <td> Return a new dataset that contains the union of the elements in the source dataset and the argument. </td>
+  <td> 返回一个新的数据集，其中包含源数据集中的元素和参数的并集。 </td>
 </tr>
 <tr>
   <td> <b>intersection</b>(<i>otherDataset</i>) </td>
-  <td> Return a new RDD that contains the intersection of elements in the source dataset and the argument. </td>
+  <td> 返回一个新的RDD，其中包含源数据集中的元素与参数的交集。 </td>
 </tr>
 <tr>
   <td> <b>distinct</b>([<i>numPartitions</i>])) </td>
-  <td> Return a new dataset that contains the distinct elements of the source dataset.</td>
+  <td> 返回一个新的数据集，其中包含源数据集去重后的元素。</td>
 </tr>
 <tr>
   <td> <b>groupByKey</b>([<i>numPartitions</i>]) <a name="GroupByLink"></a> </td>
-  <td> When called on a dataset of (K, V) pairs, returns a dataset of (K, Iterable&lt;V&gt;) pairs. <br />
-    <b>Note:</b> If you are grouping in order to perform an aggregation (such as a sum or
-      average) over each key, using <code>reduceByKey</code> or <code>aggregateByKey</code> will yield much better
-      performance.
+  <td> 
+    在(K, V)对型的dataset上调用，返回一个(K, Iterable&lt;V&gt;)型的dataset<br />
+    <b>注意：</b> 如果你想在每个key上执行sum或average这样的操作，使用<code>reduceByKey</code>或者<code>aggregateByKey</code>性能会更好。
     <br />
-    <b>Note:</b> By default, the level of parallelism in the output depends on the number of partitions of the parent RDD.
-      You can pass an optional <code>numPartitions</code> argument to set a different number of tasks.
+    <b>注意：</b> 默认情况下, 输出的并行度取决于父RDD的分区数。你可以通过可选参数<code>numPartitions</code>设置不同的task数量。
   </td>
 </tr>
 <tr>
   <td> <b>reduceByKey</b>(<i>func</i>, [<i>numPartitions</i>]) <a name="ReduceByLink"></a> </td>
-  <td> When called on a dataset of (K, V) pairs, returns a dataset of (K, V) pairs where the values for each key are aggregated using the given reduce function <i>func</i>, which must be of type (V,V) => V. Like in <code>groupByKey</code>, the number of reduce tasks is configurable through an optional second argument. </td>
+  <td> 在(K, V)对型的dataset上调用，返回一个(K, V)对型的dataset，该dataset的值是传入的reduce函数<i>func</i>在每一个K上聚合的结果。该函数的类型为(V,V) => V。跟<code>groupByKey</code>一样，task的数量是可以通过第二个可选参数设置的。</td>
 </tr>
 <tr>
   <td> <b>aggregateByKey</b>(<i>zeroValue</i>)(<i>seqOp</i>, <i>combOp</i>, [<i>numPartitions</i>]) <a name="AggregateByLink"></a> </td>
-  <td> When called on a dataset of (K, V) pairs, returns a dataset of (K, U) pairs where the values for each key are aggregated using the given combine functions and a neutral "zero" value. Allows an aggregated value type that is different than the input value type, while avoiding unnecessary allocations. Like in <code>groupByKey</code>, the number of reduce tasks is configurable through an optional second argument. </td>
+  <td> 在(K, V)对的dataset上调用，返回一个(K, U)对的dataset，该值是使用给定的combine函数和“零”值汇总每个键的结果。允许聚合值的类型与输入值的类型不一样，同时避免不必要的配置。像<code>groupByKey</code>一样，reduce tasks的数量是可以通过第二个可选的参数来配置的。</td>
 </tr>
 <tr>
   <td> <b>sortByKey</b>([<i>ascending</i>], [<i>numPartitions</i>]) <a name="SortByLink"></a> </td>
-  <td> When called on a dataset of (K, V) pairs where K implements Ordered, returns a dataset of (K, V) pairs sorted by keys in ascending or descending order, as specified in the boolean <code>ascending</code> argument.</td>
+  <td>在一个(K, V)对的dataset上调用，其中的K实现了Ordered，返回一个按key升序或降序的 (K, V)对的dataset，由boolean型的<code>ascending</code>参数来指定。</td>
 </tr>
 <tr>
   <td> <b>join</b>(<i>otherDataset</i>, [<i>numPartitions</i>]) <a name="JoinLink"></a> </td>
-  <td> When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (V, W)) pairs with all pairs of elements for each key.
-    Outer joins are supported through <code>leftOuterJoin</code>, <code>rightOuterJoin</code>, and <code>fullOuterJoin</code>.
-  </td>
+  <td>在(K, V)型和(K, W)型的dataset上调用，返回一个(K, (V, W))型的dataset，该dataset中包含了所有key中的元素。可以通过<code>leftOuterJoin</code>, <code>rightOuterJoin</code>以及 <code>fullOuterJoin</code>实现外连接。</td>
 </tr>
 <tr>
   <td> <b>cogroup</b>(<i>otherDataset</i>, [<i>numPartitions</i>]) <a name="CogroupLink"></a> </td>
-  <td> When called on datasets of type (K, V) and (K, W), returns a dataset of (K, (Iterable&lt;V&gt;, Iterable&lt;W&gt;)) tuples. This operation is also called <code>groupWith</code>. </td>
+  <td> 在(K, V)型和(K, W)型的dataset上调用, 返回一个(K, (Iterable&lt;V&gt;, Iterable&lt;W&gt;))型的元组dataset。该操作调用了<code>groupWith</code>。</td>
 </tr>
 <tr>
   <td> <b>cartesian</b>(<i>otherDataset</i>) </td>
-  <td> When called on datasets of types T and U, returns a dataset of (T, U) pairs (all pairs of elements). </td>
+  <td>在T和U型的dataset上调用，返回(T, U)对型的dataset。（实际上就是求笛卡尔积）。</td>
 </tr>
 <tr>
   <td> <b>pipe</b>(<i>command</i>, <i>[envVars]</i>) </td>
-  <td> Pipe each partition of the RDD through a shell command, e.g. a Perl or bash script. RDD elements are written to the
-    process's stdin and lines output to its stdout are returned as an RDD of strings. </td>
+  <td>通过shell命令（例如Perl或bash脚本）对RDD的每个分区进行管道传输。RDD元素被写入
+进程的标准输入和输出到其标准输出的行作为字符串的RDD返回。</td>
 </tr>
 <tr>
   <td> <b>coalesce</b>(<i>numPartitions</i>) <a name="CoalesceLink"></a> </td>
-  <td> Decrease the number of partitions in the RDD to numPartitions. Useful for running operations more efficiently
-    after filtering down a large dataset. </td>
+  <td> 将RDD中的分区数减少到numPartitions。在筛选大型数据集后，。 </td>
 </tr>
 <tr>
-  <td> <b>repartition</b>(<i>numPartitions</i>) </td>
-  <td> Reshuffle the data in the RDD randomly to create either more or fewer partitions and balance it across them.
-    This always shuffles all data over the network. <a name="RepartitionLink"></a></td>
+  <td> <b>repartition</b>(<i>numPartitions</i>) <a name="RepartitionLink"></a></td>
+  <td> 在RDD中随机shuffle数据以创建更多或更少的分区，并在整个分区之间保持平衡。这个操作会通过网络重新整理所有数据。 </td>
 </tr>
 <tr>
   <td> <b>repartitionAndSortWithinPartitions</b>(<i>partitioner</i>) <a name="Repartition2Link"></a></td>
-  <td> Repartition the RDD according to the given partitioner and, within each resulting partition,
-  sort records by their keys. This is more efficient than calling <code>repartition</code> and then sorting within
-  each partition because it can push the sorting down into the shuffle machinery. </td>
+  <td>根据给定的分区程序对RDD重新分区，并在每个结果分区中，按其键对记录进行排序。这比调用<code> repartition </code>然后在每个分区中进行排序更高效，因为它可以直接将排序结果push到shuffle machinery中。</td>
 </tr>
 </table>
 
-### Actions
 
-The following table lists some of the common actions supported by Spark. Refer to the
-RDD API doc
-([Scala](api/scala/index.html#org.apache.spark.rdd.RDD),
- [Java](api/java/index.html?org/apache/spark/api/java/JavaRDD.html),
- [Python](api/python/pyspark.html#pyspark.RDD),
- [R](api/R/index.html))
+### Actions（动作）
 
-and pair RDD functions doc
-([Scala](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions),
- [Java](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html))
-for details.
+下表列出了Spark支持的一些常见action。请参考RDD API文档（[Scala](api/scala/index.html#org.apache.spark.rdd.RDD)， [Java](api/java/index.html?org/apache/spark/api/java/JavaRDD.html)， [Python](api/python/pyspark.html#pyspark.RDD)， [R](api/R/index.html)）
+
+和RDD对函数文档（[Scala](api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)和 [Java](api/java/index.html?org/apache/spark/api/java/JavaPairRDD.html)）以获取详细信息。
 
 <table class="table">
-<tr><th>Action</th><th>Meaning</th></tr>
+<tr><th>Action</th><th>含义</th></tr>
 <tr>
   <td> <b>reduce</b>(<i>func</i>) </td>
-  <td> Aggregate the elements of the dataset using a function <i>func</i> (which takes two arguments and returns one). The function should be commutative and associative so that it can be computed correctly in parallel. </td>
+  <td>使用函数<code>func</code>聚合dataset中的元素，该函数输入两个参数，但是返回一个值。这个函数应该是可交换（commutative）和关联（associative）的，这样才能保证它可以被并行地正确计算。</td>
 </tr>
 <tr>
   <td> <b>collect</b>() </td>
-  <td> Return all the elements of the dataset as an array at the driver program. This is usually useful after a filter or other operation that returns a sufficiently small subset of the data. </td>
+  <td> 在driver中将数据集的所有元素作为数组返回。这在返回足够小的数据子集的过滤器或其它操作之后很有用。</td>
 </tr>
 <tr>
   <td> <b>count</b>() </td>
-  <td> Return the number of elements in the dataset. </td>
+  <td> 返回dataset中元素的数量 </td>
 </tr>
 <tr>
   <td> <b>first</b>() </td>
-  <td> Return the first element of the dataset (similar to take(1)). </td>
+  <td> 返回dataset中的第一个元素（类似于take(1)） </td>
 </tr>
 <tr>
   <td> <b>take</b>(<i>n</i>) </td>
-  <td> Return an array with the first <i>n</i> elements of the dataset. </td>
+  <td> 将dataset中的前<i>n</i>个元素作为数组返回 </td>
 </tr>
 <tr>
   <td> <b>takeSample</b>(<i>withReplacement</i>, <i>num</i>, [<i>seed</i>]) </td>
-  <td> Return an array with a random sample of <i>num</i> elements of the dataset, with or without replacement, optionally pre-specifying a random number generator seed.</td>
+  <td> 对一个dataset进行随机抽样，返回一个包含<i>num</i>个随机抽样元素的数组，参数 withReplacement指定是否有放回抽样，参数seed指定生成随机数的种子。 </td>
 </tr>
 <tr>
   <td> <b>takeOrdered</b>(<i>n</i>, <i>[ordering]</i>) </td>
-  <td> Return the first <i>n</i> elements of the RDD using either their natural order or a custom comparator. </td>
+  <td> 返回RDD按自然顺序或自定义比较器排序后的前<i>n</i>个元素。 </td>
 </tr>
 <tr>
   <td> <b>saveAsTextFile</b>(<i>path</i>) </td>
-  <td> Write the elements of the dataset as a text file (or set of text files) in a given directory in the local filesystem, HDFS or any other Hadoop-supported file system. Spark will call toString on each element to convert it to a line of text in the file. </td>
+  <td> 将dataset中的元素以文本文件（或文本文件集合）的形式写入本地文件系统、HDFS或其它Hadoop支持的文件系统中。Spark将对每个元素调用toString方法，将数据元素转换为文本文件中的一行记录。 </td>
 </tr>
 <tr>
   <td> <b>saveAsSequenceFile</b>(<i>path</i>) <br /> (Java and Scala) </td>
-  <td> Write the elements of the dataset as a Hadoop SequenceFile in a given path in the local filesystem, HDFS or any other Hadoop-supported file system. This is available on RDDs of key-value pairs that implement Hadoop's Writable interface. In Scala, it is also
-   available on types that are implicitly convertible to Writable (Spark includes conversions for basic types like Int, Double, String, etc). </td>
+  <td>将dataset中的元素以Hadoop SequenceFile的形式写入到本地文件系统、HDFS或其它 Hadoop支持的文件系统中。该操作可以在实现了Hadoop Writable接口的键值对RDD上使用。在Scala中，它还可以隐式转换为Writable的类型（Spark包括了基本类型的转换，如Int，Double，String 等)。</td>
 </tr>
 <tr>
   <td> <b>saveAsObjectFile</b>(<i>path</i>) <br /> (Java and Scala) </td>
-  <td> Write the elements of the dataset in a simple format using Java serialization, which can then be loaded using
-    <code>SparkContext.objectFile()</code>. </td>
+  <td> 使用Java序列化以简单的格式写数据集的元素，然后使用<code>SparkContext.objectFile()</code>进行加载。 </td>
 </tr>
 <tr>
   <td> <b>countByKey</b>() <a name="CountByLink"></a> </td>
-  <td> Only available on RDDs of type (K, V). Returns a hashmap of (K, Int) pairs with the count of each key. </td>
+  <td> 仅适用于(K, V)类型的RDD。返回具有每个key计数的(K, Int)型的hashmap。</td>
 </tr>
 <tr>
   <td> <b>foreach</b>(<i>func</i>) </td>
-  <td> Run a function <i>func</i> on each element of the dataset. This is usually done for side effects such as updating an <a href="#accumulators">Accumulator</a> or interacting with external storage systems.
-  <br /><b>Note</b>: modifying variables other than Accumulators outside of the <code>foreach()</code> may result in undefined behavior. See <a href="#understanding-closures-a-nameclosureslinka">Understanding closures </a> for more details.</td>
+  <td>对dataset中的每个元素运行<i>func</i>函数。通常这样做是出于它的副作用，例如更新<a href="#accumulators">累加器</a>或与外部存储系统进行交互。<br /> 
+    <b>注意</b>：在<code> foreach() </code>之外修改除累加器以外的变量可能会导致不确定的行为。有关更多详细信息，请参见<a href="#understanding-closures-a-nameclosureslinka">了解闭包</a>。</td>
 </tr>
 </table>
 
-The Spark RDD API also exposes asynchronous versions of some actions, like `foreachAsync` for `foreach`, which immediately return a `FutureAction` to the caller instead of blocking on completion of the action. This can be used to manage or wait for the asynchronous execution of the action.
+Spark RDD API还公开了某些操作的异步版本，例如`foreach`对应的`foreachAsync`，它会立即返回一个`FutureAction`给调用方，而不是在action完成后返回。这可用于管理或等待动作的异步执行。
+
+### Shuffle操作
+
+Spark中的某些操作会触发一个称为Shuffle的事件。Shuffle是Spark的一种用于重新分配数据的机制，以便在分区之间对数据进行不同的分组。这通常涉及跨机器执行程序和复制数据，从而使Shuffle成为复杂且昂贵的操作。
+
+#### 幕后
+
+要理解shuffle期间发生的情况，可以思考一下[`reduceByKey`](#ReduceByLink)。该`reduceByKey`操作将生成一个新的RDD，其中将单个键的所有值组合成一个元组——键以及针对与该键关联的所有值执行reduce函数的结果。挑战在于，并非单个键的所有值都位于同一分区，甚至同一台机器上，但是必须将它们放在同一位置才能计算结果。
+
+在 Spark 里，某些特定的操作需要数据不跨分区分布。在计算期间，一个任务在一个分区上执行，为了所有数据都在单 `reduceByKey`的reduce任务上运行，我们需要执行一个all-to-all操作。它必须从所有分区读取所有的 key 和 key对应的所有的值，并且跨分区聚集去计算每个key的结果——这个过程就叫做 **shuffle**
+
+尽管每个分区中shuffle后的元素集都是确定的，分区本身的顺序也是确定的，但这些元素的顺序不是确定性的。如果希望在shuffle后能有规律地排序数据，那么可以使用：
 
 
-### Shuffle operations
 
-Certain operations within Spark trigger an event known as the shuffle. The shuffle is Spark's
-mechanism for re-distributing data so that it's grouped differently across partitions. This typically
-involves copying data across executors and machines, making the shuffle a complex and
-costly operation.
+* 使用`mapPartitions`对每个分区排序，如： `.sorted`。
+* `repartitionAndSortWithinPartitions` 在分区的同时对分区进行高效的排序。
+* `sortBy` 对 RDD 进行全局的排序。
 
-#### Background
+可以触发shuffle的操作包包括像[`repartition`](#RepartitionLink) 和 [`coalesce`](#CoalesceLink)的**repartition**操作，像 [`groupByKey`](#GroupByLink) 和 [`reduceByKey`](#ReduceByLink)这样的**'ByKey**操作，以及像 [`cogroup`](#CogroupLink) 和 [`join`](#JoinLink)这样的**join**操作。
 
-To understand what happens during the shuffle, we can consider the example of the
-[`reduceByKey`](#ReduceByLink) operation. The `reduceByKey` operation generates a new RDD where all
-values for a single key are combined into a tuple - the key and the result of executing a reduce
-function against all values associated with that key. The challenge is that not all values for a
-single key necessarily reside on the same partition, or even the same machine, but they must be
-co-located to compute the result.
+#### 性能影响
+该 **Shuffle** 是一个代价比较高的操作，它涉及磁盘I/O、数据序列化、网络 I/O。为了准备shuffle操作的数据，Spark启动了一系列的任务，*map*任务组织数据，*reduce*完成数据的聚合。这两个map和spark术语来自 MapReduce，跟 Spark 的 `map` 操作和 `reduce` 操作没有关系。
 
-In Spark, data is generally not distributed across partitions to be in the necessary place for a
-specific operation. During computations, a single task will operate on a single partition - thus, to
-organize all the data for a single `reduceByKey` reduce task to execute, Spark needs to perform an
-all-to-all operation. It must read from all partitions to find all the values for all keys,
-and then bring together values across partitions to compute the final result for each key -
-this is called the **shuffle**.
+在内部，一个map任务的所有结果数据会保存在内存，直到内存不能全部存储为止。然后，这些数据将基于目标分区进行排序并写入一个单独的文件中。在reduce时，任务将读取相关的已排序的数据块。
 
-Although the set of elements in each partition of newly shuffled data will be deterministic, and so
-is the ordering of partitions themselves, the ordering of these elements is not. If one desires predictably
-ordered data following shuffle then it's possible to use:
+某些shuffle操作会大量消耗堆内存空间，因为shuffle操作在数据转换前后，需要在使用内存中的数据结构对数据进行组织。需要特别说明的是，`reduceByKey` 和 `aggregateByKey` 在map时会创建这些数据结构，`'ByKey` 操作在 reduce 时创建这些数据结构。当内存满的时候，Spark 会把溢出的数据存到磁盘上，这将导致额外的磁盘 I/O 开销和垃圾回收开销的增加。
 
-* `mapPartitions` to sort each partition using, for example, `.sorted`
-* `repartitionAndSortWithinPartitions` to efficiently sort partitions while simultaneously repartitioning
-* `sortBy` to make a globally ordered RDD
+shuffle 操作还会在磁盘上生成大量的中间文件。在 Spark 1.3 中，这些文件将会保留至对应的 RDD 不在使用并被垃圾回收为止。这么做的好处是，如果在 Spark 重新计算 RDD 的血统关系（lineage）时，shuffle 操作产生的这些中间文件不需要重新创建。如果 Spark 应用长期保持对 RDD 的引用，或者垃圾回收不频繁，这将导致垃圾回收的周期比较长。这意味着，长期运行 Spark 任务可能会消耗大量的磁盘空间。临时数据存储路径可以通过 SparkContext 中设置参数 `spark.local.dir` 进行配置。
 
-Operations which can cause a shuffle include **repartition** operations like
-[`repartition`](#RepartitionLink) and [`coalesce`](#CoalesceLink), **'ByKey** operations
-(except for counting) like [`groupByKey`](#GroupByLink) and [`reduceByKey`](#ReduceByLink), and
-**join** operations like [`cogroup`](#CogroupLink) and [`join`](#JoinLink).
+可以通过调整各种配置参数来调整shuffle行为。请参阅《[Spark配置指南](configuration.html)》中的“shuffle行为”部分。
 
-#### Performance Impact
-The **Shuffle** is an expensive operation since it involves disk I/O, data serialization, and
-network I/O. To organize data for the shuffle, Spark generates sets of tasks - *map* tasks to
-organize the data, and a set of *reduce* tasks to aggregate it. This nomenclature comes from
-MapReduce and does not directly relate to Spark's `map` and `reduce` operations.
+## RDD持久化
 
-Internally, results from individual map tasks are kept in memory until they can't fit. Then, these
-are sorted based on the target partition and written to a single file. On the reduce side, tasks
-read the relevant sorted blocks.
+Spark中最重要的功能之一是跨操作将数据集*持久化*（或*缓存*）在内存中。当你保留RDD时，每个节点都会将其计算的所有分区存储在内存中，并在该数据集（或从该数据集派生的数据集）上的其它操作中重用它们。这样可以使以后的操作更快（通常快10倍以上）。缓存是用于迭代算法和快速交互使用的关键工具。
 
-Certain shuffle operations can consume significant amounts of heap memory since they employ
-in-memory data structures to organize records before or after transferring them. Specifically,
-`reduceByKey` and `aggregateByKey` create these structures on the map side, and `'ByKey` operations
-generate these on the reduce side. When data does not fit in memory Spark will spill these tables
-to disk, incurring the additional overhead of disk I/O and increased garbage collection.
+你可以使用`persist()`或`cache()`将RDD持久化。数据会在第一次action操作时进行计算，并缓存在节点的内存中。Spark的缓存具有容错机制，如果一个缓存的RDD的某个分区丢失了，Spark 将按照原来的计算过程，自动重新计算并进行缓存。
 
-Shuffle also generates a large number of intermediate files on disk. As of Spark 1.3, these files
-are preserved until the corresponding RDDs are no longer used and are garbage collected.
-This is done so the shuffle files don't need to be re-created if the lineage is re-computed.
-Garbage collection may happen only after a long period of time, if the application retains references
-to these RDDs or if GC does not kick in frequently. This means that long-running Spark jobs may
-consume a large amount of disk space. The temporary storage directory is specified by the
-`spark.local.dir` configuration parameter when configuring the Spark context.
-
-Shuffle behavior can be tuned by adjusting a variety of configuration parameters. See the
-'Shuffle Behavior' section within the [Spark Configuration Guide](configuration.html).
-
-## RDD Persistence
-
-One of the most important capabilities in Spark is *persisting* (or *caching*) a dataset in memory
-across operations. When you persist an RDD, each node stores any partitions of it that it computes in
-memory and reuses them in other actions on that dataset (or datasets derived from it). This allows
-future actions to be much faster (often by more than 10x). Caching is a key tool for
-iterative algorithms and fast interactive use.
-
-You can mark an RDD to be persisted using the `persist()` or `cache()` methods on it. The first time
-it is computed in an action, it will be kept in memory on the nodes. Spark's cache is fault-tolerant --
-if any partition of an RDD is lost, it will automatically be recomputed using the transformations
-that originally created it.
-
-In addition, each persisted RDD can be stored using a different *storage level*, allowing you, for example,
-to persist the dataset on disk, persist it in memory but as serialized Java objects (to save space),
-replicate it across nodes.
-These levels are set by passing a
-`StorageLevel` object ([Scala](api/scala/index.html#org.apache.spark.storage.StorageLevel),
-[Java](api/java/index.html?org/apache/spark/storage/StorageLevel.html),
-[Python](api/python/pyspark.html#pyspark.StorageLevel))
-to `persist()`. The `cache()` method is a shorthand for using the default storage level,
-which is `StorageLevel.MEMORY_ONLY` (store deserialized objects in memory). The full set of
-storage levels is:
+此外，每个持久化的RDD可以使用不同的*存储级别*进行存储，例如，允许你将数据集持久化在磁盘上，持久化在内存中，作为序列化的Java对象（以节省空间）在节点之间复制。通过将一个`StorageLevel`对象（[Scala](api/scala/index.html#org.apache.spark.storage.StorageLevel)， [Java](api/java/index.html?org/apache/spark/storage/StorageLevel.html)， [Python](api/python/pyspark.html#pyspark.StorageLevel)）传递给来设置这些级别 `persist()`。该`cache()`方法是使用默认存储级别`StorageLevel.MEMORY_ONLY`（将反序列化的对象存储在内存中）的简写。完整的存储级别集是：
 
 <table class="table">
-<tr><th style="width:23%">Storage Level</th><th>Meaning</th></tr>
+<tr><th style="width:23%">存储级别</th><th>含义</th></tr>
 <tr>
   <td> MEMORY_ONLY </td>
-  <td> Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, some partitions will
-    not be cached and will be recomputed on the fly each time they're needed. This is the default level. </td>
+  <td> 将RDD作为反序列化的Java对象存储在JVM中。如果内存不够，则某些分区将不会被缓存，并且每次需要时都会即时重新计算。这是默认级别。 </td>
 </tr>
 <tr>
   <td> MEMORY_AND_DISK </td>
-  <td> Store RDD as deserialized Java objects in the JVM. If the RDD does not fit in memory, store the
-    partitions that don't fit on disk, and read them from there when they're needed. </td>
+  <td> 将RDD以反序列化的Java对象的形式存储在JVM中。如果内存不够，将未缓存的数据分区存储到磁盘，在需要使用这些分区时从磁盘读取。
+ </td>
 </tr>
 <tr>
   <td> MEMORY_ONLY_SER <br /> (Java and Scala) </td>
-  <td> Store RDD as <i>serialized</i> Java objects (one byte array per partition).
-    This is generally more space-efficient than deserialized objects, especially when using a
-    <a href="tuning.html">fast serializer</a>, but more CPU-intensive to read.
+  <td> 将RDD以序列化的Java对象的形式进行存储（每个分区为一个byte数组）。这种方式会比反序列化对象的方式节省很多空间，尤其是在使用<a href="tuning.html">fast serializer</a>时会节省更多的空间，但是在读取时会增加CPU的负担。
   </td>
 </tr>
 <tr>
   <td> MEMORY_AND_DISK_SER <br /> (Java and Scala) </td>
-  <td> Similar to MEMORY_ONLY_SER, but spill partitions that don't fit in memory to disk instead of
-    recomputing them on the fly each time they're needed. </td>
+  <td> 类似于 MEMORY_ONLY_SER，但是溢出的分区会存储到磁盘，而不是在用到它们时重新计算。 </td>
 </tr>
 <tr>
   <td> DISK_ONLY </td>
-  <td> Store the RDD partitions only on disk. </td>
+  <td> 仅将RDD分区存储在磁盘上。 </td>
 </tr>
 <tr>
   <td> MEMORY_ONLY_2, MEMORY_AND_DISK_2, etc.  </td>
-  <td> Same as the levels above, but replicate each partition on two cluster nodes. </td>
+  <td> 与上面的级别功能相同，只不过每个分区在集群中两个节点上建立副本。 </td>
 </tr>
 <tr>
   <td> OFF_HEAP (experimental) </td>
-  <td> Similar to MEMORY_ONLY_SER, but store the data in
-    <a href="configuration.html#memory-management">off-heap memory</a>. This requires off-heap memory to be enabled. </td>
+  <td> 与MEMORY_ONLY_SER类似，但是将数据存储在<a href="configuration.html#memory-management">off-heap memory</a>。这需要启用off-heap memory。 
+  </td>
 </tr>
 </table>
 
-**Note:** *In Python, stored objects will always be serialized with the [Pickle](https://docs.python.org/2/library/pickle.html) library,
-so it does not matter whether you choose a serialized level. The available storage levels in Python include `MEMORY_ONLY`, `MEMORY_ONLY_2`,
-`MEMORY_AND_DISK`, `MEMORY_AND_DISK_2`, `DISK_ONLY`, and `DISK_ONLY_2`.*
+**注意：** *在Python中，存储的对象始终使用[Pickle](https://docs.python.org/2/library/pickle.html)库进行序列化，因此，是否选择序列化级别都无关紧要。Python中的可用存储级别包括`MEMORY_ONLY`，`MEMORY_ONLY_2`， `MEMORY_AND_DISK`，`MEMORY_AND_DISK_2`，`DISK_ONLY`，和`DISK_ONLY_2`。*
 
-Spark also automatically persists some intermediate data in shuffle operations (e.g. `reduceByKey`), even without users calling `persist`. This is done to avoid recomputing the entire input if a node fails during the shuffle. We still recommend users call `persist` on the resulting RDD if they plan to reuse it.
+在shuffle操作中（例如 `reduceByKey`），即便是用户没有调用 `persist` 方法，Spark也会自动缓存部分中间数据。这么做的目的是在shuffle的过程中某个节点运行失败时，不需要重新计算所有的输入数据。如果用户想多次使用某个RDD，强烈推荐在该RDD上调用persist方法.
 
-### Which Storage Level to Choose?
+### 如何选择存储级别？
 
-Spark's storage levels are meant to provide different trade-offs between memory usage and CPU
-efficiency. We recommend going through the following process to select one:
+Spark的存储级别旨在在内存使用率和CPU效率之间提供不同的权衡。我们建议通过以下选择一个：
 
-* If your RDDs fit comfortably with the default storage level (`MEMORY_ONLY`), leave them that way.
-  This is the most CPU-efficient option, allowing operations on the RDDs to run as fast as possible.
-
-* If not, try using `MEMORY_ONLY_SER` and [selecting a fast serialization library](tuning.html) to
-make the objects much more space-efficient, but still reasonably fast to access. (Java and Scala)
-
-* Don't spill to disk unless the functions that computed your datasets are expensive, or they filter
-a large amount of the data. Otherwise, recomputing a partition may be as fast as reading it from
-disk.
-
-* Use the replicated storage levels if you want fast fault recovery (e.g. if using Spark to serve
-requests from a web application). *All* the storage levels provide full fault tolerance by
-recomputing lost data, but the replicated ones let you continue running tasks on the RDD without
-waiting to recompute a lost partition.
+* 如果你的RDD是默认的存储级别（`MEMORY_ONLY`），请保持这种状态。这是CPU效率最高的方式，允许RDD上的操作尽可能快地运行。
+  
+* 如果不是，请尝试使用`MEMORY_ONLY_SER`并[选择一个快速的序列化库，](http://spark.apache.org/docs/latest/tuning.html)以使对象更加节省空间，但仍可以快速访问。（Java和Scala）
+* 除了在计算该数据集的代价特别高，或者在需要过滤大量数据的情况下，尽量不要将溢出的数据存储到磁盘。因为，重新计算这个数据分区的耗时与从磁盘读取这些数据的耗时差不多。
+* 如果想快速还原故障，建议使用多副本存储级别（例如，使用 **Spark** 作为 **web** 应用的后台服务，在服务出故障时需要快速恢复的场景下）。所有的存储级别都通过重新计算丢失的数据的方式，提供了完全容错机制。但是多副本级别在发生数据丢失时，不需要重新计算对应的数据库，可以让任务继续运行。
 
 
-### Removing Data
+### 删除数据
 
-Spark automatically monitors cache usage on each node and drops out old data partitions in a
-least-recently-used (LRU) fashion. If you would like to manually remove an RDD instead of waiting for
-it to fall out of the cache, use the `RDD.unpersist()` method. Note that this method does not
-block by default. To block until resources are freed, specify `blocking=true` when calling this method.
+Spark自动监视每个节点上的缓存使用情况，并以最近最少使用（LRU）的方式丢弃旧的数据分区。如果要手动删除RDD而不是等待它脱离缓存，请使用该`RDD.unpersist()`方法。
 
-# Shared Variables
+# 共享变量
 
-Normally, when a function passed to a Spark operation (such as `map` or `reduce`) is executed on a
-remote cluster node, it works on separate copies of all the variables used in the function. These
-variables are copied to each machine, and no updates to the variables on the remote machine are
-propagated back to the driver program. Supporting general, read-write shared variables across tasks
-would be inefficient. However, Spark does provide two limited types of *shared variables* for two
-common usage patterns: broadcast variables and accumulators.
+通常情况下，一个传递给Spark操作（例如 `map` 或 `reduce`）的函数是在远程的集群节点上执行的。该函数在多个节点执行过程中使用的变量，是同一个变量的多个副本。这些变量的以副本的方式拷贝到每台机器上，并且各个远程机器上变量的更新并不会传播回driver。在各个任务之间支持通用的读写共享变量将效率很低。但是，Spark确实为两种常用用法模式提供了两种有限类型的*共享变量*：广播变量和累加器。
 
-## Broadcast Variables
+## 广播变量
 
-Broadcast variables allow the programmer to keep a read-only variable cached on each machine rather
-than shipping a copy of it with tasks. They can be used, for example, to give every node a copy of a
-large input dataset in an efficient manner. Spark also attempts to distribute broadcast variables
-using efficient broadcast algorithms to reduce communication cost.
+广播变量使程序员可以在每台计算机上保留一个只读变量，而不用随任务一起发送它的副本。例如，可以使用它们以高效的方式为每个节点提供大型输入数据集的副本。Spark还尝试使用有效的广播算法分配广播变量，以降低通信成本。
 
-Spark actions are executed through a set of stages, separated by distributed "shuffle" operations.
-Spark automatically broadcasts the common data needed by tasks within each stage. The data
-broadcasted this way is cached in serialized form and deserialized before running each task. This
-means that explicitly creating broadcast variables is only useful when tasks across multiple stages
-need the same data or when caching the data in deserialized form is important.
+Spark的action操作是通过一系列的stage（阶段）进行执行的，这些 stage是通过分布式的 “shuffle” 操作进行拆分的。Spark会自动广播每个stage中任务所需的通用数据。这种情况下广播的数据使用序列化的形式进行缓存，并在每个任务运行前进行反序列化。这也就意味着，只有在跨越多个stage的多个任务会使用相同的数据，或者在使用反序列化形式的数据特别重要的情况下，使用广播变量会有比较好的效果。
 
-Broadcast variables are created from a variable `v` by calling `SparkContext.broadcast(v)`. The
-broadcast variable is a wrapper around `v`, and its value can be accessed by calling the `value`
-method. The code below shows this:
+广播变量通过在一个变量`v`上调用`SparkContext.broadcast(v)`方法进行创建。广播变量是`v`的一个包装器，可以通过调用`value`方法来访问它的值。代码示例如下:
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
-
 {% highlight scala %}
 scala> val broadcastVar = sc.broadcast(Array(1, 2, 3))
 broadcastVar: org.apache.spark.broadcast.Broadcast[Array[Int]] = Broadcast(0)
@@ -1353,43 +1063,29 @@ broadcastVar.value();
 
 </div>
 
-After the broadcast variable is created, it should be used instead of the value `v` in any functions
-run on the cluster so that `v` is not shipped to the nodes more than once. In addition, the object
-`v` should not be modified after it is broadcast in order to ensure that all nodes get the same
-value of the broadcast variable (e.g. if the variable is shipped to a new node later).
+在创建广播变量之后，在集群上执行的所有的函数中，应该使用该广播变量代替原来的`v`值，所以节点上的`v`最多分发一次。另外，对象`v`在广播后不应该再被修改，以保证分发到所有的节点上的广播变量具有同样的值（例如，如果以后该变量会被传递到一个新的节点）。
 
-To release the resources that the broadcast variable copied onto executors, call `.unpersist()`.
-If the broadcast is used again afterwards, it will be re-broadcast. To permanently release all
-resources used by the broadcast variable, call `.destroy()`. The broadcast variable can't be used
-after that. Note that these methods do not block by default. To block until resources are freed,
-specify `blocking=true` when calling them.
+如果要释放拷贝到executor中的广播变量，请调用 `.unpersist()`方法。如果此后需要再次使用广播，将会重新广播。要永久释放广播变量使用的所有资源，请调用`.destroy()`。在此之后广播变量将不能再使用。请注意，这些方法默认是不阻塞的，若要在释放资源之前使其阻塞，请在调用时加上参数`blocking=true`。
 
-## Accumulators
+## 累加器
 
-Accumulators are variables that are only "added" to through an associative and commutative operation and can
-therefore be efficiently supported in parallel. They can be used to implement counters (as in
-MapReduce) or sums. Spark natively supports accumulators of numeric types, and programmers
-can add support for new types.
+累加器是仅通过关联和交换操作“添加”的变量，因此可以有效地并行。它们可用于实现计数器（如MapReduce中的计数器）或求和。Spark本身仅支持数值类型的累加器，程序员可以自定义其它类型的累加器。
 
-As a user, you can create named or unnamed accumulators. As seen in the image below, a named accumulator (in this instance `counter`) will display in the web UI for the stage that modifies that accumulator. Spark displays the value for each accumulator modified by a task in the "Tasks" table.
+作为用户，你可以创建命名或未命名的累加器。如下图所示，一个已命名的累加器（这个例子中是`counter`）将在Web UI中显示修改该累加器的阶段。Spark在“Tasks”列表中显示由任务修改的每个累加器的值。
 
 <p style="text-align: center;">
   <img src="img/spark-webui-accumulators.png" title="Accumulators in the Spark UI" alt="Accumulators in the Spark UI" />
 </p>
 
-Tracking accumulators in the UI can be useful for understanding the progress of
-running stages (NOTE: this is not yet supported in Python).
+UI中的跟踪累加器对于了解运行阶段的进度很有用（注意：Python尚不支持此功能）。
 
 <div class="codetabs">
 
 <div data-lang="scala"  markdown="1">
 
-A numeric accumulator can be created by calling `SparkContext.longAccumulator()` or `SparkContext.doubleAccumulator()`
-to accumulate values of type Long or Double, respectively. Tasks running on a cluster can then add to it using
-the `add` method.  However, they cannot read its value. Only the driver program can read the accumulator's value,
-using its `value` method.
+可以通过调用 `SparkContext.longAccumulator()` 或 `SparkContext.doubleAccumulator()` 方法创建数值类型的 `accumulator`以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 `add` 方法来累计数值。但是它们不能够读取它的值。只有 driver 才可以使用 `value` 方法读取累加器的值。
 
-The code below shows an accumulator being used to add up the elements of an array:
+下面的代码展示了使用累加器对数组元素求和：
 
 {% highlight scala %}
 scala> val accum = sc.longAccumulator("My Accumulator")
@@ -1403,13 +1099,7 @@ scala> accum.value
 res2: Long = 10
 {% endhighlight %}
 
-While this code used the built-in support for accumulators of type Long, programmers can also
-create their own types by subclassing [AccumulatorV2](api/scala/index.html#org.apache.spark.util.AccumulatorV2).
-The AccumulatorV2 abstract class has several methods which one has to override: `reset` for resetting
-the accumulator to zero, `add` for adding another value into the accumulator,
-`merge` for merging another same-type accumulator into this one. Other methods that must be overridden
-are contained in the [API documentation](api/scala/index.html#org.apache.spark.util.AccumulatorV2). For example, supposing we had a `MyVector` class
-representing mathematical vectors, we could write:
+尽管此代码使用了对Long类型的累加器的内置支持，但程序员也可以通过实现[AccumulatorV2](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.util.AccumulatorV2)来创建自己的累加器类型。AccumulatorV2抽象类具有几个必须重写的方法：`reset`将累加器重置为零，`add`将另一个值添加到累加器，`merge`将另一个相同类型的累加器合并到该累加器中 。[API文档](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.util.AccumulatorV2)中包含其它必须重写的方法。例如，假设我们有一个`MyVector`代表数学向量的类，我们可以这样写：
 
 {% highlight scala %}
 class VectorAccumulatorV2 extends AccumulatorV2[MyVector, MyVector] {
@@ -1432,18 +1122,14 @@ val myVectorAcc = new VectorAccumulatorV2
 sc.register(myVectorAcc, "MyVectorAcc1")
 {% endhighlight %}
 
-Note that, when programmers define their own type of AccumulatorV2, the resulting type can be different than that of the elements added.
+注意，当程序员定义自己的AccumulatorV2类型时，结果类型可能与所添加元素的类型不同。
 
 </div>
 
 <div data-lang="java"  markdown="1">
+可以通过调用 `SparkContext.longAccumulator()` 或 `SparkContext.doubleAccumulator()` 方法创建数值类型的 `accumulator`以分别累加 Long 或 Double 类型的值。集群上正在运行的任务就可以使用 `add` 方法来累计数值。但是它们不能够读取它的值。只有 driver 才可以使用 `value` 方法读取累加器的值。
 
-A numeric accumulator can be created by calling `SparkContext.longAccumulator()` or `SparkContext.doubleAccumulator()`
-to accumulate values of type Long or Double, respectively. Tasks running on a cluster can then add to it using
-the `add` method.  However, they cannot read its value. Only the driver program can read the accumulator's value,
-using its `value` method.
-
-The code below shows an accumulator being used to add up the elements of an array:
+下面的代码展示了使用累加器对数组元素求和：
 
 {% highlight java %}
 LongAccumulator accum = jsc.sc().longAccumulator();
@@ -1456,13 +1142,7 @@ accum.value();
 // returns 10
 {% endhighlight %}
 
-While this code used the built-in support for accumulators of type Long, programmers can also
-create their own types by subclassing [AccumulatorV2](api/scala/index.html#org.apache.spark.util.AccumulatorV2).
-The AccumulatorV2 abstract class has several methods which one has to override: `reset` for resetting
-the accumulator to zero, `add` for adding another value into the accumulator,
-`merge` for merging another same-type accumulator into this one. Other methods that must be overridden
-are contained in the [API documentation](api/scala/index.html#org.apache.spark.util.AccumulatorV2). For example, supposing we had a `MyVector` class
-representing mathematical vectors, we could write:
+尽管此代码使用了对Long类型的累加器的内置支持，但程序员也可以通过实现[AccumulatorV2](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.util.AccumulatorV2)来创建自己的累加器类型。AccumulatorV2抽象类具有几个必须重写的方法：`reset`将累加器重置为零，`add`将另一个值添加到累加器，`merge`将另一个相同类型的累加器合并到该累加器中 。[API文档](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.util.AccumulatorV2)中包含其它必须重写的方法。例如，假设我们有一个`MyVector`代表数学向量的类，我们可以这样写：
 
 {% highlight java %}
 class VectorAccumulatorV2 implements AccumulatorV2<MyVector, MyVector> {
@@ -1485,21 +1165,16 @@ VectorAccumulatorV2 myVectorAcc = new VectorAccumulatorV2();
 jsc.sc().register(myVectorAcc, "MyVectorAcc1");
 {% endhighlight %}
 
-Note that, when programmers define their own type of AccumulatorV2, the resulting type can be different than that of the elements added.
+请注意，当程序员定义自己的AccumulatorV2类型时，结果类型可能与所添加元素的类型不同。
 
-*Warning*: When a Spark task finishes, Spark will try to merge the accumulated updates in this task to an accumulator.
-If it fails, Spark will ignore the failure and still mark the task successful and continue to run other tasks. Hence,
-a buggy accumulator will not impact a Spark job, but it may not get updated correctly although a Spark job is successful.
+*警告*：Spark任务完成时，Spark将尝试将此任务中累积的更新合并到累加器。如果失败，Spark将忽略该失败，并仍将任务标记为成功并继续运行其它任务。因此，失败的累加器不会影响Spark作业，但是尽管Spark作业成功，它可能无法正确更新。
 
 </div>
 
 <div data-lang="python"  markdown="1">
+可以调用`SparkContext.accumulator(v)` 从一个初始值`v`创建一个累加器。集群上正在运行的任务就可以使用 `add` 方法或`+=` 操作符来累计数值。但是它们不能够读取它的值。只有 driver 才可以使用 `value` 方法读取累加器的值。
 
-An accumulator is created from an initial value `v` by calling `SparkContext.accumulator(v)`. Tasks
-running on a cluster can then add to it using the `add` method or the `+=` operator. However, they cannot read its value.
-Only the driver program can read the accumulator's value, using its `value` method.
-
-The code below shows an accumulator being used to add up the elements of an array:
+下面的代码展示了使用累加器对数组元素求和：
 
 {% highlight python %}
 >>> accum = sc.accumulator(0)
@@ -1514,11 +1189,7 @@ Accumulator<id=0, value=0>
 10
 {% endhighlight %}
 
-While this code used the built-in support for accumulators of type Int, programmers can also
-create their own types by subclassing [AccumulatorParam](api/python/pyspark.html#pyspark.AccumulatorParam).
-The AccumulatorParam interface has two methods: `zero` for providing a "zero value" for your data
-type, and `addInPlace` for adding two values together. For example, supposing we had a `Vector` class
-representing mathematical vectors, we could write:
+尽管此代码使用了Spark内置的Int类型的累加器，但程序员也可以通过实现[AccumulatorParam](http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.AccumulatorParam)来创建自定义类型的累加器。AccumulatorParam接口有两个方法：`zero`为你的数据类型提供“初始值”，以及`addInPlace`将两个值相加。例如，假设我们有一个`Vector`代表数学向量的类，我们可以这样写：
 
 {% highlight python %}
 class VectorAccumulatorParam(AccumulatorParam):
@@ -1537,11 +1208,9 @@ vecAccum = sc.accumulator(Vector(...), VectorAccumulatorParam())
 
 </div>
 
-For accumulator updates performed inside <b>actions only</b>, Spark guarantees that each task's update to the accumulator
-will only be applied once, i.e. restarted tasks will not update the value. In transformations, users should be aware
-of that each task's update may be applied more than once if tasks or job stages are re-executed.
+累加器的更新只发生在 **action** 操作中，Spark 保证每个任务只更新一次累加器，例如，重启任务不会更新值。在 transformations中，用户需要注意的是如果 task或 job stages重新执行，每个任务的更新操作可能会执行多次。
 
-Accumulators do not change the lazy evaluation model of Spark. If they are being updated within an operation on an RDD, their value is only updated once that RDD is computed as part of an action. Consequently, accumulator updates are not guaranteed to be executed when made within a lazy transformation like `map()`. The below code fragment demonstrates this property:
+累加器不会更改Spark的懒加载特性。如果在RDD上的操作中对其进行更新，则仅当RDD执行action操作时才更新它们的值。因此，在一个像 `map()` 这样的transformation时，累加器的更新并没有执行。下面的代码片段证明了这个特性:
 
 <div class="codetabs">
 
@@ -1574,50 +1243,32 @@ data.map(g)
 
 </div>
 
-# Deploying to a Cluster
+# 部署到集群
 
-The [application submission guide](submitting-applications.html) describes how to submit applications to a cluster.
-In short, once you package your application into a JAR (for Java/Scala) or a set of `.py` or `.zip` files (for Python),
-the `bin/spark-submit` script lets you submit it to any supported cluster manager.
+在[提交应用指南](http://spark.apache.org/docs/latest/submitting-applications.html)介绍了如何提交申请到集群。简而言之，一旦将应用程序打包到JAR（对于Java / Scala）或一组`.py`或`.zip`文件（对于Python）中，该`bin/spark-submit`脚本便可以将其提交给任何受支持的集群管理器。
 
-# Launching Spark jobs from Java / Scala
+# 从Java / Scala启动Spark Job
 
-The [org.apache.spark.launcher](api/java/index.html?org/apache/spark/launcher/package-summary.html)
-package provides classes for launching Spark jobs as child processes using a simple Java API.
+[org.apache.spark.launcher](api/java/index.html?org/apache/spark/launcher/package-summary.html) 包提供的类用以使用一个简单的Java API作为子进程启动Spark Jobs。
 
-# Unit Testing
+# 单元测试
 
-Spark is friendly to unit testing with any popular unit test framework.
-Simply create a `SparkContext` in your test with the master URL set to `local`, run your operations,
-and then call `SparkContext.stop()` to tear it down.
-Make sure you stop the context within a `finally` block or the test framework's `tearDown` method,
-as Spark does not support two contexts running concurrently in the same program.
+Spark非常适合使用任何流行的单元测试框架进行单元测试。在将 master URL 设置为 `local` 来测试时会简单的创建一个 `SparkContext`，运行你的操作，然后调用 `SparkContext.stop()` 将该作业停止。因为Spark不支持在同一程序中同时运行的两个context，所以你需要确保在`finally`块或测试框架的`tearDown`方法中停止context。
 
-# Where to Go from Here
+# 下一步做什么
 
-You can see some [example Spark programs](https://spark.apache.org/examples.html) on the Spark website.
-In addition, Spark includes several samples in the `examples` directory
-([Scala]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/scala/org/apache/spark/examples),
- [Java]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/java/org/apache/spark/examples),
- [Python]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/python),
- [R]({{site.SPARK_GITHUB_URL}}/tree/master/examples/src/main/r)).
-You can run Java and Scala examples by passing the class name to Spark's `bin/run-example` script; for instance:
+你可以在Spark网站上看到一些[示例Spark程序](https://spark.apache.org/examples.html)。此外，Spark在`examples`目录（[Scala](https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples)， [Java](https://github.com/apache/spark/tree/master/examples/src/main/java/org/apache/spark/examples)， [Python](https://github.com/apache/spark/tree/master/examples/src/main/python)， [R](https://github.com/apache/spark/tree/master/examples/src/main/r)）中包含几个示例。你可以通过将类名称传递给Spark的`bin/run-example`脚本来运行Java和Scala示例。例如：
 
     ./bin/run-example SparkPi
 
-For Python examples, use `spark-submit` instead:
+对于Python示例，请使用`spark-submit`：
 
     ./bin/spark-submit examples/src/main/python/pi.py
 
-For R examples, use `spark-submit` instead:
+对于R示例，请使用`spark-submit`：
 
     ./bin/spark-submit examples/src/main/r/dataframe.R
 
-For help on optimizing your programs, the [configuration](configuration.html) and
-[tuning](tuning.html) guides provide information on best practices. They are especially important for
-making sure that your data is stored in memory in an efficient format.
-For help on deploying, the [cluster mode overview](cluster-overview.html) describes the components involved
-in distributed operation and supported cluster managers.
+为了帮助你优化程序，[配置](configuration.html)和 [调优](tuning.html)指南提供了有关最佳实践的信息。它们对于确保你的数据以有效格式存储在内存中尤其重要。为了获得部署方面的帮助，[集群模式概述](cluster-overview.html)描述了分布式操作和支持的集群管理器中涉及的组件。
 
-Finally, full API documentation is available in
-[Scala](api/scala/#org.apache.spark.package), [Java](api/java/), [Python](api/python/) and [R](api/R/).
+最后，[Scala](api/scala/#org.apache.spark.package)，[Java](api/java/)，[Python](api/python/)和[R中](api/R/)提供了完整的API文档 。
