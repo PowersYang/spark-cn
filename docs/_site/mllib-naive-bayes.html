@@ -401,7 +401,7 @@ can be used for evaluation and prediction.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/myNaiveBayesModel&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">sameModel</span> <span class="k">=</span> <span class="nc">NaiveBayesModel</span><span class="o">.</span><span class="n">load</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/myNaiveBayesModel&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/NaiveBayesExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/NaiveBayesExample.scala" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="java">
 
@@ -438,7 +438,7 @@ can be used for evaluation and prediction.</p>
 <span class="n">model</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">jsc</span><span class="o">.</span><span class="na">sc</span><span class="o">(),</span> <span class="s">&quot;target/tmp/myNaiveBayesModel&quot;</span><span class="o">);</span>
 <span class="n">NaiveBayesModel</span> <span class="n">sameModel</span> <span class="o">=</span> <span class="n">NaiveBayesModel</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">jsc</span><span class="o">.</span><span class="na">sc</span><span class="o">(),</span> <span class="s">&quot;target/tmp/myNaiveBayesModel&quot;</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/mllib/JavaNaiveBayesExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaNaiveBayesExample.java" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="python">
 
@@ -481,7 +481,7 @@ used for evaluation and prediction.</p>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">predictionAndLabel</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">pl</span><span class="p">:</span> <span class="n">pl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pl</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">/</span> <span class="n">test</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;sameModel accuracy {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/naive_bayes_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/naive_bayes_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 

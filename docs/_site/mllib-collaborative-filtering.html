@@ -471,7 +471,7 @@ recommendation model by measuring the Mean Squared Error of rating prediction.</
 <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/myCollaborativeFilter&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">sameModel</span> <span class="k">=</span> <span class="nc">MatrixFactorizationModel</span><span class="o">.</span><span class="n">load</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/myCollaborativeFilter&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/RecommendationExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/RecommendationExample.scala" 目录中找到完整代码。</small></div>
 
     <p>If the rating matrix is derived from another source of information (i.e. it is inferred from
 other signals), you can use the <code>trainImplicit</code> method to get better results.</p>
@@ -538,7 +538,7 @@ that is equivalent to the provided example in Scala is given below:</p>
 <span class="n">MatrixFactorizationModel</span> <span class="n">sameModel</span> <span class="o">=</span> <span class="n">MatrixFactorizationModel</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">jsc</span><span class="o">.</span><span class="na">sc</span><span class="o">(),</span>
   <span class="s">&quot;target/tmp/myCollaborativeFilter&quot;</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/mllib/JavaRecommendationExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaRecommendationExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -571,7 +571,7 @@ recommendation by measuring the Mean Squared Error of rating prediction.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="s2">&quot;target/tmp/myCollaborativeFilter&quot;</span><span class="p">)</span>
 <span class="n">sameModel</span> <span class="o">=</span> <span class="n">MatrixFactorizationModel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="s2">&quot;target/tmp/myCollaborativeFilter&quot;</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/recommendation_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/recommendation_example.py" 目录中找到完整代码。</small></div>
 
     <p>If the rating matrix is derived from other source of information (i.e. it is inferred from other
 signals), you can use the trainImplicit method to get better results.</p>

@@ -489,7 +489,7 @@ $\alpha$ and <code>regParam</code> corresponds to $\lambda$.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Multinomial coefficients: </span><span class="si">${</span><span class="n">mlrModel</span><span class="o">.</span><span class="n">coefficientMatrix</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Multinomial intercepts: </span><span class="si">${</span><span class="n">mlrModel</span><span class="o">.</span><span class="n">interceptVector</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/LogisticRegressionWithElasticNetExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/LogisticRegressionWithElasticNetExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -532,7 +532,7 @@ $\alpha$ and <code>regParam</code> corresponds to $\lambda$.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Multinomial coefficients: &quot;</span> <span class="o">+</span> <span class="n">lrModel</span><span class="o">.</span><span class="na">coefficientMatrix</span><span class="o">()</span>
   <span class="o">+</span> <span class="s">&quot;\nMultinomial intercepts: &quot;</span> <span class="o">+</span> <span class="n">mlrModel</span><span class="o">.</span><span class="na">interceptVector</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaLogisticRegressionWithElasticNetExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaLogisticRegressionWithElasticNetExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -563,7 +563,7 @@ $\alpha$ and <code>regParam</code> corresponds to $\lambda$.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Multinomial coefficients: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mlrModel</span><span class="o">.</span><span class="n">coefficientMatrix</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Multinomial intercepts: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mlrModel</span><span class="o">.</span><span class="n">interceptVector</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/logistic_regression_with_elastic_net.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/logistic_regression_with_elastic_net.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -585,7 +585,7 @@ model <span class="o">&lt;-</span> spark.logit<span class="p">(</span>training<s
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/logit.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/logit.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -632,7 +632,7 @@ available, e.g. ROC curve. The binary summary can be accessed via the
   <span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;threshold&quot;</span><span class="o">).</span><span class="n">head</span><span class="o">().</span><span class="n">getDouble</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="n">lrModel</span><span class="o">.</span><span class="n">setThreshold</span><span class="o">(</span><span class="n">bestThreshold</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/LogisticRegressionSummaryExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/LogisticRegressionSummaryExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -677,7 +677,7 @@ available, e.g. ROC curve. The binary summary can be accessed via the
   <span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;threshold&quot;</span><span class="o">).</span><span class="na">head</span><span class="o">().</span><span class="na">getDouble</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
 <span class="n">lrModel</span><span class="o">.</span><span class="na">setThreshold</span><span class="o">(</span><span class="n">bestThreshold</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaLogisticRegressionSummaryExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaLogisticRegressionSummaryExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -712,7 +712,7 @@ available, e.g. ROC curve. See <a href="api/python/pyspark.ml.html#pyspark.ml.cl
     <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;threshold&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()[</span><span class="s1">&#39;threshold&#39;</span><span class="p">]</span>
 <span class="n">lr</span><span class="o">.</span><span class="n">setThreshold</span><span class="p">(</span><span class="n">bestThreshold</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/logistic_regression_summary_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/logistic_regression_summary_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -818,7 +818,7 @@ training summary for evaluating the model.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Accuracy: </span><span class="si">$accuracy</span><span class="s">\nFPR: </span><span class="si">$falsePositiveRate</span><span class="s">\nTPR: </span><span class="si">$truePositiveRate</span><span class="s">\n&quot;</span> <span class="o">+</span>
   <span class="s">s&quot;F-measure: </span><span class="si">$fMeasure</span><span class="s">\nPrecision: </span><span class="si">$precision</span><span class="s">\nRecall: </span><span class="si">$recall</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/MulticlassLogisticRegressionWithElasticNetExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MulticlassLogisticRegressionWithElasticNetExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -906,7 +906,7 @@ training summary for evaluating the model.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Precision: &quot;</span> <span class="o">+</span> <span class="n">precision</span><span class="o">);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Recall: &quot;</span> <span class="o">+</span> <span class="n">recall</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaMulticlassLogisticRegressionWithElasticNetExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMulticlassLogisticRegressionWithElasticNetExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -965,7 +965,7 @@ training summary for evaluating the model.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">FPR: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">TPR: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">F-measure: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Precision: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Recall: </span><span class="si">%s</span><span class="s2">&quot;</span>
       <span class="o">%</span> <span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">falsePositiveRate</span><span class="p">,</span> <span class="n">truePositiveRate</span><span class="p">,</span> <span class="n">fMeasure</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/multiclass_logistic_regression_with_elastic_net.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/multiclass_logistic_regression_with_elastic_net.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -987,7 +987,7 @@ model <span class="o">&lt;-</span> spark.logit<span class="p">(</span>training<s
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/logit.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/logit.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1067,7 +1067,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="k">val</span> <span class="n">treeModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">DecisionTreeClassificationModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned classification tree model:\n </span><span class="si">${</span><span class="n">treeModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/DecisionTreeClassificationExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/DecisionTreeClassificationExample.scala" 目录中找到完整代码。</small></div>
 
   </div>
 
@@ -1147,7 +1147,7 @@ We use two feature transformers to prepare the data; these help index categories
   <span class="o">(</span><span class="n">DecisionTreeClassificationModel</span><span class="o">)</span> <span class="o">(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">2</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned classification tree model:\n&quot;</span> <span class="o">+</span> <span class="n">treeModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaDecisionTreeClassificationExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaDecisionTreeClassificationExample.java" 目录中找到完整代码。</small></div>
 
   </div>
 
@@ -1199,7 +1199,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="c1"># summary only</span>
 <span class="k">print</span><span class="p">(</span><span class="n">treeModel</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/decision_tree_classification_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/decision_tree_classification_example.py" 目录中找到完整代码。</small></div>
 
   </div>
 
@@ -1222,7 +1222,7 @@ model <span class="o">&lt;-</span> spark.decisionTree<span class="p">(</span>tra
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/decisionTree.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/decisionTree.R" 目录中找到完整代码。</small></div>
 
   </div>
 
@@ -1304,7 +1304,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="k">val</span> <span class="n">rfModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">RandomForestClassificationModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned classification forest model:\n </span><span class="si">${</span><span class="n">rfModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/RandomForestClassifierExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RandomForestClassifierExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1379,7 +1379,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="n">RandomForestClassificationModel</span> <span class="n">rfModel</span> <span class="o">=</span> <span class="o">(</span><span class="n">RandomForestClassificationModel</span><span class="o">)(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">2</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned classification forest model:\n&quot;</span> <span class="o">+</span> <span class="n">rfModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaRandomForestClassifierExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRandomForestClassifierExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1434,7 +1434,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="n">rfModel</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="n">rfModel</span><span class="p">)</span>  <span class="c1"># summary only</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/random_forest_classifier_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/random_forest_classifier_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -1456,7 +1456,7 @@ model <span class="o">&lt;-</span> spark.randomForest<span class="p">(</span>tra
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/randomForest.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/randomForest.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1538,7 +1538,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="k">val</span> <span class="n">gbtModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">GBTClassificationModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned classification GBT model:\n </span><span class="si">${</span><span class="n">gbtModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/GradientBoostedTreeClassifierExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/GradientBoostedTreeClassifierExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1617,7 +1617,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="n">GBTClassificationModel</span> <span class="n">gbtModel</span> <span class="o">=</span> <span class="o">(</span><span class="n">GBTClassificationModel</span><span class="o">)(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">2</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned classification GBT model:\n&quot;</span> <span class="o">+</span> <span class="n">gbtModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaGradientBoostedTreeClassifierExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaGradientBoostedTreeClassifierExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1667,7 +1667,7 @@ We use two feature transformers to prepare the data; these help index categories
 <span class="n">gbtModel</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="n">gbtModel</span><span class="p">)</span>  <span class="c1"># summary only</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/gradient_boosted_tree_classifier_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/gradient_boosted_tree_classifier_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -1689,7 +1689,7 @@ model <span class="o">&lt;-</span> spark.gbt<span class="p">(</span>training<spa
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/gbt.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/gbt.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1759,7 +1759,7 @@ The number of nodes <code>$N$</code> in the output layer corresponds to the numb
 
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Test set accuracy = </span><span class="si">${</span><span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="o">(</span><span class="n">predictionAndLabels</span><span class="o">)</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/MultilayerPerceptronClassifierExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MultilayerPerceptronClassifierExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1805,7 +1805,7 @@ The number of nodes <code>$N$</code> in the output layer corresponds to the numb
 
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Test set accuracy = &quot;</span> <span class="o">+</span> <span class="n">evaluator</span><span class="o">.</span><span class="na">evaluate</span><span class="o">(</span><span class="n">predictionAndLabels</span><span class="o">));</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaMultilayerPerceptronClassifierExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMultilayerPerceptronClassifierExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1841,7 +1841,7 @@ The number of nodes <code>$N$</code> in the output layer corresponds to the numb
 <span class="n">evaluator</span> <span class="o">=</span> <span class="n">MulticlassClassificationEvaluator</span><span class="p">(</span><span class="n">metricName</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Test set accuracy = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">predictionAndLabels</span><span class="p">)))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/multilayer_perceptron_classification.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/multilayer_perceptron_classification.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -1869,7 +1869,7 @@ model <span class="o">&lt;-</span> spark.mlp<span class="p">(</span>training<spa
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/mlp.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/mlp.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1907,7 +1907,7 @@ in Spark ML supports binary classification with linear SVM. Internally, it optim
 <span class="c1">// Print the coefficients and intercept for linear svc</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Coefficients: </span><span class="si">${</span><span class="n">lsvcModel</span><span class="o">.</span><span class="n">coefficients</span><span class="si">}</span><span class="s"> Intercept: </span><span class="si">${</span><span class="n">lsvcModel</span><span class="o">.</span><span class="n">intercept</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/LinearSVCExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/LinearSVCExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1935,7 +1935,7 @@ in Spark ML supports binary classification with linear SVM. Internally, it optim
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Coefficients: &quot;</span>
   <span class="o">+</span> <span class="n">lsvcModel</span><span class="o">.</span><span class="na">coefficients</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; Intercept: &quot;</span> <span class="o">+</span> <span class="n">lsvcModel</span><span class="o">.</span><span class="na">intercept</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaLinearSVCExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaLinearSVCExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1956,7 +1956,7 @@ in Spark ML supports binary classification with linear SVM. Internally, it optim
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Coefficients: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lsvcModel</span><span class="o">.</span><span class="n">coefficients</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Intercept: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lsvcModel</span><span class="o">.</span><span class="n">intercept</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/linearsvc.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/linearsvc.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -1977,7 +1977,7 @@ model <span class="o">&lt;-</span> spark.svmLinear<span class="p">(</span>traini
 prediction <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> training<span class="p">)</span>
 showDF<span class="p">(</span>prediction<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/svmLinear.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/svmLinear.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -2033,7 +2033,7 @@ showDF<span class="p">(</span>prediction<span class="p">)</span>
 <span class="k">val</span> <span class="n">accuracy</span> <span class="k">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="o">(</span><span class="n">predictions</span><span class="o">)</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Test Error = </span><span class="si">${</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/OneVsRestExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/OneVsRestExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2080,7 +2080,7 @@ showDF<span class="p">(</span>prediction<span class="p">)</span>
 <span class="kt">double</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="na">evaluate</span><span class="o">(</span><span class="n">predictions</span><span class="o">);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Test Error = &quot;</span> <span class="o">+</span> <span class="o">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy</span><span class="o">));</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaOneVsRestExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaOneVsRestExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2116,7 +2116,7 @@ showDF<span class="p">(</span>prediction<span class="p">)</span>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Test Error = </span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/one_vs_rest_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/one_vs_rest_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2179,7 +2179,7 @@ setting the parameter $\lambda$ (default to $1.0$).</p>
 <span class="k">val</span> <span class="n">accuracy</span> <span class="k">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="o">(</span><span class="n">predictions</span><span class="o">)</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Test set accuracy = </span><span class="si">$accuracy</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/NaiveBayesExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/NaiveBayesExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2219,7 +2219,7 @@ setting the parameter $\lambda$ (default to $1.0$).</p>
 <span class="kt">double</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="na">evaluate</span><span class="o">(</span><span class="n">predictions</span><span class="o">);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Test set accuracy = &quot;</span> <span class="o">+</span> <span class="n">accuracy</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaNaiveBayesExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaNaiveBayesExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2254,7 +2254,7 @@ setting the parameter $\lambda$ (default to $1.0$).</p>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Test set accuracy = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/naive_bayes_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/naive_bayes_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -2275,7 +2275,7 @@ nbModel <span class="o">&lt;-</span> spark.naiveBayes<span class="p">(</span>nbD
 nbPredictions <span class="o">&lt;-</span> predict<span class="p">(</span>nbModel<span class="p">,</span> nbTestDF<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>nbPredictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/naiveBayes.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/naiveBayes.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -2328,7 +2328,7 @@ regression model and extracting model summary statistics.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;RMSE: </span><span class="si">${</span><span class="n">trainingSummary</span><span class="o">.</span><span class="n">rootMeanSquaredError</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;r2: </span><span class="si">${</span><span class="n">trainingSummary</span><span class="o">.</span><span class="n">r2</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/LinearRegressionWithElasticNetExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/LinearRegressionWithElasticNetExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2367,7 +2367,7 @@ regression model and extracting model summary statistics.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;RMSE: &quot;</span> <span class="o">+</span> <span class="n">trainingSummary</span><span class="o">.</span><span class="na">rootMeanSquaredError</span><span class="o">());</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;r2: &quot;</span> <span class="o">+</span> <span class="n">trainingSummary</span><span class="o">.</span><span class="na">r2</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaLinearRegressionWithElasticNetExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaLinearRegressionWithElasticNetExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2398,7 +2398,7 @@ regression model and extracting model summary statistics.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;RMSE: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">trainingSummary</span><span class="o">.</span><span class="n">rootMeanSquaredError</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;r2: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">trainingSummary</span><span class="o">.</span><span class="n">r2</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/linear_regression_with_elastic_net.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/linear_regression_with_elastic_net.py" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -2543,7 +2543,7 @@ function and extracting model summary statistics.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Deviance Residuals: &quot;</span><span class="o">)</span>
 <span class="n">summary</span><span class="o">.</span><span class="n">residuals</span><span class="o">().</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/GeneralizedLinearRegressionExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/GeneralizedLinearRegressionExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2590,7 +2590,7 @@ function and extracting model summary statistics.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Deviance Residuals: &quot;</span><span class="o">);</span>
 <span class="n">summary</span><span class="o">.</span><span class="na">residuals</span><span class="o">().</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaGeneralizedLinearRegressionExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaGeneralizedLinearRegressionExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2626,7 +2626,7 @@ function and extracting model summary statistics.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Deviance Residuals: &quot;</span><span class="p">)</span>
 <span class="n">summary</span><span class="o">.</span><span class="n">residuals</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/generalized_linear_regression_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/generalized_linear_regression_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -2675,7 +2675,7 @@ tweedieGLM <span class="o">&lt;-</span> spark.glm<span class="p">(</span>tweedie
 <span class="c1"># Model summary</span>
 <span class="kp">summary</span><span class="p">(</span>tweedieGLM<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/glm.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/glm.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -2744,7 +2744,7 @@ We use a feature transformer to index categorical features, adding metadata to t
 <span class="k">val</span> <span class="n">treeModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">DecisionTreeRegressionModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned regression tree model:\n </span><span class="si">${</span><span class="n">treeModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/DecisionTreeRegressionExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/DecisionTreeRegressionExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2809,7 +2809,7 @@ We use a feature transformer to index categorical features, adding metadata to t
   <span class="o">(</span><span class="n">DecisionTreeRegressionModel</span><span class="o">)</span> <span class="o">(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">1</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned regression tree model:\n&quot;</span> <span class="o">+</span> <span class="n">treeModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaDecisionTreeRegressionExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaDecisionTreeRegressionExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2857,7 +2857,7 @@ We use a feature transformer to index categorical features, adding metadata to t
 <span class="c1"># summary only</span>
 <span class="k">print</span><span class="p">(</span><span class="n">treeModel</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/decision_tree_regression_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/decision_tree_regression_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -2879,7 +2879,7 @@ model <span class="o">&lt;-</span> spark.decisionTree<span class="p">(</span>tra
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/decisionTree.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/decisionTree.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -2947,7 +2947,7 @@ We use a feature transformer to index categorical features, adding metadata to t
 <span class="k">val</span> <span class="n">rfModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">RandomForestRegressionModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned regression forest model:\n </span><span class="si">${</span><span class="n">rfModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/RandomForestRegressorExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RandomForestRegressorExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3011,7 +3011,7 @@ We use a feature transformer to index categorical features, adding metadata to t
 <span class="n">RandomForestRegressionModel</span> <span class="n">rfModel</span> <span class="o">=</span> <span class="o">(</span><span class="n">RandomForestRegressionModel</span><span class="o">)(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">1</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned regression forest model:\n&quot;</span> <span class="o">+</span> <span class="n">rfModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaRandomForestRegressorExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRandomForestRegressorExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3058,7 +3058,7 @@ We use a feature transformer to index categorical features, adding metadata to t
 <span class="n">rfModel</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="n">rfModel</span><span class="p">)</span>  <span class="c1"># summary only</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/random_forest_regressor_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/random_forest_regressor_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -3080,7 +3080,7 @@ model <span class="o">&lt;-</span> spark.randomForest<span class="p">(</span>tra
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/randomForest.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/randomForest.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -3149,7 +3149,7 @@ be true in general.</p>
 <span class="k">val</span> <span class="n">gbtModel</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">GBTRegressionModel</span><span class="o">]</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Learned regression GBT model:\n </span><span class="si">${</span><span class="n">gbtModel</span><span class="o">.</span><span class="n">toDebugString</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/GradientBoostedTreeRegressorExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/GradientBoostedTreeRegressorExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3213,7 +3213,7 @@ be true in general.</p>
 <span class="n">GBTRegressionModel</span> <span class="n">gbtModel</span> <span class="o">=</span> <span class="o">(</span><span class="n">GBTRegressionModel</span><span class="o">)(</span><span class="n">model</span><span class="o">.</span><span class="na">stages</span><span class="o">()[</span><span class="mi">1</span><span class="o">]);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Learned regression GBT model:\n&quot;</span> <span class="o">+</span> <span class="n">gbtModel</span><span class="o">.</span><span class="na">toDebugString</span><span class="o">());</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaGradientBoostedTreeRegressorExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaGradientBoostedTreeRegressorExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3260,7 +3260,7 @@ be true in general.</p>
 <span class="n">gbtModel</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="k">print</span><span class="p">(</span><span class="n">gbtModel</span><span class="p">)</span>  <span class="c1"># summary only</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/gradient_boosted_tree_regressor_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/gradient_boosted_tree_regressor_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -3282,7 +3282,7 @@ model <span class="o">&lt;-</span> spark.gbt<span class="p">(</span>training<spa
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/gbt.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/gbt.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -3378,7 +3378,7 @@ The implementation matches the result from R&#8217;s survival function
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Scale: </span><span class="si">${</span><span class="n">model</span><span class="o">.</span><span class="n">scale</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">training</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/AFTSurvivalRegressionExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/AFTSurvivalRegressionExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3427,7 +3427,7 @@ The implementation matches the result from R&#8217;s survival function
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Scale: &quot;</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="na">scale</span><span class="o">());</span>
 <span class="n">model</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">training</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaAFTSurvivalRegressionExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaAFTSurvivalRegressionExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3455,7 +3455,7 @@ The implementation matches the result from R&#8217;s survival function
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Scale: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">scale</span><span class="p">))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">training</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/aft_survival_regression.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/aft_survival_regression.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -3478,7 +3478,7 @@ aftModel <span class="o">&lt;-</span> spark.survreg<span class="p">(</span>aftDF
 aftPredictions <span class="o">&lt;-</span> predict<span class="p">(</span>aftModel<span class="p">,</span> aftTestDF<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>aftPredictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/survreg.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/survreg.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -3554,7 +3554,7 @@ with the same feature then the same rules as in previous point are used.</li>
 <span class="c1">// Makes predictions.</span>
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/ml/IsotonicRegressionExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/IsotonicRegressionExample.scala" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="java">
 
@@ -3579,7 +3579,7 @@ with the same feature then the same rules as in previous point are used.</li>
 <span class="c1">// Makes predictions.</span>
 <span class="n">model</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/ml/JavaIsotonicRegressionExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaIsotonicRegressionExample.java" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="python">
 
@@ -3599,7 +3599,7 @@ with the same feature then the same rules as in previous point are used.</li>
 <span class="c1"># Makes predictions.</span>
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/ml/isotonic_regression_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/isotonic_regression_example.py" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -3621,7 +3621,7 @@ model <span class="o">&lt;-</span> spark.isoreg<span class="p">(</span>training<
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/r/ml/isoreg.R" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/isoreg.R" 目录中找到完整代码。</small></div>
   </div>
 
 </div>

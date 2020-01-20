@@ -451,7 +451,7 @@ Each record could be an iterable of strings or other types.</p>
 <span class="k">val</span> <span class="n">idfIgnore</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">IDF</span><span class="o">(</span><span class="n">minDocFreq</span> <span class="k">=</span> <span class="mi">2</span><span class="o">).</span><span class="n">fit</span><span class="o">(</span><span class="n">tf</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">tfidfIgnore</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Vector</span><span class="o">]</span> <span class="k">=</span> <span class="n">idfIgnore</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">tf</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/TFIDFExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/TFIDFExample.scala" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="python">
 
@@ -483,7 +483,7 @@ Each record could be an iterable of strings or other types.</p>
 <span class="n">idfIgnore</span> <span class="o">=</span> <span class="n">IDF</span><span class="p">(</span><span class="n">minDocFreq</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tf</span><span class="p">)</span>
 <span class="n">tfidfIgnore</span> <span class="o">=</span> <span class="n">idfIgnore</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">tf</span><span class="p">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/tf_idf_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/tf_idf_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -550,7 +550,7 @@ Here we assume the extracted file is <code>text8</code> and in same directory as
 <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;myModelPath&quot;</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">sameModel</span> <span class="k">=</span> <span class="nc">Word2VecModel</span><span class="o">.</span><span class="n">load</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;myModelPath&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/Word2VecExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/Word2VecExample.scala" 目录中找到完整代码。</small></div>
   </div>
 <div data-lang="python">
     <p>Refer to the <a href="api/python/pyspark.mllib.html#pyspark.mllib.feature.Word2Vec"><code>Word2Vec</code> Python docs</a> for more details on the API.</p>
@@ -567,7 +567,7 @@ Here we assume the extracted file is <code>text8</code> and in same directory as
 <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">cosine_distance</span> <span class="ow">in</span> <span class="n">synonyms</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">cosine_distance</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/word2vec_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/word2vec_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -631,7 +631,7 @@ so that the new features have unit standard deviation and/or zero mean.</p>
 <span class="c1">// data2 will be unit variance and zero mean.</span>
 <span class="k">val</span> <span class="n">data2</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">label</span><span class="o">,</span> <span class="n">scaler2</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="nc">Vectors</span><span class="o">.</span><span class="n">dense</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">toArray</span><span class="o">))))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/StandardScalerExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/StandardScalerExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -654,7 +654,7 @@ so that the new features have unit standard deviation and/or zero mean.</p>
 <span class="c1"># data2 will be unit variance and zero mean.</span>
 <span class="n">data2</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">zip</span><span class="p">(</span><span class="n">scaler2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Vectors</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">toArray</span><span class="p">()))))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/standard_scaler_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/standard_scaler_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -700,7 +700,7 @@ with $L^2$ norm, and $L^\infty$ norm.</p>
 <span class="c1">// Each sample in data2 will be normalized using $L^\infty$ norm.</span>
 <span class="k">val</span> <span class="n">data2</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">label</span><span class="o">,</span> <span class="n">normalizer2</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">features</span><span class="o">)))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/NormalizerExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/NormalizerExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -722,7 +722,7 @@ with $L^2$ norm, and $L^\infty$ norm.</p>
 <span class="c1"># Each sample in data2 will be normalized using $L^\infty$ norm.</span>
 <span class="n">data2</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">zip</span><span class="p">(</span><span class="n">normalizer2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/normalizer_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/normalizer_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -791,7 +791,7 @@ for details on the API.</p>
   <span class="nc">LabeledPoint</span><span class="o">(</span><span class="n">lp</span><span class="o">.</span><span class="n">label</span><span class="o">,</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">lp</span><span class="o">.</span><span class="n">features</span><span class="o">))</span>
 <span class="o">}</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/ChiSqSelectorExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/ChiSqSelectorExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -827,7 +827,7 @@ for details on the API.</p>
 <span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">LabeledPoint</span><span class="o">&gt;</span> <span class="n">filteredData</span> <span class="o">=</span> <span class="n">discretizedData</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">lp</span> <span class="o">-&gt;</span>
   <span class="k">new</span> <span class="n">LabeledPoint</span><span class="o">(</span><span class="n">lp</span><span class="o">.</span><span class="na">label</span><span class="o">(),</span> <span class="n">transformer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">lp</span><span class="o">.</span><span class="na">features</span><span class="o">())));</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/mllib/JavaChiSqSelectorExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaChiSqSelectorExample.java" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -886,7 +886,7 @@ v_N
 <span class="k">val</span> <span class="n">transformedData</span> <span class="k">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">transformedData2</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/scala/org/apache/spark/examples/mllib/ElementwiseProductExample.scala" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/ElementwiseProductExample.scala" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -909,7 +909,7 @@ v_N
 <span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">Vector</span><span class="o">&gt;</span> <span class="n">transformedData</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
 <span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">Vector</span><span class="o">&gt;</span> <span class="n">transformedData2</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">transformer</span><span class="o">::</span><span class="n">transform</span><span class="o">);</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/java/org/apache/spark/examples/mllib/JavaElementwiseProductExample.java" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaElementwiseProductExample.java" 目录中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -930,7 +930,7 @@ v_N
 <span class="c1"># Single-row transform</span>
 <span class="n">transformedData2</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">parsedData</span><span class="o">.</span><span class="n">first</span><span class="p">())</span>
 </pre></div>
-    <div><small>Find full example code at "examples/src/main/python/mllib/elementwise_product_example.py" in the Spark repo.</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/elementwise_product_example.py" 目录中找到完整代码。</small></div>
   </div>
 </div>
 
