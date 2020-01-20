@@ -532,7 +532,7 @@ data, and evaluate the performance of the algorithm by several binary evaluation
 <span class="k">val</span> <span class="n">auROC</span> <span class="k">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">areaUnderROC</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Area under ROC = </span><span class="si">$auROC</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/BinaryClassificationMetricsExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/BinaryClassificationMetricsExample.scala" 中找到完整代码。</small></div>
 
   </div>
 
@@ -609,7 +609,7 @@ data, and evaluate the performance of the algorithm by several binary evaluation
 <span class="n">model</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/LogisticRegressionModel&quot;</span><span class="o">);</span>
 <span class="n">LogisticRegressionModel</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="s">&quot;target/tmp/LogisticRegressionModel&quot;</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaBinaryClassificationMetricsExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaBinaryClassificationMetricsExample.java" 中找到完整代码。</small></div>
 
   </div>
 
@@ -643,7 +643,7 @@ data, and evaluate the performance of the algorithm by several binary evaluation
 <span class="c1"># Area under ROC curve</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Area under ROC = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">areaUnderROC</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/binary_classification_metrics_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/binary_classification_metrics_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -817,7 +817,7 @@ the data, and evaluate the performance of the algorithm by several multiclass cl
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Weighted F1 score: </span><span class="si">${</span><span class="n">metrics</span><span class="o">.</span><span class="n">weightedFMeasure</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Weighted false positive rate: </span><span class="si">${</span><span class="n">metrics</span><span class="o">.</span><span class="n">weightedFalsePositiveRate</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/MulticlassMetricsExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/MulticlassMetricsExample.scala" 中找到完整代码。</small></div>
 
   </div>
 
@@ -882,7 +882,7 @@ the data, and evaluate the performance of the algorithm by several multiclass cl
 <span class="n">LogisticRegressionModel</span> <span class="n">sameModel</span> <span class="o">=</span> <span class="n">LogisticRegressionModel</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span>
   <span class="s">&quot;target/tmp/LogisticRegressionModel&quot;</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaMulticlassClassificationMetricsExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaMulticlassClassificationMetricsExample.java" 中找到完整代码。</small></div>
 
   </div>
 
@@ -932,7 +932,7 @@ the data, and evaluate the performance of the algorithm by several multiclass cl
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Weighted F(0.5) Score = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">weightedFMeasure</span><span class="p">(</span><span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Weighted false positive rate = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">weightedFalsePositiveRate</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/multi_class_metrics_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/multi_class_metrics_example.py" 中找到完整代码。</small></div>
 
   </div>
 </div>
@@ -1113,7 +1113,7 @@ use the fake prediction and label data for multilabel classification that is sho
 <span class="c1">// Subset accuracy</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Subset accuracy = </span><span class="si">${</span><span class="n">metrics</span><span class="o">.</span><span class="n">subsetAccuracy</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/MultiLabelMetricsExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/MultiLabelMetricsExample.scala" 中找到完整代码。</small></div>
 
   </div>
 
@@ -1170,7 +1170,7 @@ use the fake prediction and label data for multilabel classification that is sho
 <span class="c1">// Subset accuracy</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;Subset accuracy = %f\n&quot;</span><span class="o">,</span> <span class="n">metrics</span><span class="o">.</span><span class="na">subsetAccuracy</span><span class="o">());</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaMultiLabelClassificationMetricsExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaMultiLabelClassificationMetricsExample.java" 中找到完整代码。</small></div>
 
   </div>
 
@@ -1215,7 +1215,7 @@ use the fake prediction and label data for multilabel classification that is sho
 <span class="c1"># Subset accuracy</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Subset accuracy = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">subsetAccuracy</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/multi_label_metrics_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/multi_label_metrics_example.py" 中找到完整代码。</small></div>
 
   </div>
 </div>
@@ -1418,7 +1418,7 @@ expanded world of non-positive weights are &#8220;the same as never having inter
 <span class="c1">// R-squared</span>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;R-squared = </span><span class="si">${</span><span class="n">regressionMetrics</span><span class="o">.</span><span class="n">r2</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/RankingMetricsExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/mllib/RankingMetricsExample.scala" 中找到完整代码。</small></div>
 
   </div>
 
@@ -1536,7 +1536,7 @@ expanded world of non-positive weights are &#8220;the same as never having inter
 <span class="c1">// R-squared</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;R-squared = %f\n&quot;</span><span class="o">,</span> <span class="n">regressionMetrics</span><span class="o">.</span><span class="na">r2</span><span class="o">());</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaRankingMetricsExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/mllib/JavaRankingMetricsExample.java" 中找到完整代码。</small></div>
 
   </div>
 
@@ -1573,7 +1573,7 @@ expanded world of non-positive weights are &#8220;the same as never having inter
 <span class="c1"># R-squared</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;R-squared = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">r2</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/ranking_metrics_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/mllib/ranking_metrics_example.py" 中找到完整代码。</small></div>
 
   </div>
 </div>

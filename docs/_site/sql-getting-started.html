@@ -122,7 +122,7 @@
     <li>
         <a href="sql-getting-started.html">
             
-                <b>Getting Started</b>
+                <b>入门</b>
             
         </a>
     </li>
@@ -132,19 +132,9 @@
 <ul>
 
     <li>
-        <a href="sql-getting-started.html#starting-point-sparksession">
+        <a href="sql-getting-started.html#起始点sparksession">
             
-                Starting Point: SparkSession
-            
-        </a>
-    </li>
-    
-    
-
-    <li>
-        <a href="sql-getting-started.html#creating-dataframes">
-            
-                Creating DataFrames
+                起始点：SparkSession
             
         </a>
     </li>
@@ -152,19 +142,9 @@
     
 
     <li>
-        <a href="sql-getting-started.html#untyped-dataset-operations-aka-dataframe-operations">
+        <a href="sql-getting-started.html#创建dataframe">
             
-                Untyped Dataset Operations (DataFrame operations)
-            
-        </a>
-    </li>
-    
-    
-
-    <li>
-        <a href="sql-getting-started.html#running-sql-queries-programmatically">
-            
-                Running SQL Queries Programmatically
+                创建DataFrame
             
         </a>
     </li>
@@ -172,19 +152,9 @@
     
 
     <li>
-        <a href="sql-getting-started.html#global-temporary-view">
+        <a href="sql-getting-started.html#无类型的dataset操作又名dataframe操作">
             
-                Global Temporary View
-            
-        </a>
-    </li>
-    
-    
-
-    <li>
-        <a href="sql-getting-started.html#creating-datasets">
-            
-                Creating Datasets
+                无类型的DataSet操作（又名DataFrame操作）
             
         </a>
     </li>
@@ -192,9 +162,9 @@
     
 
     <li>
-        <a href="sql-getting-started.html#interoperating-with-rdds">
+        <a href="sql-getting-started.html#以编程方式运行sql查询">
             
-                Interoperating with RDDs
+                以编程方式运行SQL查询
             
         </a>
     </li>
@@ -202,9 +172,39 @@
     
 
     <li>
-        <a href="sql-getting-started.html#aggregations">
+        <a href="sql-getting-started.html#全局临时视图">
             
-                Aggregations
+                全局临时视图
+            
+        </a>
+    </li>
+    
+    
+
+    <li>
+        <a href="sql-getting-started.html#创建dataset">
+            
+                创建Dataset
+            
+        </a>
+    </li>
+    
+    
+
+    <li>
+        <a href="sql-getting-started.html#rdd的互操作">
+            
+                RDD的互操作
+            
+        </a>
+    </li>
+    
+    
+
+    <li>
+        <a href="sql-getting-started.html#聚合">
+            
+                聚合
             
         </a>
     </li>
@@ -218,7 +218,7 @@
     <li>
         <a href="sql-data-sources.html">
             
-                Data Sources
+                数据源
             
         </a>
     </li>
@@ -323,7 +323,7 @@
 <span class="c1">// For implicit conversions like converting RDDs to DataFrames</span>
 <span class="k">import</span> <span class="nn">spark.implicits._</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -336,7 +336,7 @@
   <span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;spark.some.config.option&quot;</span><span class="o">,</span> <span class="s">&quot;some-value&quot;</span><span class="o">)</span>
   <span class="o">.</span><span class="na">getOrCreate</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -349,7 +349,7 @@
     <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.some.config.option&quot;</span><span class="p">,</span> <span class="s2">&quot;some-value&quot;</span><span class="p">)</span> \
     <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -357,7 +357,7 @@
 
     <div class="highlight"><pre><span></span>sparkR.session<span class="p">(</span>appName <span class="o">=</span> <span class="s">&quot;R Spark SQL basic example&quot;</span><span class="p">,</span> sparkConfig <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>spark.some.config.option <span class="o">=</span> <span class="s">&quot;some-value&quot;</span><span class="p">))</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
 
     <p>请注意，首次调用时，<code>sparkR.session()</code>会初始化全局<code>SparkSession</code>单实例，并始终为连续调用返回对此实例的引用。这样，用户只需初始化<code>SparkSession</code>一次，然后SparkR之类的函数<code>read.df</code>就可以隐式访问此全局实例，并且用户无需传递该<code>SparkSession</code>实例。</p>
 
@@ -386,7 +386,7 @@
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -409,7 +409,7 @@
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -429,7 +429,7 @@
 <span class="c1"># |  19| Justin|</span>
 <span class="c1"># +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -456,7 +456,7 @@ showDF<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">## |  19| Justin|</span>
 <span class="c1">## +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
 
   </div>
 </div>
@@ -517,7 +517,7 @@ showDF<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  30|    1|</span>
 <span class="c1">// +----+-----+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
 
     <p>有关可对数据集执行的操作类型的完整列表，请参阅<a href="api/scala/index.html#org.apache.spark.sql.Dataset">API文档</a>。</p>
 
@@ -574,7 +574,7 @@ showDF<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  30|    1|</span>
 <span class="c1">// +----+-----+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
 
     <p>有关可对数据集执行的操作类型的完整列表，请参阅<a href="api/java/org/apache/spark/sql/Dataset.html">API文档</a>。</p>
 
@@ -630,7 +630,7 @@ showDF<span class="p">(</span>df<span class="p">)</span>
 <span class="c1"># |  30|    1|</span>
 <span class="c1"># +----+-----+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
     <p>有关可在DataFrame上执行的操作类型的完整列表，请参阅<a href="api/python/pyspark.sql.html#pyspark.sql.DataFrame">API文档</a>。</p>
 
     <p>除了简单的列引用和表达式外，DataFrames还具有丰富的函数库，包括字符串处理，日期计算，常用数学运算等。完整列表可在<a href="api/python/pyspark.sql.html#module-pyspark.sql.functions">DataFrame Function Reference中找到</a>。</p>
@@ -682,7 +682,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">## 2  NA     1</span>
 <span class="c1">## 3  30     1</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
 
     <p>有关可在DataFrame上执行的操作类型的完整列表，请参阅<a href="api/python/pyspark.sql.html#pyspark.sql.DataFrame">API文档</a>。</p>
 
@@ -711,7 +711,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -733,7 +733,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -752,7 +752,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1"># |  19| Justin|</span>
 <span class="c1"># +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="r">
@@ -760,7 +760,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 
     <div class="highlight"><pre><span></span>df <span class="o">&lt;-</span> sql<span class="p">(</span><span class="s">&quot;SELECT * FROM table&quot;</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
 
   </div>
 </div>
@@ -794,7 +794,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -821,7 +821,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -848,7 +848,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1"># |  19| Justin|</span>
 <span class="c1"># +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="sql">
@@ -893,7 +893,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -966,7 +966,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |  19| Justin|</span>
 <span class="c1">// +----+-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1022,7 +1022,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="n">teenagersDF</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">teenager</span> <span class="k">=&gt;</span> <span class="n">teenager</span><span class="o">.</span><span class="n">getValuesMap</span><span class="o">[</span><span class="kt">Any</span><span class="o">](</span><span class="nc">List</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="s">&quot;age&quot;</span><span class="o">))).</span><span class="n">collect</span><span class="o">()</span>
 <span class="c1">// Array(Map(&quot;name&quot; -&gt; &quot;Justin&quot;, &quot;age&quot; -&gt; 19))</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1079,7 +1079,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |Name: Justin|</span>
 <span class="c1">// +------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1108,7 +1108,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 <span class="c1"># Name: Justin</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1168,7 +1168,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// | Name: Justin|</span>
 <span class="c1">// +-------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1240,7 +1240,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// | Name: Justin|</span>
 <span class="c1">// +-------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1289,7 +1289,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1"># | Justin|</span>
 <span class="c1"># +-------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -1371,7 +1371,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |        3750.0|</span>
 <span class="c1">// +--------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedUntypedAggregation.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedUntypedAggregation.scala" 中找到完整代码。</small></div>
   </div>
 <div data-lang="java">
     <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
@@ -1471,7 +1471,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |        3750.0|</span>
 <span class="c1">// +--------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedUntypedAggregation.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedUntypedAggregation.java" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1532,7 +1532,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |        3750.0|</span>
 <span class="c1">// +--------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedTypedAggregation.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedTypedAggregation.scala" 中找到完整代码。</small></div>
   </div>
 <div data-lang="java">
     <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
@@ -1620,7 +1620,7 @@ printSchema<span class="p">(</span>df<span class="p">)</span>
 <span class="c1">// |        3750.0|</span>
 <span class="c1">// +--------------+</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedTypedAggregation.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedTypedAggregation.java" 中找到完整代码。</small></div>
   </div>
 </div>
 

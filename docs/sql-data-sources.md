@@ -1,34 +1,14 @@
 ---
 layout: global
-title: Data Sources
-displayTitle: Data Sources
-license: |
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
- 
-     http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+title: 数据源
+displayTitle: 数据源
 ---
 
-
-Spark SQL supports operating on a variety of data sources through the DataFrame interface.
-A DataFrame can be operated on using relational transformations and can also be used to create a temporary view.
-Registering a DataFrame as a temporary view allows you to run SQL queries over its data. This section
-describes the general methods for loading and saving data using the Spark Data Sources and then
-goes into specific options that are available for the built-in data sources.
+Spark SQL支持通过DataFrame接口对各种数据源进行操作。DataFrame可以使用关系转换进行操作，也可以用于创建临时视图。将DataFrame注册为临时视图使你可以对其数据运行SQL查询。本节介绍了使用Spark数据源加载和保存数据的一般方法，然后介绍了可用于内置数据源的特定选项。
 
 
-* [Generic Load/Save Functions](sql-data-sources-load-save-functions.html)
-  * [Manually Specifying Options](sql-data-sources-load-save-functions.html#manually-specifying-options)
+* [通用 Load/Save 方法](sql-data-sources-load-save-functions.html)
+  * [手动指定选项](sql-data-sources-load-save-functions.html#manually-specifying-options)
   * [Run SQL on files directly](sql-data-sources-load-save-functions.html#run-sql-on-files-directly)
   * [Save Modes](sql-data-sources-load-save-functions.html#save-modes)
   * [Saving to Persistent Tables](sql-data-sources-load-save-functions.html#saving-to-persistent-tables)

@@ -504,7 +504,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">movies</span> <span class="k">=</span> <span class="n">ratings</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="n">als</span><span class="o">.</span><span class="n">getItemCol</span><span class="o">).</span><span class="n">distinct</span><span class="o">().</span><span class="n">limit</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">movieSubSetRecs</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">recommendForItemSubset</span><span class="o">(</span><span class="n">movies</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ALSExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ALSExample.scala" 中找到完整代码。</small></div>
 
     <p>If the rating matrix is derived from another source of information (i.e. it is
 inferred from other signals), you can set <code>implicitPrefs</code> to <code>true</code> to get
@@ -625,7 +625,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">movies</span> <span class="o">=</span> <span class="n">ratings</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">als</span><span class="o">.</span><span class="na">getItemCol</span><span class="o">()).</span><span class="na">distinct</span><span class="o">().</span><span class="na">limit</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">movieSubSetRecs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="na">recommendForItemSubset</span><span class="o">(</span><span class="n">movies</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaALSExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaALSExample.java" 中找到完整代码。</small></div>
 
     <p>If the rating matrix is derived from another source of information (i.e. it is
 inferred from other signals), you can set <code>implicitPrefs</code> to <code>true</code> to get
@@ -690,7 +690,7 @@ for more details on the API.</p>
 <span class="n">movies</span> <span class="o">=</span> <span class="n">ratings</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">als</span><span class="o">.</span><span class="n">getItemCol</span><span class="p">())</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">movieSubSetRecs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">recommendForItemSubset</span><span class="p">(</span><span class="n">movies</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/als_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/als_example.py" 中找到完整代码。</small></div>
 
     <p>If the rating matrix is derived from another source of information (i.e. it is
 inferred from other signals), you can set <code>implicitPrefs</code> to <code>True</code> to get
@@ -723,7 +723,7 @@ model <span class="o">&lt;-</span> spark.als<span class="p">(</span>training<spa
 predictions <span class="o">&lt;-</span> predict<span class="p">(</span>model<span class="p">,</span> test<span class="p">)</span>
 <span class="kp">head</span><span class="p">(</span>predictions<span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/als.R" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/ml/als.R" 中找到完整代码。</small></div>
   </div>
 
 </div>

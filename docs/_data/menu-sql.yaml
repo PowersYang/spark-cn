@@ -1,23 +1,23 @@
-- text: Getting Started
+- text: 入门
   url: sql-getting-started.html
   subitems:
-    - text: "Starting Point: SparkSession"
-      url: sql-getting-started.html#starting-point-sparksession
-    - text: Creating DataFrames
-      url: sql-getting-started.html#creating-dataframes
-    - text: Untyped Dataset Operations (DataFrame operations)
-      url: sql-getting-started.html#untyped-dataset-operations-aka-dataframe-operations
-    - text: Running SQL Queries Programmatically
-      url: sql-getting-started.html#running-sql-queries-programmatically
-    - text: Global Temporary View
-      url: sql-getting-started.html#global-temporary-view
-    - text: Creating Datasets
-      url: sql-getting-started.html#creating-datasets
-    - text: Interoperating with RDDs
-      url: sql-getting-started.html#interoperating-with-rdds
-    - text: Aggregations
-      url: sql-getting-started.html#aggregations
-- text: Data Sources
+    - text: "起始点：SparkSession"
+      url: sql-getting-started.html#起始点sparksession
+    - text: 创建DataFrame
+      url: sql-getting-started.html#创建dataframe
+    - text: 无类型的DataSet操作（又名DataFrame操作）
+      url: sql-getting-started.html#无类型的dataset操作又名dataframe操作
+    - text: 以编程方式运行SQL查询
+      url: sql-getting-started.html#以编程方式运行sql查询
+    - text: 全局临时视图
+      url: sql-getting-started.html#全局临时视图
+    - text: 创建Dataset
+      url: sql-getting-started.html#创建dataset
+    - text: RDD的互操作
+      url: sql-getting-started.html#rdd的互操作
+    - text: 聚合
+      url: sql-getting-started.html#聚合
+- text: 数据源
   url: sql-data-sources.html
   subitems:
     - text: "Generic Load/Save Functions"

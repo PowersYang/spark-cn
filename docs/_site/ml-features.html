@@ -505,7 +505,7 @@ the <a href="api/scala/index.html#org.apache.spark.ml.feature.IDF">IDF Scala doc
 <span class="k">val</span> <span class="n">rescaledData</span> <span class="k">=</span> <span class="n">idfModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">featurizedData</span><span class="o">)</span>
 <span class="n">rescaledData</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;label&quot;</span><span class="o">,</span> <span class="s">&quot;features&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/TfIdfExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/TfIdfExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -558,7 +558,7 @@ the <a href="api/scala/index.html#org.apache.spark.ml.feature.IDF">IDF Scala doc
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">rescaledData</span> <span class="o">=</span> <span class="n">idfModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">featurizedData</span><span class="o">);</span>
 <span class="n">rescaledData</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;label&quot;</span><span class="o">,</span> <span class="s">&quot;features&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaTfIdfExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaTfIdfExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -587,7 +587,7 @@ the <a href="api/python/pyspark.ml.html#pyspark.ml.feature.IDF">IDF Python docs<
 
 <span class="n">rescaledData</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/tf_idf_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/tf_idf_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -633,7 +633,7 @@ for more details on the API.</p>
 <span class="n">result</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Row</span><span class="o">(</span><span class="n">text</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="k">_</span><span class="o">],</span> <span class="n">features</span><span class="k">:</span> <span class="kt">Vector</span><span class="o">)</span> <span class="k">=&gt;</span>
   <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Text: [</span><span class="si">${</span><span class="n">text</span><span class="o">.</span><span class="n">mkString</span><span class="o">(</span><span class="s">&quot;, &quot;</span><span class="o">)</span><span class="si">}</span><span class="s">] =&gt; \nVector: </span><span class="si">$features</span><span class="s">\n&quot;</span><span class="o">)</span> <span class="o">}</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/Word2VecExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/Word2VecExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -680,7 +680,7 @@ for more details on the API.</p>
   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Text: &quot;</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="s">&quot; =&gt; \nVector: &quot;</span> <span class="o">+</span> <span class="n">vector</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaWord2VecExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaWord2VecExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -706,7 +706,7 @@ for more details on the API.</p>
     <span class="n">text</span><span class="p">,</span> <span class="n">vector</span> <span class="o">=</span> <span class="n">row</span>
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Text: [</span><span class="si">%s</span><span class="s2">] =&gt; </span><span class="se">\n</span><span class="s2">Vector: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">vector</span><span class="p">)))</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/word2vec_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/word2vec_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -776,7 +776,7 @@ for more details on the API.</p>
 
 <span class="n">cvModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/CountVectorizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/CountVectorizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -821,7 +821,7 @@ for more details on the API.</p>
 
 <span class="n">cvModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaCountVectorizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaCountVectorizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -846,7 +846,7 @@ for more details on the API.</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/count_vectorizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/count_vectorizer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -929,7 +929,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">featurized</span> <span class="k">=</span> <span class="n">hasher</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">)</span>
 <span class="n">featurized</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/FeatureHasherExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/FeatureHasherExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -970,7 +970,7 @@ for more details on the API.</p>
 
 <span class="n">featurized</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaFeatureHasherExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaFeatureHasherExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -993,7 +993,7 @@ for more details on the API.</p>
 <span class="n">featurized</span> <span class="o">=</span> <span class="n">hasher</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="n">featurized</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/feature_hasher_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/feature_hasher_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1044,7 +1044,7 @@ for more details on the API.</p>
 <span class="n">regexTokenized</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;sentence&quot;</span><span class="o">,</span> <span class="s">&quot;words&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="n">withColumn</span><span class="o">(</span><span class="s">&quot;tokens&quot;</span><span class="o">,</span> <span class="n">countTokens</span><span class="o">(</span><span class="n">col</span><span class="o">(</span><span class="s">&quot;words&quot;</span><span class="o">))).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/TokenizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/TokenizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1105,7 +1105,7 @@ for more details on the API.</p>
     <span class="o">.</span><span class="na">withColumn</span><span class="o">(</span><span class="s">&quot;tokens&quot;</span><span class="o">,</span> <span class="n">callUDF</span><span class="o">(</span><span class="s">&quot;countTokens&quot;</span><span class="o">,</span> <span class="n">col</span><span class="o">(</span><span class="s">&quot;words&quot;</span><span class="o">)))</span>
     <span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaTokenizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaTokenizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1139,7 +1139,7 @@ for more details on the API.</p>
 <span class="n">regexTokenized</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;sentence&quot;</span><span class="p">,</span> <span class="s2">&quot;words&quot;</span><span class="p">)</span> \
     <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;tokens&quot;</span><span class="p">,</span> <span class="n">countTokens</span><span class="p">(</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;words&quot;</span><span class="p">)))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/tokenizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/tokenizer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1200,7 +1200,7 @@ for more details on the API.</p>
 
 <span class="n">remover</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataSet</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StopWordsRemoverExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StopWordsRemoverExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1237,7 +1237,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">dataset</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">createDataFrame</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">schema</span><span class="o">);</span>
 <span class="n">remover</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStopWordsRemoverExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStopWordsRemoverExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1255,7 +1255,7 @@ for more details on the API.</p>
 <span class="n">remover</span> <span class="o">=</span> <span class="n">StopWordsRemover</span><span class="p">(</span><span class="n">inputCol</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">outputCol</span><span class="o">=</span><span class="s2">&quot;filtered&quot;</span><span class="p">)</span>
 <span class="n">remover</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sentenceData</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/stopwords_remover_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/stopwords_remover_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1287,7 +1287,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">ngramDataFrame</span> <span class="k">=</span> <span class="n">ngram</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">wordDataFrame</span><span class="o">)</span>
 <span class="n">ngramDataFrame</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;ngrams&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/NGramExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/NGramExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1325,7 +1325,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">ngramDataFrame</span> <span class="o">=</span> <span class="n">ngramTransformer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">wordDataFrame</span><span class="o">);</span>
 <span class="n">ngramDataFrame</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;ngrams&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaNGramExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaNGramExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1346,7 +1346,7 @@ for more details on the API.</p>
 <span class="n">ngramDataFrame</span> <span class="o">=</span> <span class="n">ngram</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">wordDataFrame</span><span class="p">)</span>
 <span class="n">ngramDataFrame</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;ngrams&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/n_gram_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/n_gram_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1382,7 +1382,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Binarizer output with Threshold = </span><span class="si">${</span><span class="n">binarizer</span><span class="o">.</span><span class="n">getThreshold</span><span class="si">}</span><span class="s">&quot;</span><span class="o">)</span>
 <span class="n">binarizedDataFrame</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BinarizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BinarizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1422,7 +1422,7 @@ for more details on the API.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Binarizer output with Threshold = &quot;</span> <span class="o">+</span> <span class="n">binarizer</span><span class="o">.</span><span class="na">getThreshold</span><span class="o">());</span>
 <span class="n">binarizedDataFrame</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBinarizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBinarizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1445,7 +1445,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Binarizer output with Threshold = </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">binarizer</span><span class="o">.</span><span class="n">getThreshold</span><span class="p">())</span>
 <span class="n">binarizedDataFrame</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/binarizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/binarizer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1480,7 +1480,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;pcaFeatures&quot;</span><span class="o">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/PCAExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/PCAExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1523,7 +1523,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;pcaFeatures&quot;</span><span class="o">);</span>
 <span class="n">result</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaPCAExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaPCAExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1545,7 +1545,7 @@ for more details on the API.</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;pcaFeatures&quot;</span><span class="p">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/pca_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/pca_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1579,7 +1579,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">polyDF</span> <span class="k">=</span> <span class="n">polyExpansion</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">polyDF</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/PolynomialExpansionExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/PolynomialExpansionExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1618,7 +1618,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">polyDF</span> <span class="o">=</span> <span class="n">polyExpansion</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">);</span>
 <span class="n">polyDF</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaPolynomialExpansionExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaPolynomialExpansionExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1640,7 +1640,7 @@ for more details on the API.</p>
 
 <span class="n">polyDF</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/polynomial_expansion_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/polynomial_expansion_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1684,7 +1684,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">dctDf</span> <span class="k">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">dctDf</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;featuresDCT&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/DCTExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/DCTExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1723,7 +1723,7 @@ for more details on the API.</p>
 
 <span class="n">dctDf</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;featuresDCT&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaDCTExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaDCTExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1745,7 +1745,7 @@ for more details on the API.</p>
 
 <span class="n">dctDf</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;featuresDCT&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/dct_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/dct_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -1869,7 +1869,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">indexed</span> <span class="k">=</span> <span class="n">indexer</span><span class="o">.</span><span class="n">fit</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">indexed</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StringIndexerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StringIndexerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -1910,7 +1910,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">indexed</span> <span class="o">=</span> <span class="n">indexer</span><span class="o">.</span><span class="na">fit</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">);</span>
 <span class="n">indexed</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStringIndexerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStringIndexerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -1928,7 +1928,7 @@ for more details on the API.</p>
 <span class="n">indexed</span> <span class="o">=</span> <span class="n">indexer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">indexed</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/string_indexer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/string_indexer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2011,7 +2011,7 @@ for more details on the API.</p>
     <span class="s">s&quot;column &#39;</span><span class="si">${</span><span class="n">converter</span><span class="o">.</span><span class="n">getOutputCol</span><span class="si">}</span><span class="s">&#39; using labels in metadata&quot;</span><span class="o">)</span>
 <span class="n">converted</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;categoryIndex&quot;</span><span class="o">,</span> <span class="s">&quot;originalCategory&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/IndexToStringExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/IndexToStringExample.scala" 中找到完整代码。</small></div>
 
   </div>
 
@@ -2071,7 +2071,7 @@ for more details on the API.</p>
     <span class="s">&quot;original string column &#39;&quot;</span> <span class="o">+</span> <span class="n">converter</span><span class="o">.</span><span class="na">getOutputCol</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&#39; using labels in metadata&quot;</span><span class="o">);</span>
 <span class="n">converted</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="s">&quot;categoryIndex&quot;</span><span class="o">,</span> <span class="s">&quot;originalCategory&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaIndexToStringExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaIndexToStringExample.java" 中找到完整代码。</small></div>
 
   </div>
 
@@ -2103,7 +2103,7 @@ for more details on the API.</p>
       <span class="s2">&quot;labels in metadata&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">getInputCol</span><span class="p">(),</span> <span class="n">converter</span><span class="o">.</span><span class="n">getOutputCol</span><span class="p">()))</span>
 <span class="n">converted</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;categoryIndex&quot;</span><span class="p">,</span> <span class="s2">&quot;originalCategory&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/index_to_string_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/index_to_string_example.py" 中找到完整代码。</small></div>
 
   </div>
 </div>
@@ -2142,7 +2142,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">encoded</span> <span class="k">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">encoded</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/OneHotEncoderExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/OneHotEncoderExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2187,7 +2187,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">encoded</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">);</span>
 <span class="n">encoded</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaOneHotEncoderExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaOneHotEncoderExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2211,7 +2211,7 @@ for more details on the API.</p>
 <span class="n">encoded</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">encoded</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/onehot_encoder_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/onehot_encoder_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2258,7 +2258,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">indexedData</span> <span class="k">=</span> <span class="n">indexerModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
 <span class="n">indexedData</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorIndexerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorIndexerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2293,7 +2293,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">indexedData</span> <span class="o">=</span> <span class="n">indexerModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
 <span class="n">indexedData</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorIndexerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorIndexerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2316,7 +2316,7 @@ for more details on the API.</p>
 <span class="n">indexedData</span> <span class="o">=</span> <span class="n">indexerModel</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">indexedData</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_indexer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_indexer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2391,7 +2391,7 @@ for more details on the API.</p>
 
 <span class="n">interacted</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="n">truncate</span> <span class="k">=</span> <span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/InteractionExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/InteractionExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2440,7 +2440,7 @@ for more details on the API.</p>
 
 <span class="n">interacted</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaInteractionExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaInteractionExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2473,7 +2473,7 @@ for more details on the API.</p>
 
 <span class="n">interacted</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/interaction_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/interaction_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2515,7 +2515,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Normalized using L^inf norm&quot;</span><span class="o">)</span>
 <span class="n">lInfNormData</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/NormalizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/NormalizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2562,7 +2562,7 @@ for more details on the API.</p>
   <span class="n">normalizer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">,</span> <span class="n">normalizer</span><span class="o">.</span><span class="na">p</span><span class="o">().</span><span class="na">w</span><span class="o">(</span><span class="n">Double</span><span class="o">.</span><span class="na">POSITIVE_INFINITY</span><span class="o">));</span>
 <span class="n">lInfNormData</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaNormalizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaNormalizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2590,7 +2590,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Normalized using L^inf norm&quot;</span><span class="p">)</span>
 <span class="n">lInfNormData</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/normalizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/normalizer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2634,7 +2634,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">scaledData</span> <span class="k">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StandardScalerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/StandardScalerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2663,7 +2663,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">scaledData</span> <span class="o">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">);</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStandardScalerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaStandardScalerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2684,7 +2684,7 @@ for more details on the API.</p>
 <span class="n">scaledData</span> <span class="o">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/standard_scaler_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/standard_scaler_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2732,7 +2732,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">scaledData</span> <span class="k">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RobustScalerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RobustScalerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2763,7 +2763,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">scaledData</span> <span class="o">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">);</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRobustScalerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRobustScalerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2785,7 +2785,7 @@ for more details on the API.</p>
 <span class="n">scaledData</span> <span class="o">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/robust_scaler_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/robust_scaler_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2840,7 +2840,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;Features scaled to range: [</span><span class="si">${</span><span class="n">scaler</span><span class="o">.</span><span class="n">getMin</span><span class="si">}</span><span class="s">, </span><span class="si">${</span><span class="n">scaler</span><span class="o">.</span><span class="n">getMax</span><span class="si">}</span><span class="s">]&quot;</span><span class="o">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;scaledFeatures&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MinMaxScalerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MinMaxScalerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -2888,7 +2888,7 @@ for more details on the API.</p>
     <span class="o">+</span> <span class="n">scaler</span><span class="o">.</span><span class="na">getMax</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;]&quot;</span><span class="o">);</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;scaledFeatures&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMinMaxScalerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMinMaxScalerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -2916,7 +2916,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Features scaled to range: [</span><span class="si">%f</span><span class="s2">, </span><span class="si">%f</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">getMin</span><span class="p">(),</span> <span class="n">scaler</span><span class="o">.</span><span class="n">getMax</span><span class="p">()))</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;scaledFeatures&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/min_max_scaler_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/min_max_scaler_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -2960,7 +2960,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">scaledData</span> <span class="k">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">)</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;scaledFeatures&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MaxAbsScalerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MaxAbsScalerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3006,7 +3006,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">scaledData</span> <span class="o">=</span> <span class="n">scalerModel</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">);</span>
 <span class="n">scaledData</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;scaledFeatures&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMaxAbsScalerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMaxAbsScalerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3034,7 +3034,7 @@ for more details on the API.</p>
 
 <span class="n">scaledData</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;scaledFeatures&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/max_abs_scaler_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/max_abs_scaler_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3106,7 +3106,7 @@ for more details on the API.</p>
   <span class="s">s&quot;</span><span class="si">${</span><span class="n">bucketizer2</span><span class="o">.</span><span class="n">getSplitsArray</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s">] buckets for each input column&quot;</span><span class="o">)</span>
 <span class="n">bucketedData2</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BucketizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BucketizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3184,7 +3184,7 @@ for more details on the API.</p>
   <span class="o">(</span><span class="n">bucketizer2</span><span class="o">.</span><span class="na">getSplitsArray</span><span class="o">()[</span><span class="mi">1</span><span class="o">].</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;] buckets for each input column&quot;</span><span class="o">);</span>
 <span class="n">bucketedData2</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBucketizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBucketizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3207,7 +3207,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Bucketizer output with </span><span class="si">%d</span><span class="s2"> buckets&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bucketizer</span><span class="o">.</span><span class="n">getSplits</span><span class="p">())</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">bucketedData</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/bucketizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/bucketizer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3258,7 +3258,7 @@ for more details on the API.</p>
 <span class="c1">// Batch transform the vectors to create new column:</span>
 <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ElementwiseProductExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ElementwiseProductExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3304,7 +3304,7 @@ for more details on the API.</p>
 <span class="c1">// Batch transform the vectors to create new column:</span>
 <span class="n">transformer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataFrame</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaElementwiseProductExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaElementwiseProductExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3323,7 +3323,7 @@ for more details on the API.</p>
 <span class="c1"># Batch transform the vectors to create new column:</span>
 <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/elementwise_product_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/elementwise_product_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3377,7 +3377,7 @@ for more details on the API.</p>
 
 <span class="n">sqlTrans</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/SQLTransformerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/SQLTransformerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3411,7 +3411,7 @@ for more details on the API.</p>
 
 <span class="n">sqlTrans</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaSQLTransformerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaSQLTransformerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3428,7 +3428,7 @@ for more details on the API.</p>
     <span class="n">statement</span><span class="o">=</span><span class="s2">&quot;SELECT *, (v1 + v2) AS v3, (v1 * v2) AS v4 FROM __THIS__&quot;</span><span class="p">)</span>
 <span class="n">sqlTrans</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/sql_transformer.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/sql_transformer.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3486,7 +3486,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Assembled columns &#39;hour&#39;, &#39;mobile&#39;, &#39;userFeatures&#39; to vector column &#39;features&#39;&quot;</span><span class="o">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;clicked&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorAssemblerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorAssemblerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3524,7 +3524,7 @@ for more details on the API.</p>
     <span class="s">&quot;&#39;features&#39;&quot;</span><span class="o">);</span>
 <span class="n">output</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;clicked&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorAssemblerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorAssemblerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3547,7 +3547,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Assembled columns &#39;hour&#39;, &#39;mobile&#39;, &#39;userFeatures&#39; to vector column &#39;features&#39;&quot;</span><span class="p">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;clicked&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_assembler_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_assembler_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3609,7 +3609,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Assembled columns &#39;hour&#39;, &#39;mobile&#39;, &#39;userFeatures&#39; to vector column &#39;features&#39;&quot;</span><span class="o">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;clicked&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorSizeHintExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorSizeHintExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3660,7 +3660,7 @@ for more details on the API.</p>
     <span class="s">&quot;&#39;features&#39;&quot;</span><span class="o">);</span>
 <span class="n">output</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;clicked&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorSizeHintExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorSizeHintExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3694,7 +3694,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Assembled columns &#39;hour&#39;, &#39;mobile&#39;, &#39;userFeatures&#39; to vector column &#39;features&#39;&quot;</span><span class="p">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;clicked&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_size_hint_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_size_hint_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -3772,7 +3772,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">discretizer</span><span class="o">.</span><span class="n">fit</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/QuantileDiscretizerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/QuantileDiscretizerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3815,7 +3815,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">discretizer</span><span class="o">.</span><span class="na">fit</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">);</span>
 <span class="n">result</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaQuantileDiscretizerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaQuantileDiscretizerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3833,7 +3833,7 @@ for more details on the API.</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">discretizer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/quantile_discretizer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/quantile_discretizer_example.py" 中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -3900,7 +3900,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">model</span> <span class="k">=</span> <span class="n">imputer</span><span class="o">.</span><span class="n">fit</span><span class="o">(</span><span class="n">df</span><span class="o">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ImputerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ImputerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -3939,7 +3939,7 @@ for more details on the API.</p>
 <span class="n">ImputerModel</span> <span class="n">model</span> <span class="o">=</span> <span class="n">imputer</span><span class="o">.</span><span class="na">fit</span><span class="o">(</span><span class="n">df</span><span class="o">);</span>
 <span class="n">model</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">df</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaImputerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaImputerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -3962,7 +3962,7 @@ for more details on the API.</p>
 
 <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/imputer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/imputer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -4056,7 +4056,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">output</span> <span class="k">=</span> <span class="n">slicer</span><span class="o">.</span><span class="n">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">show</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorSlicerExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/VectorSlicerExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -4101,7 +4101,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">output</span> <span class="o">=</span> <span class="n">vectorSlicer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">);</span>
 <span class="n">output</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorSlicerExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaVectorSlicerExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -4123,7 +4123,7 @@ for more details on the API.</p>
 
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;userFeatures&quot;</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_slicer_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/vector_slicer_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -4210,7 +4210,7 @@ for more details on the API.</p>
 <span class="k">val</span> <span class="n">output</span> <span class="k">=</span> <span class="n">formula</span><span class="o">.</span><span class="n">fit</span><span class="o">(</span><span class="n">dataset</span><span class="o">).</span><span class="n">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;label&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RFormulaExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/RFormulaExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -4251,7 +4251,7 @@ for more details on the API.</p>
 <span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">output</span> <span class="o">=</span> <span class="n">formula</span><span class="o">.</span><span class="na">fit</span><span class="o">(</span><span class="n">dataset</span><span class="o">).</span><span class="na">transform</span><span class="o">(</span><span class="n">dataset</span><span class="o">);</span>
 <span class="n">output</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;features&quot;</span><span class="o">,</span> <span class="s">&quot;label&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRFormulaExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaRFormulaExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -4275,7 +4275,7 @@ for more details on the API.</p>
 <span class="n">output</span> <span class="o">=</span> <span class="n">formula</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 <span class="n">output</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/rformula_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/rformula_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -4345,7 +4345,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">s&quot;ChiSqSelector output with top </span><span class="si">${</span><span class="n">selector</span><span class="o">.</span><span class="n">getNumTopFeatures</span><span class="si">}</span><span class="s"> features selected&quot;</span><span class="o">)</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ChiSqSelectorExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/ChiSqSelectorExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -4391,7 +4391,7 @@ for more details on the API.</p>
     <span class="o">+</span> <span class="s">&quot; features selected&quot;</span><span class="o">);</span>
 <span class="n">result</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaChiSqSelectorExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaChiSqSelectorExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -4415,7 +4415,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ChiSqSelector output with top </span><span class="si">%d</span><span class="s2"> features selected&quot;</span> <span class="o">%</span> <span class="n">selector</span><span class="o">.</span><span class="n">getNumTopFeatures</span><span class="p">())</span>
 <span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/chisq_selector_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/chisq_selector_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
@@ -4535,7 +4535,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="o">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">approxNearestNeighbors</span><span class="o">(</span><span class="n">dfA</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BucketedRandomProjectionLSHExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/BucketedRandomProjectionLSHExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -4613,7 +4613,7 @@ for more details on the API.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="o">);</span>
 <span class="n">model</span><span class="o">.</span><span class="na">approxNearestNeighbors</span><span class="o">(</span><span class="n">dfA</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBucketedRandomProjectionLSHExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaBucketedRandomProjectionLSHExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -4664,7 +4664,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">approxNearestNeighbors</span><span class="p">(</span><span class="n">dfA</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/bucketed_random_projection_lsh_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/bucketed_random_projection_lsh_example.py" 中找到完整代码。</small></div>
   </div>
 
 </div>
@@ -4738,7 +4738,7 @@ for more details on the API.</p>
 <span class="n">println</span><span class="o">(</span><span class="s">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="o">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">approxNearestNeighbors</span><span class="o">(</span><span class="n">dfA</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MinHashLSHExample.scala" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/ml/MinHashLSHExample.scala" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="java">
@@ -4817,7 +4817,7 @@ for more details on the API.</p>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="o">);</span>
 <span class="n">model</span><span class="o">.</span><span class="na">approxNearestNeighbors</span><span class="o">(</span><span class="n">dfA</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMinHashLSHExample.java" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/ml/JavaMinHashLSHExample.java" 中找到完整代码。</small></div>
   </div>
 
 <div data-lang="python">
@@ -4867,7 +4867,7 @@ for more details on the API.</p>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Approximately searching dfA for 2 nearest neighbors of the key:&quot;</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">approxNearestNeighbors</span><span class="p">(</span><span class="n">dfA</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
-    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/min_hash_lsh_example.py" 目录中找到完整代码。</small></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/ml/min_hash_lsh_example.py" 中找到完整代码。</small></div>
   </div>
 </div>
 
