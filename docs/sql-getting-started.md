@@ -1,58 +1,40 @@
 ---
 layout: global
-title: Getting Started
-displayTitle: Getting Started
-license: |
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
- 
-     http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+title: 入门
+displayTitle: 入门
 ---
 
 * Table of contents
 {:toc}
 
-## Starting Point: SparkSession
+## 起始点：SparkSession
 
 <div class="codetabs">
 <div data-lang="scala"  markdown="1">
-
-The entry point into all functionality in Spark is the [`SparkSession`](api/scala/index.html#org.apache.spark.sql.SparkSession) class. To create a basic `SparkSession`, just use `SparkSession.builder()`:
+[`SparkSession`](http://spark-cn.cn/api/scala/index.html#org.apache.spark.sql.SparkSession)类是Spark中所有功能的入口点。要创建一个基本的`SparkSession`，只需使用`SparkSession.builder()`：
 
 {% include_example init_session scala/org/apache/spark/examples/sql/SparkSQLExample.scala %}
 </div>
 
 <div data-lang="java" markdown="1">
-
-The entry point into all functionality in Spark is the [`SparkSession`](api/java/index.html#org.apache.spark.sql.SparkSession) class. To create a basic `SparkSession`, just use `SparkSession.builder()`:
+[`SparkSession`](http://spark-cn.cn/api/java/index.html#org.apache.spark.sql.SparkSession)类是Spark中所有功能的入口点。要创建一个基本的`SparkSession`，只需使用`SparkSession.builder()`：
 
 {% include_example init_session java/org/apache/spark/examples/sql/JavaSparkSQLExample.java %}
 </div>
 
 <div data-lang="python"  markdown="1">
-
-The entry point into all functionality in Spark is the [`SparkSession`](api/python/pyspark.sql.html#pyspark.sql.SparkSession) class. To create a basic `SparkSession`, just use `SparkSession.builder`:
+[`SparkSession`](http://spark-cn.cn/api/python/pyspark.sql.html#pyspark.sql.SparkSession)类是Spark中所有功能的入口点。要创建一个基本的`SparkSession`，只需使用`SparkSession.builder`：
 
 {% include_example init_session python/sql/basic.py %}
 </div>
 
 <div data-lang="r"  markdown="1">
-
-The entry point into all functionality in Spark is the [`SparkSession`](api/R/sparkR.session.html) class. To initialize a basic `SparkSession`, just call `sparkR.session()`:
+[`SparkSession`](http://spark-cn.cn/api/python/pyspark.sql.html#pyspark.sql.SparkSession)类是Spark中所有功能的入口点。要创建一个基本的`SparkSession`，只需使用`SparkSession.builder`：
 
 {% include_example init_session r/RSparkSQLExample.R %}
 
-Note that when invoked for the first time, `sparkR.session()` initializes a global `SparkSession` singleton instance, and always returns a reference to this instance for successive invocations. In this way, users only need to initialize the `SparkSession` once, then SparkR functions like `read.df` will be able to access this global instance implicitly, and users don't need to pass the `SparkSession` instance around.
+请注意，首次调用时，`sparkR.session()`会初始化全局`SparkSession`单实例，并始终为连续调用返回对此实例的引用。这样，用户只需初始化`SparkSession`一次，然后SparkR之类的函数`read.df`就可以隐式访问此全局实例，并且用户无需传递该`SparkSession`实例。
+
 </div>
 </div>
 

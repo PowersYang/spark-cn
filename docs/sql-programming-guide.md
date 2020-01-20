@@ -1,67 +1,21 @@
 ---
 layout: global
-displayTitle: Spark SQL, DataFrames and Datasets Guide
-title: Spark SQL and DataFrames
-license: |
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
- 
-     http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+displayTitle: Spark SQL，DataFrames和Datasets指南
+title: Spark SQL和DataFrame
 ---
 
-Spark SQL is a Spark module for structured data processing. Unlike the basic Spark RDD API, the interfaces provided
-by Spark SQL provide Spark with more information about the structure of both the data and the computation being performed. Internally,
-Spark SQL uses this extra information to perform extra optimizations. There are several ways to
-interact with Spark SQL including SQL and the Dataset API. When computing a result,
-the same execution engine is used, independent of which API/language you are using to express the
-computation. This unification means that developers can easily switch back and forth between
-different APIs based on which provides the most natural way to express a given transformation.
+Spark SQL是用于结构化数据处理的Spark模块。与基础的Spark RDD API不同，Spark SQL提供的接口为Spark提供了有关数据结构和执行计算的更多信息。在内部，Spark SQL使用这些额外的信息来执行额外的优化。与Spark SQL交互的方法有多种，包括SQL和Dataset API。计算结果时，将使用相同的执行引擎，而与要用来表达计算的API或语言无关。这种统一意味着开发人员可以轻松地在不同的API之间来回切换，从而提供最自然的方式来表达给定的转换。
 
-All of the examples on this page use sample data included in the Spark distribution and can be run in
-the `spark-shell`, `pyspark` shell, or `sparkR` shell.
+此页面上的所有示例均使用Spark发行版中包含的示例数据，并且可以在`spark-shell`，`pyspark shell`或`sparkR shell`中运行。
 
 ## SQL
 
-One use of Spark SQL is to execute SQL queries.
-Spark SQL can also be used to read data from an existing Hive installation. For more on how to
-configure this feature, please refer to the [Hive Tables](sql-data-sources-hive-tables.html) section. When running
-SQL from within another programming language the results will be returned as a [Dataset/DataFrame](#datasets-and-dataframes).
-You can also interact with the SQL interface using the [command-line](sql-distributed-sql-engine.html#running-the-spark-sql-cli)
-or over [JDBC/ODBC](sql-distributed-sql-engine.html#running-the-thrift-jdbcodbc-server).
+Spark SQL的一种用途是执行SQL查询。Spark SQL还可以用于从现有的Hive中读取数据。有关如何配置此功能的更多信息，请参考[Hive Tables](http://spark-cn.cn/sql-data-sources-hive-tables.html)部分。当从另一种编程语言中运行SQL时，结果将作为[Dataset / DataFrame](http://spark-cn.cn/sql-programming-guide.html#datasets-and-dataframes)返回。您还可以使用[命令行](http://spark-cn.cn/sql-distributed-sql-engine.html#running-the-spark-sql-cli) 或通过[JDBC / ODBC](http://spark-cn.cn/sql-distributed-sql-engine.html#running-the-thrift-jdbcodbc-server)与SQL接口进行交互。
 
-## Datasets and DataFrames
+## Datasets 和 DataFrame
 
-A Dataset is a distributed collection of data.
-Dataset is a new interface added in Spark 1.6 that provides the benefits of RDDs (strong
-typing, ability to use powerful lambda functions) with the benefits of Spark SQL's optimized
-execution engine. A Dataset can be [constructed](sql-getting-started.html#creating-datasets) from JVM objects and then
-manipulated using functional transformations (`map`, `flatMap`, `filter`, etc.).
-The Dataset API is available in [Scala][scala-datasets] and
-[Java][java-datasets]. Python does not have the support for the Dataset API. But due to Python's dynamic nature,
-many of the benefits of the Dataset API are already available (i.e. you can access the field of a row by name naturally
-`row.columnName`). The case for R is similar.
+Dataset 是数据的分布式集合。Dataset是Spark 1.6中添加的新接口，它具有RDD的优点（强类型输入，使用强大的Lambda函数的能力）和Spark SQL的优化执行引擎的优点。Dataset可以被从JVM对象中[构造](http://spark-cn.cn/sql-getting-started.html#creating-datasets)，然后使用函数转换（`map`，`flatMap`，`filter`等等）。Dataset API在[Scala](http://spark-cn.cn/api/scala/index.html#org.apache.spark.sql.Dataset)和 [Java中](http://spark-cn.cn/api/java/index.html?org/apache/spark/sql/Dataset.html)可用。Python不支持Dataset API。但是由于Python的动态特性，Dataset API的许多优点已经可用（即，您可以自然地通过名称访问行字段 `row.columnName`）。R的情况类似。
 
-A DataFrame is a *Dataset* organized into named columns. It is conceptually
-equivalent to a table in a relational database or a data frame in R/Python, but with richer
-optimizations under the hood. DataFrames can be constructed from a wide array of [sources](sql-data-sources.html) such
-as: structured data files, tables in Hive, external databases, or existing RDDs.
-The DataFrame API is available in Scala,
-Java, [Python](api/python/pyspark.sql.html#pyspark.sql.DataFrame), and [R](api/R/index.html).
-In Scala and Java, a DataFrame is represented by a Dataset of `Row`s.
-In [the Scala API][scala-datasets], `DataFrame` is simply a type alias of `Dataset[Row]`.
-While, in [Java API][java-datasets], users need to use `Dataset<Row>` to represent a `DataFrame`.
+一个 DataFrame 是组织命名列的 *Dataset* 。从概念上讲，它等效于关系数据库中的表或R / Python中的data frame，但是在后台进行了更丰富的优化。可以从多种[来源](http://spark-cn.cn/sql-data-sources.html)构造DataFrame，例如：结构化数据文件，Hive中的表，外部数据库或现有RDD。DataFrame API在Scala，Java，[Python](http://spark-cn.cn/api/python/pyspark.sql.html#pyspark.sql.DataFrame)和[R中](http://spark-cn.cn/api/R/index.html)可用。在Scala和Java中，DataFrame 是由Dataset的`Row` 来表示。在[Scala API中](http://spark-cn.cn/api/scala/index.html#org.apache.spark.sql.Dataset)，`DataFrame`只是类型`Dataset[Row]`的别名。而在[Java API中](http://spark-cn.cn/api/java/index.html?org/apache/spark/sql/Dataset.html)，用户需要使用`Dataset<Row>`来表示`DataFrame`。
 
-[scala-datasets]: api/scala/index.html#org.apache.spark.sql.Dataset
-[java-datasets]: api/java/index.html?org/apache/spark/sql/Dataset.html
-
-Throughout this document, we will often refer to Scala/Java Datasets of `Row`s as DataFrames.
+在整个文档中，我们通常将的Scala / Java数据集`Row`称为DataFrames。
