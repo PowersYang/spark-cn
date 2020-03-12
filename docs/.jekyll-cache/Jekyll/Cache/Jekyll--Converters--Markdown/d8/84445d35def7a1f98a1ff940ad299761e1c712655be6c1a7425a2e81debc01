@@ -1,8 +1,0 @@
-I"×<p>The INSERT statements:</p>
-<ul>
-  <li><a href="sql-ref-syntax-dml-insert-into.html">INSERT INTO statement</a></li>
-  <li><a href="sql-ref-syntax-dml-insert-overwrite-table.html">INSERT OVERWRITE statement</a></li>
-  <li><a href="sql-ref-syntax-dml-insert-overwrite-directory.html">INSERT OVERWRITE DIRECTORY statement</a></li>
-  <li><a href="sql-ref-syntax-dml-insert-overwrite-directory-hive.html">INSERT OVERWRITE DIRECTORY with Hive format statement</a></li>
-</ul>
-:ET
