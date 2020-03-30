@@ -31,21 +31,7 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        {% production %}
-        <!-- Google analytics script -->
-        <script type="text/javascript">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-32518208-2']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-        </script>
-        {% endproduction %}
+        {% include baidu-analysis.html %}
 
     </head>
     <body>
@@ -162,6 +148,9 @@
                 </div>
             {% endif %}
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

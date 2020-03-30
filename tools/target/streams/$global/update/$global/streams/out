@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mUpdating {file:/Users/ysir/Documents/GitHub/spark/}tools...[0m
+[0m[[0minfo[0m] [0mUpdating {file:/Users/PowerYang/Documents/GitHub/spark-cn/}tools...[0m
 [0m[[0mdebug[0m] [0m:: resolving dependencies :: org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT[0m
 [0m[[0mdebug[0m] [0m	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool][0m
 [0m[[0mdebug[0m] [0m	validate = true[0m
@@ -3226,19 +3226,19 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] com.typesafe.genjavadoc#genjavadoc-plugin_2.12.10;0.14!genjavadoc-plugin_2.12.10.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] jline#jline;2.14.6!jline.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.12!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 3972ms :: artifacts dl 26ms[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT compile produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-compile.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT runtime produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-runtime.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT test produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-test.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT provided produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-provided.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT optional produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-optional.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT compile-internal produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-compile-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT runtime-internal produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-runtime-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT test-internal produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-test-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT plugin produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-plugin.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT sources produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-sources.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT docs produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-docs.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT pom produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-pom.xml[0m
-[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT scala-tool produced in /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (3972ms resolve - 26ms download)[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 3540ms :: artifacts dl 84ms[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT compile produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-compile.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT runtime produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-runtime.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT test produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-test.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT provided produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-provided.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT optional produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-optional.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT compile-internal produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-compile-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT runtime-internal produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-runtime-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT test-internal produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-test-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT plugin produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-plugin.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT sources produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-sources.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT docs produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-docs.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT pom produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-pom.xml[0m
+[0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-tools_2.12;3.0.0-SNAPSHOT scala-tool produced in /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-tools_2.12-scala-tool.xml[0m
+[0m[[0mdebug[0m] [0m	resolve done (3540ms resolve - 84ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

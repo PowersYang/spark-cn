@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -166,27 +173,27 @@ has any error connecting or receiving, the receiver is restarted to make another
   <span class="k">extends</span> <span class="nc">Receiver</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="nv">StorageLevel</span><span class="o">.</span><span class="py">MEMORY_AND_DISK_2</span><span class="o">)</span> <span class="k">with</span> <span class="nc">Logging</span> <span class="o">{</span>
 
   <span class="k">def</span> <span class="nf">onStart</span><span class="o">()</span> <span class="o">{</span>
-    <span class="c1">// Start the thread that receives data over a connection
-</span>    <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="s">"Socket Receiver"</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Start the thread that receives data over a connection</span>
+    <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="s">"Socket Receiver"</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">override</span> <span class="k">def</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> <span class="nf">receive</span><span class="o">()</span> <span class="o">}</span>
     <span class="o">}.</span><span class="py">start</span><span class="o">()</span>
   <span class="o">}</span>
 
   <span class="k">def</span> <span class="nf">onStop</span><span class="o">()</span> <span class="o">{</span>
-    <span class="c1">// There is nothing much to do as the thread calling receive()
-</span>    <span class="c1">// is designed to stop by itself if isStopped() returns false
-</span>  <span class="o">}</span>
+    <span class="c1">// There is nothing much to do as the thread calling receive()</span>
+    <span class="c1">// is designed to stop by itself if isStopped() returns false</span>
+  <span class="o">}</span>
 
   <span class="cm">/** Create a socket connection and receive data until receiver is stopped */</span>
   <span class="k">private</span> <span class="k">def</span> <span class="nf">receive</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">var</span> <span class="n">socket</span><span class="k">:</span> <span class="kt">Socket</span> <span class="o">=</span> <span class="kc">null</span>
     <span class="k">var</span> <span class="n">userInput</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kc">null</span>
     <span class="k">try</span> <span class="o">{</span>
-      <span class="c1">// Connect to host:port
-</span>      <span class="n">socket</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Socket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span>
+      <span class="c1">// Connect to host:port</span>
+      <span class="n">socket</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Socket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">)</span>
 
-      <span class="c1">// Until stopped or connection broken continue reading
-</span>      <span class="k">val</span> <span class="nv">reader</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+      <span class="c1">// Until stopped or connection broken continue reading</span>
+      <span class="k">val</span> <span class="nv">reader</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
         <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nv">socket</span><span class="o">.</span><span class="py">getInputStream</span><span class="o">(),</span> <span class="nv">StandardCharsets</span><span class="o">.</span><span class="py">UTF_8</span><span class="o">))</span>
       <span class="n">userInput</span> <span class="k">=</span> <span class="nv">reader</span><span class="o">.</span><span class="py">readLine</span><span class="o">()</span>
       <span class="nf">while</span><span class="o">(!</span><span class="n">isStopped</span> <span class="o">&amp;&amp;</span> <span class="n">userInput</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
@@ -196,15 +203,15 @@ has any error connecting or receiving, the receiver is restarted to make another
       <span class="nv">reader</span><span class="o">.</span><span class="py">close</span><span class="o">()</span>
       <span class="nv">socket</span><span class="o">.</span><span class="py">close</span><span class="o">()</span>
 
-      <span class="c1">// Restart in an attempt to connect again when server is active again
-</span>      <span class="nf">restart</span><span class="o">(</span><span class="s">"Trying to connect again"</span><span class="o">)</span>
+      <span class="c1">// Restart in an attempt to connect again when server is active again</span>
+      <span class="nf">restart</span><span class="o">(</span><span class="s">"Trying to connect again"</span><span class="o">)</span>
     <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
       <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">java.net.ConnectException</span> <span class="o">=&gt;</span>
-        <span class="c1">// restart if could not connect to server
-</span>        <span class="nf">restart</span><span class="o">(</span><span class="s">"Error connecting to "</span> <span class="o">+</span> <span class="n">host</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">port</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span>
+        <span class="c1">// restart if could not connect to server</span>
+        <span class="nf">restart</span><span class="o">(</span><span class="s">"Error connecting to "</span> <span class="o">+</span> <span class="n">host</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">port</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span>
       <span class="k">case</span> <span class="n">t</span><span class="k">:</span> <span class="kt">Throwable</span> <span class="o">=&gt;</span>
-        <span class="c1">// restart if there is any other error
-</span>        <span class="nf">restart</span><span class="o">(</span><span class="s">"Error receiving data"</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span>
+        <span class="c1">// restart if there is any other error</span>
+        <span class="nf">restart</span><span class="o">(</span><span class="s">"Error receiving data"</span><span class="o">,</span> <span class="n">t</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -279,8 +286,8 @@ an input DStream using data received by the instance of custom receiver, as show
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Assuming ssc is the StreamingContext
-</span><span class="k">val</span> <span class="nv">customReceiverStream</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">receiverStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomReceiver</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">))</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Assuming ssc is the StreamingContext</span>
+<span class="k">val</span> <span class="nv">customReceiverStream</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">receiverStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">CustomReceiver</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">))</span>
 <span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="nv">customReceiverStream</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">))</span>
 <span class="o">...</span></code></pre></figure>
 
@@ -366,6 +373,9 @@ interval in the <a href="streaming-programming-guide.html">Spark Streaming Progr
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

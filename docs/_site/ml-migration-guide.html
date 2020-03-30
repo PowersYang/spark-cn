@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -371,11 +378,11 @@ for converting to <code>mllib.linalg</code> types.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.util.MLUtils</span>
 
-<span class="c1">// convert DataFrame columns
-</span><span class="k">val</span> <span class="nv">convertedVecDF</span> <span class="k">=</span> <span class="nv">MLUtils</span><span class="o">.</span><span class="py">convertVectorColumnsToML</span><span class="o">(</span><span class="n">vecDF</span><span class="o">)</span>
+<span class="c1">// convert DataFrame columns</span>
+<span class="k">val</span> <span class="nv">convertedVecDF</span> <span class="k">=</span> <span class="nv">MLUtils</span><span class="o">.</span><span class="py">convertVectorColumnsToML</span><span class="o">(</span><span class="n">vecDF</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">convertedMatrixDF</span> <span class="k">=</span> <span class="nv">MLUtils</span><span class="o">.</span><span class="py">convertMatrixColumnsToML</span><span class="o">(</span><span class="n">matrixDF</span><span class="o">)</span>
-<span class="c1">// convert a single vector or matrix
-</span><span class="k">val</span> <span class="nv">mlVec</span><span class="k">:</span> <span class="kt">org.apache.spark.ml.linalg.Vector</span> <span class="o">=</span> <span class="nv">mllibVec</span><span class="o">.</span><span class="py">asML</span>
+<span class="c1">// convert a single vector or matrix</span>
+<span class="k">val</span> <span class="nv">mlVec</span><span class="k">:</span> <span class="kt">org.apache.spark.ml.linalg.Vector</span> <span class="o">=</span> <span class="nv">mllibVec</span><span class="o">.</span><span class="py">asML</span>
 <span class="k">val</span> <span class="nv">mlMat</span><span class="k">:</span> <span class="kt">org.apache.spark.ml.linalg.Matrix</span> <span class="o">=</span> <span class="nv">mllibMat</span><span class="o">.</span><span class="py">asML</span></code></pre></figure>
 
     <p>Refer to the <a href="api/scala/index.html#org.apache.spark.mllib.util.MLUtils$"><code>MLUtils</code> Scala docs</a> for further detail.</p>
@@ -678,6 +685,9 @@ take advantage of sparsity in both storage and computation. Details are describe
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

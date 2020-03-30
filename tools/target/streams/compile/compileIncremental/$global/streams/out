@@ -1,46 +1,46 @@
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Initial source changes: [0m
 [0m[[0mdebug[0m] [0m[naha] 	removed:Set()[0m
-[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] 	modified: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidated products: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] External API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Modified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Sources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m[naha] 	product: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
-[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] Recompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
-[0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/classes...[0m
+[0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/classes...[0m
 [0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.18:component from component compiler for Scala 2.12.10[0m
 [0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.18:component from component compiler for Scala 2.12.10[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 1ff4c9ae, interfacing (CompilerInterface) with Scala compiler version 2.12.10[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 2e85c920, interfacing (CompilerInterface) with Scala compiler version 2.12.10[0m
 [0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
 [0m[[0mdebug[0m] [0m	-unchecked[0m
 [0m[[0mdebug[0m] [0m	-deprecation[0m
 [0m[[0mdebug[0m] [0m	-feature[0m
 [0m[[0mdebug[0m] [0m	-explaintypes[0m
 [0m[[0mdebug[0m] [0m	-target:jvm-1.8[0m
-[0m[[0mdebug[0m] [0m	-P:genjavadoc:out=/Users/ysir/Documents/GitHub/spark/tools/target/java[0m
+[0m[[0mdebug[0m] [0m	-P:genjavadoc:out=/Users/PowerYang/Documents/GitHub/spark-cn/tools/target/java[0m
 [0m[[0mdebug[0m] [0m	-P:genjavadoc:strictVisibility=true[0m
-[0m[[0mdebug[0m] [0m	-Xplugin:/Users/ysir/.ivy2/cache/com.typesafe.genjavadoc/genjavadoc-plugin_2.12.10/jars/genjavadoc-plugin_2.12.10-0.14.jar[0m
+[0m[[0mdebug[0m] [0m	-Xplugin:/Users/PowerYang/.ivy2/cache/com.typesafe.genjavadoc/genjavadoc-plugin_2.12.10/jars/genjavadoc-plugin_2.12.10-0.14.jar[0m
 [0m[[0mdebug[0m] [0m	-target:jvm-1.8[0m
 [0m[[0mdebug[0m] [0m	-sourcepath[0m
-[0m[[0mdebug[0m] [0m	/Users/ysir/Documents/GitHub/spark[0m
+[0m[[0mdebug[0m] [0m	/Users/PowerYang/Documents/GitHub/spark-cn[0m
 [0m[[0mdebug[0m] [0m	-bootclasspath[0m
-[0m[[0mdebug[0m] [0m	/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/classes:/Users/ysir/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.10.jar[0m
+[0m[[0mdebug[0m] [0m	/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/classes:/Users/PowerYang/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.10.jar[0m
 [0m[[0mdebug[0m] [0m	-classpath[0m
-[0m[[0mdebug[0m] [0m	/Users/ysir/Documents/GitHub/spark/tools/target/scala-2.12/classes:/Users/ysir/.ivy2/cache/org.scala-lang/scala-compiler/jars/scala-compiler-2.12.10.jar:/Users/ysir/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.10.jar:/Users/ysir/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.6.jar:/Users/ysir/.ivy2/cache/org.clapper/classutil_2.12/jars/classutil_2.12-1.5.1.jar:/Users/ysir/.ivy2/cache/org.ow2.asm/asm/jars/asm-7.1.jar:/Users/ysir/.ivy2/cache/org.ow2.asm/asm-commons/jars/asm-commons-7.1.jar:/Users/ysir/.ivy2/cache/org.ow2.asm/asm-tree/jars/asm-tree-7.1.jar:/Users/ysir/.ivy2/cache/org.ow2.asm/asm-analysis/jars/asm-analysis-7.1.jar:/Users/ysir/.ivy2/cache/org.ow2.asm/asm-util/jars/asm-util-7.1.jar:/Users/ysir/.ivy2/cache/org.clapper/grizzled-scala_2.12/jars/grizzled-scala_2.12-4.9.3.jar:/Users/ysir/.ivy2/cache/org.scala-lang.modules/scala-collection-compat_2.12/bundles/scala-collection-compat_2.12-2.0.0.jar:/Users/ysir/.ivy2/cache/org.spark-project.spark/unused/jars/unused-1.0.0.jar[0m
-[0m[[0mdebug[0m] [0mScala compilation took 16.171268395 s[0m
-[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala...[0m
-[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala...[0m
-[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
-[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
-[0m[[0mdebug[0m] [0m[naha] The /Users/ysir/Documents/GitHub/spark/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m	/Users/PowerYang/Documents/GitHub/spark-cn/tools/target/scala-2.12/classes:/Users/PowerYang/.ivy2/cache/org.scala-lang/scala-compiler/jars/scala-compiler-2.12.10.jar:/Users/PowerYang/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.10.jar:/Users/PowerYang/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.6.jar:/Users/PowerYang/.ivy2/cache/org.clapper/classutil_2.12/jars/classutil_2.12-1.5.1.jar:/Users/PowerYang/.ivy2/cache/org.ow2.asm/asm/jars/asm-7.1.jar:/Users/PowerYang/.ivy2/cache/org.ow2.asm/asm-commons/jars/asm-commons-7.1.jar:/Users/PowerYang/.ivy2/cache/org.ow2.asm/asm-tree/jars/asm-tree-7.1.jar:/Users/PowerYang/.ivy2/cache/org.ow2.asm/asm-analysis/jars/asm-analysis-7.1.jar:/Users/PowerYang/.ivy2/cache/org.ow2.asm/asm-util/jars/asm-util-7.1.jar:/Users/PowerYang/.ivy2/cache/org.clapper/grizzled-scala_2.12/jars/grizzled-scala_2.12-4.9.3.jar:/Users/PowerYang/.ivy2/cache/org.scala-lang.modules/scala-collection-compat_2.12/bundles/scala-collection-compat_2.12-2.0.0.jar:/Users/PowerYang/.ivy2/cache/org.spark-project.spark/unused/jars/unused-1.0.0.jar[0m
+[0m[[0mdebug[0m] [0mScala compilation took 18.577088731 s[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/tools/src/main/scala/org/apache/spark/tools/GenerateMIMAIgnore.scala source file has the following regular definitions changed:[0m
 [0m[[0mdebug[0m] [0m[naha] 	notify, wait, $asInstanceOf, equals, asInstanceOf, synchronized, $isInstanceOf, GenerateMIMAIgnore, main, notifyAll, isInstanceOf, ==, clone, getInnerFunctions, toString, !=, getClass, ne, eq, ##, finalize, hashCode.[0m
 [0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
 [0m[[0mdebug[0m] [0m[naha] New invalidations:[0m

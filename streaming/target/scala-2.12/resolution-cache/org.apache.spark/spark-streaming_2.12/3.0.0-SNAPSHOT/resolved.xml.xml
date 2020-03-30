@@ -4,7 +4,7 @@
 		module="spark-streaming_2.12"
 		revision="3.0.0-SNAPSHOT"
 		status="integration"
-		publication="20200114174513"
+		publication="20200330101928"
 	>
 		<description>
 		spark-streaming

@@ -1,0 +1,164 @@
+I"¯[<h3 id="description">Description</h3>
+<p><code>DESCRIBE TABLE</code> statement returns the basic metadata information of a
+table. The metadata information includes column name, column type
+and column comment. Optionally a partition spec or column name may be specified
+to return the metadata pertaining to a partition or column respectively.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="err">{</span><span class="k">DESC</span> <span class="o">|</span> <span class="k">DESCRIBE</span><span class="err">}</span> <span class="p">[</span><span class="k">TABLE</span><span class="p">]</span> <span class="p">[</span><span class="n">format</span><span class="p">]</span> <span class="n">table_identifier</span> <span class="p">[</span><span class="n">partition_spec</span><span class="p">]</span> <span class="p">[</span><span class="n">col_name</span><span class="p">]</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>format</em></code></dt>
+  <dd>
+    Specifies the optional format of describe output. If `EXTENDED` is specified
+    then additional metadata information (such as parent database, owner, and access time)
+    is returned. 
+  </dd>
+  <dt><code><em>table_identifier</em></code></dt>
+  <dd>
+    Specifies a table name, which may be optionally qualified with a database name.<br /><br />
+    <b>Syntax:</b>
+      <code>
+        [database_name.]table_name
+      </code>
+  </dd>
+  <dt><code><em>partition_spec</em></code></dt>
+  <dd>
+    An optional parameter that specifies a comma separated list of key and value pairs
+    for paritions. When specified, additional partition metadata is returned.<br /><br />
+    <b>Syntax:</b>
+      <code>
+        PARTITION (partition_col_name  = partition_col_val [ , ... ])
+      </code>
+  </dd>  
+  <dt><code><em>col_name</em></code></dt>
+  <dd>
+    An optional paramter that specifies the column name that needs to be described.
+    The supplied column name may be optionally qualified. Parameters `partition_spec`
+    and `col_name` are  mutually exclusive and can not be specified together. Currently
+    nested columns are not allowed to be specified.<br /><br />
+    
+    <b>Syntax:</b>
+      <code>
+        [database_name.][table_name.]column_name
+      </code>
+   </dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- Creates a table `customer`. Assumes current database is `salesdb`.</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">customer</span><span class="p">(</span>
+    <span class="n">cust_id</span> <span class="nb">INT</span><span class="p">,</span>
+    <span class="k">state</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+    <span class="n">name</span> <span class="n">STRING</span> <span class="k">COMMENT</span> <span class="s1">'Short name'</span>
+  <span class="p">)</span>
+  <span class="k">USING</span> <span class="n">parquet</span>
+  <span class="n">PARTITION</span> <span class="k">BY</span> <span class="k">state</span><span class="p">;</span>
+  <span class="p">;</span>
+
+<span class="c1">-- Returns basic metadata information for unqualified table `customer`</span>
+<span class="k">DESCRIBE</span> <span class="k">TABLE</span> <span class="n">customer</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+  <span class="o">|</span><span class="n">col_name</span>               <span class="o">|</span><span class="n">data_type</span><span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+  <span class="o">|</span><span class="n">cust_id</span>                <span class="o">|</span><span class="nb">int</span>      <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span><span class="n">name</span>                   <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="n">Short</span> <span class="n">name</span><span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                  <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Partition</span> <span class="n">Information</span><span class="o">|</span>         <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">col_name</span>             <span class="o">|</span><span class="n">data_type</span><span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                  <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+
+<span class="c1">-- Returns basic metadata information for qualified table `customer`</span>
+<span class="k">DESCRIBE</span> <span class="k">TABLE</span> <span class="n">salesdb</span><span class="p">.</span><span class="n">customer</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+  <span class="o">|</span><span class="n">col_name</span>               <span class="o">|</span><span class="n">data_type</span><span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+  <span class="o">|</span><span class="n">cust_id</span>                <span class="o">|</span><span class="nb">int</span>      <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span><span class="n">name</span>                   <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="n">Short</span> <span class="n">name</span><span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                  <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Partition</span> <span class="n">Information</span><span class="o">|</span>         <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">col_name</span>             <span class="o">|</span><span class="n">data_type</span><span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                  <span class="o">|</span><span class="n">string</span>   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------------------+---------+----------+</span>
+
+<span class="c1">-- Returns additional metadata such as parent database, owner, access time etc.</span>
+<span class="k">DESCRIBE</span> <span class="k">TABLE</span> <span class="n">EXTENDED</span> <span class="n">customer</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">----------------------------+------------------------------+----------+</span>
+  <span class="o">|</span><span class="n">col_name</span>                    <span class="o">|</span><span class="n">data_type</span>                     <span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">+</span><span class="c1">----------------------------+------------------------------+----------+</span>
+  <span class="o">|</span><span class="n">cust_id</span>                     <span class="o">|</span><span class="nb">int</span>                           <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span><span class="n">name</span>                        <span class="o">|</span><span class="n">string</span>                        <span class="o">|</span><span class="n">Short</span> <span class="n">name</span><span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                       <span class="o">|</span><span class="n">string</span>                        <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Partition</span> <span class="n">Information</span>     <span class="o">|</span>                              <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">col_name</span>                  <span class="o">|</span><span class="n">data_type</span>                     <span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                       <span class="o">|</span><span class="n">string</span>                        <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span>                            <span class="o">|</span>                              <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Detailed</span> <span class="k">Table</span> <span class="n">Information</span><span class="o">|</span>                              <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Database</span>                    <span class="o">|</span><span class="n">salesdb</span>                       <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Table</span>                       <span class="o">|</span><span class="n">customer</span>                      <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Owner</span>                       <span class="o">|&lt;</span><span class="k">table</span> <span class="k">owner</span><span class="o">&gt;</span>                 <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Created</span> <span class="nb">Time</span>                <span class="o">|</span><span class="n">Fri</span> <span class="n">Aug</span> <span class="mi">30</span> <span class="mi">09</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">04</span> <span class="n">PDT</span> <span class="mi">2019</span>  <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Last</span> <span class="k">Access</span>                 <span class="o">|</span><span class="n">Wed</span> <span class="nb">Dec</span> <span class="mi">31</span> <span class="mi">16</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">PST</span> <span class="mi">1969</span>  <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Created</span> <span class="k">By</span>                  <span class="o">|&lt;</span><span class="n">spark</span> <span class="k">version</span><span class="o">&gt;</span>               <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Type</span>                        <span class="o">|</span><span class="n">MANAGED</span>                       <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Provider</span>                    <span class="o">|</span><span class="n">parquet</span>                       <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Location</span>                    <span class="o">|</span><span class="n">file</span><span class="p">:...</span><span class="o">/</span><span class="n">salesdb</span><span class="p">.</span><span class="n">db</span><span class="o">/</span><span class="n">customer</span>  <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Serde</span> <span class="n">Library</span>               <span class="o">|</span><span class="p">...</span><span class="n">serde</span><span class="p">.</span><span class="n">ParquetHiveSerDe</span>     <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">InputFormat</span>                 <span class="o">|</span><span class="p">...</span><span class="n">MapredParquetInputFormat</span>   <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">OutputFormat</span>                <span class="o">|</span><span class="p">...</span><span class="n">MapredParquetOutputFormat</span>  <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">+</span><span class="c1">----------------------------+------------------------------+----------+</span>
+
+<span class="c1">-- Returns partition metadata such as partitioning column name, column type and comment.</span>
+<span class="k">DESCRIBE</span> <span class="k">TABLE</span> <span class="n">customer</span> <span class="n">PARTITION</span> <span class="p">(</span><span class="k">state</span> <span class="o">=</span> <span class="s1">'AR'</span><span class="p">);</span>
+
+  <span class="o">+</span><span class="c1">--------------------------------+-----------------------------------------+----------+</span>
+  <span class="o">|</span><span class="n">col_name</span>                        <span class="o">|</span><span class="n">data_type</span>                                <span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">+</span><span class="c1">--------------------------------+-----------------------------------------+----------+</span>
+  <span class="o">|</span><span class="n">cust_id</span>                         <span class="o">|</span><span class="nb">int</span>                                      <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span><span class="n">name</span>                            <span class="o">|</span><span class="n">string</span>                                   <span class="o">|</span><span class="n">Short</span> <span class="n">name</span><span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                           <span class="o">|</span><span class="n">string</span>                                   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Partition</span> <span class="n">Information</span>         <span class="o">|</span>                                         <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">col_name</span>                      <span class="o">|</span><span class="n">data_type</span>                                <span class="o">|</span><span class="k">comment</span>   <span class="o">|</span>
+  <span class="o">|</span><span class="k">state</span>                           <span class="o">|</span><span class="n">string</span>                                   <span class="o">|</span><span class="k">null</span>      <span class="o">|</span>
+  <span class="o">|</span>                                <span class="o">|</span>                                         <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|#</span> <span class="n">Detailed</span> <span class="n">Partition</span> <span class="n">Information</span><span class="o">|</span>                                         <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Database</span>                        <span class="o">|</span><span class="n">salesdb</span>                                  <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Table</span>                           <span class="o">|</span><span class="n">customer</span>                                 <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Partition</span> <span class="k">Values</span>                <span class="o">|</span><span class="p">[</span><span class="k">state</span><span class="o">=</span><span class="n">AR</span><span class="p">]</span>                               <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Location</span>                        <span class="o">|</span><span class="n">file</span><span class="p">:...</span><span class="o">/</span><span class="n">salesdb</span><span class="p">.</span><span class="n">db</span><span class="o">/</span><span class="n">customer</span><span class="o">/</span><span class="k">state</span><span class="o">=</span><span class="n">AR</span>    <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Serde</span> <span class="n">Library</span>                   <span class="o">|</span><span class="p">...</span><span class="n">serde</span><span class="p">.</span><span class="n">ParquetHiveSerDe</span>                <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">InputFormat</span>                     <span class="o">|</span><span class="p">...</span><span class="n">parquet</span><span class="p">.</span><span class="n">MapredParquetInputFormat</span>      <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">OutputFormat</span>                    <span class="o">|</span><span class="p">...</span><span class="n">parquet</span><span class="p">.</span><span class="n">MapredParquetOutputFormat</span>     <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Storage</span> <span class="n">Properties</span>              <span class="o">|</span><span class="p">[</span><span class="n">path</span><span class="o">=</span><span class="n">file</span><span class="p">:...</span><span class="o">/</span><span class="n">salesdb</span><span class="p">.</span><span class="n">db</span><span class="o">/</span><span class="n">customer</span><span class="p">,</span>      <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span>                                <span class="o">|</span> <span class="n">serialization</span><span class="p">.</span><span class="n">format</span><span class="o">=</span><span class="mi">1</span><span class="p">]</span>                 <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Partition</span> <span class="k">Parameters</span>            <span class="o">|</span><span class="err">{</span><span class="n">rawDataSize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">numFiles</span><span class="o">=</span><span class="mi">1</span><span class="n">l</span><span class="p">,</span>            <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span>                                <span class="o">|</span> <span class="n">transient_lastDdlTime</span><span class="o">=</span><span class="mi">1567185245</span><span class="p">,</span>       <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span>                                <span class="o">|</span> <span class="n">totalSize</span><span class="o">=</span><span class="mi">688</span><span class="p">,</span>                          <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span>                                <span class="o">|</span> <span class="n">COLUMN_STATS_ACCURATE</span><span class="o">=</span><span class="k">false</span><span class="p">,</span> <span class="n">numRows</span><span class="o">=-</span><span class="mi">1</span><span class="err">}</span><span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Created</span> <span class="nb">Time</span>                    <span class="o">|</span><span class="n">Fri</span> <span class="n">Aug</span> <span class="mi">30</span> <span class="mi">10</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">05</span> <span class="n">PDT</span> <span class="mi">2019</span>             <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="k">Last</span> <span class="k">Access</span>                     <span class="o">|</span><span class="n">Wed</span> <span class="nb">Dec</span> <span class="mi">31</span> <span class="mi">16</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">PST</span> <span class="mi">1969</span>             <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">|</span><span class="n">Partition</span> <span class="k">Statistics</span>            <span class="o">|</span><span class="mi">688</span> <span class="n">bytes</span>                                <span class="o">|</span>          <span class="o">|</span>
+  <span class="o">+</span><span class="c1">--------------------------------+-----------------------------------------+----------+</span>
+
+<span class="c1">-- Returns the metadata for `name` column.</span>
+<span class="c1">-- Optional `TABLE` clause is omitted and column is fully qualified.</span>
+<span class="k">DESCRIBE</span> <span class="n">customer</span> <span class="n">salesdb</span><span class="p">.</span><span class="n">customer</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">---------+----------+</span>
+  <span class="o">|</span><span class="n">info_name</span><span class="o">|</span><span class="n">info_value</span><span class="o">|</span>
+  <span class="o">+</span><span class="c1">---------+----------+</span>
+  <span class="o">|</span><span class="n">col_name</span> <span class="o">|</span><span class="n">name</span>      <span class="o">|</span>
+  <span class="o">|</span><span class="n">data_type</span><span class="o">|</span><span class="n">string</span>    <span class="o">|</span>
+  <span class="o">|</span><span class="k">comment</span>  <span class="o">|</span><span class="n">Short</span> <span class="n">name</span><span class="o">|</span>
+  <span class="o">+</span><span class="c1">---------+----------+</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-aux-describe-database.html">DESCRIBE DATABASE</a></li>
+  <li><a href="sql-ref-syntax-aux-describe-query.html">DESCRIBE QUERY</a></li>
+  <li><a href="sql-ref-syntax-aux-describe-function.html">DESCRIBE FUNCTION</a></li>
+</ul>
+:ET

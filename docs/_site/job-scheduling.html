@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -329,8 +336,8 @@ many concurrent jobs they have instead of giving <em>jobs</em> equal shares. Thi
 adding the <code>spark.scheduler.pool</code> &#8220;local property&#8221; to the SparkContext in the thread that&#8217;s submitting them.
 This is done as follows:</p>
 
-<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Assuming sc is your SparkContext variable
-</span><span class="nv">sc</span><span class="o">.</span><span class="py">setLocalProperty</span><span class="o">(</span><span class="s">"spark.scheduler.pool"</span><span class="o">,</span> <span class="s">"pool1"</span><span class="o">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Assuming sc is your SparkContext variable</span>
+<span class="nv">sc</span><span class="o">.</span><span class="py">setLocalProperty</span><span class="o">(</span><span class="s">"spark.scheduler.pool"</span><span class="o">,</span> <span class="s">"pool1"</span><span class="o">)</span></code></pre></figure>
 
 <p>After setting this local property, <em>all</em> jobs submitted within this thread (by calls in this thread
 to <code>RDD.save</code>, <code>count</code>, <code>collect</code>, etc) will use this pool name. The setting is per-thread to make
@@ -405,6 +412,9 @@ users can set the <code>spark.sql.thriftserver.scheduler.pool</code> variable:</
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

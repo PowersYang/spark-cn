@@ -1,15 +1,124 @@
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Initial source changes: [0m
 [0m[[0mdebug[0m] [0m[naha] 	removed:Set()[0m
-[0m[[0mdebug[0m] [0m[naha] 	added: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] 	added: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] 	modified: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Invalidated products: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] External API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] Modified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial directly invalidated sources: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
 [0m[[0mdebug[0m] [0m[naha] [0m
 [0m[[0mdebug[0m] [0m[naha] Sources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m[naha] 	product: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m[naha] 	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java, /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Recompiling all 10 sources: invalidated sources (10) exceeded 50.0% of all sources[0m
+[0m[[0minfo[0m] [0mCompiling 2 Scala sources and 8 Java sources to /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/target/scala-2.12/classes...[0m
+[0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.18:component from component compiler for Scala 2.12.10[0m
+[0m[[0mdebug[0m] [0mGetting org.scala-sbt:compiler-interface:0.13.18:component from component compiler for Scala 2.12.10[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 33f36c39, interfacing (CompilerInterface) with Scala compiler version 2.12.10[0m
+[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
+[0m[[0mdebug[0m] [0m	-unchecked[0m
+[0m[[0mdebug[0m] [0m	-deprecation[0m
+[0m[[0mdebug[0m] [0m	-feature[0m
+[0m[[0mdebug[0m] [0m	-explaintypes[0m
+[0m[[0mdebug[0m] [0m	-target:jvm-1.8[0m
+[0m[[0mdebug[0m] [0m	-P:genjavadoc:out=/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/target/java[0m
+[0m[[0mdebug[0m] [0m	-P:genjavadoc:strictVisibility=true[0m
+[0m[[0mdebug[0m] [0m	-Xplugin:/Users/PowerYang/.ivy2/cache/com.typesafe.genjavadoc/genjavadoc-plugin_2.12.10/jars/genjavadoc-plugin_2.12.10-0.14.jar[0m
+[0m[[0mdebug[0m] [0m	-target:jvm-1.8[0m
+[0m[[0mdebug[0m] [0m	-sourcepath[0m
+[0m[[0mdebug[0m] [0m	/Users/PowerYang/Documents/GitHub/spark-cn[0m
+[0m[[0mdebug[0m] [0m	-bootclasspath[0m
+[0m[[0mdebug[0m] [0m	/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/jre/classes:/Users/PowerYang/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.10.jar[0m
+[0m[[0mdebug[0m] [0m	-classpath[0m
+[0m[[0mdebug[0m] [0m	/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/target/scala-2.12/classes:/Users/PowerYang/.ivy2/cache/org.spark-project.spark/unused/jars/unused-1.0.0.jar[0m
+[0m[[0mdebug[0m] [0mScala compilation took 12.208063593 s[0m
+[0m[[0mdebug[0m] [0mJava compilation took 2.43634433 s[0m
+[0m[[0mdebug[0m] [0mJava analysis took 0.020307684 s[0m
+[0m[[0mdebug[0m] [0mJava compile + analysis took 2.458100244 s[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/Since.scala source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, wait, $asInstanceOf, equals, asInstanceOf, synchronized, $isInstanceOf, notifyAll, Since, isInstanceOf, <init>, ==, clone, toString, !=, getClass, ne, eq, ##, finalize, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, Evolving, toString, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Evolving.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, DeveloperApi, toString, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/DeveloperApi.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package.scala source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	notify, package, wait, $asInstanceOf, equals, asInstanceOf, synchronized, $isInstanceOf, notifyAll, isInstanceOf, ==, clone, toString, !=, getClass, ne, eq, ##, finalize, hashCode.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, toString, Private, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Private.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, Experimental, toString, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Experimental.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/scala/org/apache/spark/annotation/package-info.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, Unstable, toString, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Unstable.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, Stable, toString, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/Stable.java[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidating (transitively) by inheritance from /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java...[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java)[0m
+[0m[[0mdebug[0m] [0m[naha] Invalidated by transitive inheritance dependency: Set(/Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java)[0m
+[0m[[0mdebug[0m] [0m[naha] The /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java source file has the following regular definitions changed:[0m
+[0m[[0mdebug[0m] [0m[naha] 	equals, toString, AlphaComponent, hashCode, annotationType.[0m
+[0m[[0mdebug[0m] [0m[naha] All member reference dependencies will be considered within this context.[0m
+[0m[[0mdebug[0m] [0m[naha] Name hashing optimization doesn't apply to non-Scala dependency: /Users/PowerYang/Documents/GitHub/spark-cn/common/tags/src/main/java/org/apache/spark/annotation/AlphaComponent.java[0m
+[0m[[0mdebug[0m] [0m[naha] New invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Initial set of included nodes: Set()[0m
+[0m[[0mdebug[0m] [0m[naha] Previously invalidated, but (transitively) depend on new invalidations:[0m
+[0m[[0mdebug[0m] [0m[naha] 	Set()[0m
+[0m[[0mdebug[0m] [0m[naha] All newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m

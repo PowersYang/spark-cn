@@ -12,6 +12,7 @@ include:
   - _static
   - _modules
 
+
 # These allow the documentation to be updated with newer releases
 # of Spark, Scala, and Mesos.
 SPARK_VERSION: 3.0.0-SNAPSHOT

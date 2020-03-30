@@ -28,8 +28,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -159,11 +166,11 @@
 
     <p>你可以通过调用某些操作直接从数据集中获取值，或转换数据集以获取新值。有关更多详细信息，请阅读<em><a href="api/scala/index.html#org.apache.spark.sql.Dataset">API文档</a></em>。</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">count</span><span class="o">()</span> <span class="c1">// Number of items in this Dataset
-</span><span class="n">res0</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">126</span> <span class="c1">// May be different from yours as README.md will change over time, similar to other outputs
-</span>
-<span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">first</span><span class="o">()</span> <span class="c1">// First item in this Dataset
-</span><span class="n">res1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">#</span> <span class="nc">Apache</span> <span class="nc">Spark</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">count</span><span class="o">()</span> <span class="c1">// Number of items in this Dataset</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">126</span> <span class="c1">// May be different from yours as README.md will change over time, similar to other outputs</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">first</span><span class="o">()</span> <span class="c1">// First item in this Dataset</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="k">#</span> <span class="nc">Apache</span> <span class="nc">Spark</span></code></pre></figure>
 
     <p>现在，让我们将此数据集转换为新的数据集。我们调用<code>filter</code>返回一个新的数据集，其中包含文件中项的子集。</p>
 
@@ -172,8 +179,8 @@
 
     <p>我们可以将转换和动作链接在一起：</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"Spark"</span><span class="o">)).</span><span class="py">count</span><span class="o">()</span> <span class="c1">// How many lines contain "Spark"?
-</span><span class="n">res3</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">textFile</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"Spark"</span><span class="o">)).</span><span class="py">count</span><span class="o">()</span> <span class="c1">// How many lines contain "Spark"?</span>
+<span class="n">res3</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">15</span></code></pre></figure>
 
   </div>
 <div data-lang="python">
@@ -306,8 +313,8 @@
 
 <span class="k">object</span> <span class="nc">SimpleApp</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="nv">logFile</span> <span class="k">=</span> <span class="s">"YOUR_SPARK_HOME/README.md"</span> <span class="c1">// Should be some file on your system
-</span>    <span class="k">val</span> <span class="nv">spark</span> <span class="k">=</span> <span class="nv">SparkSession</span><span class="o">.</span><span class="py">builder</span><span class="o">.</span><span class="py">appName</span><span class="o">(</span><span class="s">"Simple Application"</span><span class="o">).</span><span class="py">getOrCreate</span><span class="o">()</span>
+    <span class="k">val</span> <span class="nv">logFile</span> <span class="k">=</span> <span class="s">"YOUR_SPARK_HOME/README.md"</span> <span class="c1">// Should be some file on your system</span>
+    <span class="k">val</span> <span class="nv">spark</span> <span class="k">=</span> <span class="nv">SparkSession</span><span class="o">.</span><span class="py">builder</span><span class="o">.</span><span class="py">appName</span><span class="o">(</span><span class="s">"Simple Application"</span><span class="o">).</span><span class="py">getOrCreate</span><span class="o">()</span>
     <span class="k">val</span> <span class="nv">logData</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">read</span><span class="o">.</span><span class="py">textFile</span><span class="o">(</span><span class="n">logFile</span><span class="o">).</span><span class="py">cache</span><span class="o">()</span>
     <span class="k">val</span> <span class="nv">numAs</span> <span class="k">=</span> <span class="nv">logData</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"a"</span><span class="o">)).</span><span class="py">count</span><span class="o">()</span>
     <span class="k">val</span> <span class="nv">numBs</span> <span class="k">=</span> <span class="nv">logData</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="nv">line</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="s">"b"</span><span class="o">)).</span><span class="py">count</span><span class="o">()</span>
@@ -497,6 +504,9 @@ Lines with a: 46, Lines with b: 23</code></pre></figure>
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

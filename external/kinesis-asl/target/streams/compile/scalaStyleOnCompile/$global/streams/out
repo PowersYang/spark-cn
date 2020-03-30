@@ -1,30 +1,30 @@
-[0m[[0minfo[0m] [0mscalastyle using config /Users/ysir/Documents/GitHub/spark/scalastyle-on-compile.generated.xml[0m
+[0m[[0minfo[0m] [0mscalastyle using config /Users/PowerYang/Documents/GitHub/spark-cn/scalastyle-on-compile.generated.xml[0m
 [0m[[0mdebug[0m] [0mStarting scalastyle[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisInputDStream.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisInputDStream.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReceiver.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReceiver.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/SparkAWSCredentials.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/SparkAWSCredentials.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisUtilsPythonHelper.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisUtilsPythonHelper.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisCheckpointer.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisCheckpointer.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisRecordProcessor.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisRecordProcessor.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReadConfigurations.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReadConfigurations.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisExampleUtils.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisExampleUtils.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisInputDStream.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisInputDStream.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReceiver.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReceiver.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/SparkAWSCredentials.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/SparkAWSCredentials.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisTestUtils.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisUtilsPythonHelper.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisUtilsPythonHelper.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisCheckpointer.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisCheckpointer.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisBackedBlockRDD.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisRecordProcessor.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisRecordProcessor.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReadConfigurations.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/streaming/kinesis/KinesisReadConfigurations.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisWordCountASL.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisExampleUtils.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/src/main/scala/org/apache/spark/examples/streaming/KinesisExampleUtils.scala[0m
 [0m[[0minfo[0m] [0mscalastyle Processed 11 file(s)[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 errors[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 warnings[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 infos[0m
 [0m[[0minfo[0m] [0mscalastyle Finished in 1 ms[0m
-[0m[[32msuccess[0m] [0mcreated output: /Users/ysir/Documents/GitHub/spark/external/kinesis-asl/target[0m
+[0m[[32msuccess[0m] [0mcreated output: /Users/PowerYang/Documents/GitHub/spark-cn/external/kinesis-asl/target[0m

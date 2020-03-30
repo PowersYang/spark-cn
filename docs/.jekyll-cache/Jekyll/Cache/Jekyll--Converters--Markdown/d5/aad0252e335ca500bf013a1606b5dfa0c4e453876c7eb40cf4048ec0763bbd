@@ -1,0 +1,87 @@
+I"G<h3 id="description">Description</h3>
+
+<p>The <code>SHOW TABLES</code> statement returns all the tables for an optionally specified database.
+Additionally, the output of this statement may be filtered by an optional matching
+pattern. If no database is specified then the tables are returned from the 
+current database.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SHOW</span> <span class="n">TABLES</span> <span class="p">[</span><span class="err">{</span><span class="k">FROM</span><span class="o">|</span><span class="k">IN</span><span class="err">}</span> <span class="n">database_name</span><span class="p">]</span> <span class="p">[</span><span class="k">LIKE</span> <span class="s1">'regex_pattern'</span><span class="p">]</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>{FROM|IN} database_name</em></code></dt>
+  <dd>
+     Specifies the database name from which tables are listed.
+  </dd>
+  <dt><code><em>LIKE regex_pattern</em></code></dt>
+  <dd>
+     Specifies the regular expression pattern that is used to filter out unwanted tables. 
+     <ul> 
+          <li> Except for `*` and `|` character, the pattern works like a regex.</li>
+          <li> `*` alone matches 0 or more characters and `|` is used to separate multiple different regexes,
+           any of which can match. </li>
+          <li> The leading and trailing blanks are trimmed in the input pattern before processing.</li>
+     </ul>
+    
+  </dd>
+</dl>
+
+<h3 id="example">Example</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- List all tables in default database</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">database</span>  <span class="o">|</span> <span class="n">tableName</span>  <span class="o">|</span> <span class="n">isTemporary</span>  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam</span>        <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam1</span>       <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">suj</span>        <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+
+<span class="c1">-- List all tables from userdb database </span>
+<span class="k">SHOW</span> <span class="n">TABLES</span> <span class="k">FROM</span> <span class="n">userdb</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">database</span>  <span class="o">|</span> <span class="n">tableName</span>  <span class="o">|</span> <span class="n">isTemporary</span>  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="n">userdb</span>    <span class="o">|</span> <span class="n">user1</span>      <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="n">userdb</span>    <span class="o">|</span> <span class="n">user2</span>      <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+
+<span class="c1">-- List all tables in userdb database</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span> <span class="k">IN</span> <span class="n">userdb</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">database</span>  <span class="o">|</span> <span class="n">tableName</span>  <span class="o">|</span> <span class="n">isTemporary</span>  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="n">userdb</span>    <span class="o">|</span> <span class="n">user1</span>      <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="n">userdb</span>    <span class="o">|</span> <span class="n">user2</span>      <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+
+<span class="c1">-- List all tables from default database matching the pattern `sam*`</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span> <span class="k">FROM</span> <span class="k">default</span> <span class="k">LIKE</span> <span class="s1">'sam*'</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">database</span>  <span class="o">|</span> <span class="n">tableName</span>  <span class="o">|</span> <span class="n">isTemporary</span>  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam</span>        <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam1</span>       <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  
+<span class="c1">-- List all tables matching the pattern `sam*|suj`</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span>  <span class="k">LIKE</span> <span class="s1">'sam*|suj'</span><span class="p">;</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">database</span>  <span class="o">|</span> <span class="n">tableName</span>  <span class="o">|</span> <span class="n">isTemporary</span>  <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam</span>        <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">sam1</span>       <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">|</span> <span class="k">default</span>   <span class="o">|</span> <span class="n">suj</span>        <span class="o">|</span> <span class="k">false</span>        <span class="o">|</span>
+  <span class="o">+</span><span class="c1">-----------+------------+--------------+--+</span></code></pre></figure>
+
+<h3 id="related-statements">Related statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-ddl-create-table.html">CREATE TABLE</a></li>
+  <li><a href="sql-ref-syntax-ddl-drop-table.html">DROP TABLE</a></li>
+  <li><a href="sql-ref-syntax-ddl-create-database.html">CREATE DATABASE</a></li>
+  <li><a href="sql-ref-syntax-ddl-drop-database.html">DROP DATABASE</a></li>
+</ul>
+:ET

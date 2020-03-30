@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -141,8 +148,8 @@ application. See the <a href="#deploying">Deploying</a> subsection below.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Subscribe to 1 topic
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Subscribe to 1 topic</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -151,8 +158,8 @@ application. See the <a href="#deploying">Deploying</a> subsection below.</p>
 <span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">as</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">)]</span>
 
-<span class="c1">// Subscribe to 1 topic, with headers
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Subscribe to 1 topic, with headers</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -162,8 +169,8 @@ application. See the <a href="#deploying">Deploying</a> subsection below.</p>
 <span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">,</span> <span class="s">"headers"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">as</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">String</span>, <span class="kt">Map</span><span class="o">)]</span>
 
-<span class="c1">// Subscribe to multiple topics
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Subscribe to multiple topics</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -172,8 +179,8 @@ application. See the <a href="#deploying">Deploying</a> subsection below.</p>
 <span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">as</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">)]</span>
 
-<span class="c1">// Subscribe to a pattern
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Subscribe to a pattern</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -272,8 +279,8 @@ you can create a Dataset/DataFrame for a defined range of offsets.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Subscribe to 1 topic defaults to the earliest and latest offsets
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Subscribe to 1 topic defaults to the earliest and latest offsets</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">read</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -282,8 +289,8 @@ you can create a Dataset/DataFrame for a defined range of offsets.</p>
 <span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">as</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">)]</span>
 
-<span class="c1">// Subscribe to multiple topics, specifying explicit Kafka offsets
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Subscribe to multiple topics, specifying explicit Kafka offsets</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">read</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -294,8 +301,8 @@ you can create a Dataset/DataFrame for a defined range of offsets.</p>
 <span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">as</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">String</span><span class="o">)]</span>
 
-<span class="c1">// Subscribe to a pattern, at the earliest and latest offsets
-</span><span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Subscribe to a pattern, at the earliest and latest offsets</span>
+<span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">read</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -760,8 +767,8 @@ The following configurations are optional:
 <div class="codetabs">
 <div data-lang="scala">
 
-            <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Write key-value data from a DataFrame to a specific Kafka topic specified in an option
-</span><span class="k">val</span> <span class="nv">ds</span> <span class="k">=</span> <span class="n">df</span>
+            <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Write key-value data from a DataFrame to a specific Kafka topic specified in an option</span>
+<span class="k">val</span> <span class="nv">ds</span> <span class="k">=</span> <span class="n">df</span>
   <span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
@@ -769,8 +776,8 @@ The following configurations are optional:
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"topic1"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// Write key-value data from a DataFrame to Kafka using a topic specified in the data
-</span><span class="k">val</span> <span class="nv">ds</span> <span class="k">=</span> <span class="n">df</span>
+<span class="c1">// Write key-value data from a DataFrame to Kafka using a topic specified in the data</span>
+<span class="k">val</span> <span class="nv">ds</span> <span class="k">=</span> <span class="n">df</span>
   <span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
@@ -825,16 +832,16 @@ The following configurations are optional:
 <div class="codetabs">
 <div data-lang="scala">
 
-            <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Write key-value data from a DataFrame to a specific Kafka topic specified in an option
-</span><span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
+            <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Write key-value data from a DataFrame to a specific Kafka topic specified in an option</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">write</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"topic1"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">save</span><span class="o">()</span>
 
-<span class="c1">// Write key-value data from a DataFrame to Kafka using a topic specified in the data
-</span><span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
+<span class="c1">// Write key-value data from a DataFrame to Kafka using a topic specified in the data</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">selectExpr</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"CAST(key AS STRING)"</span><span class="o">,</span> <span class="s">"CAST(value AS STRING)"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">write</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
@@ -1094,6 +1101,9 @@ This can be done several ways. One possibility is to provide additional JVM para
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

@@ -28,8 +28,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -202,39 +209,39 @@ main entry point for all streaming functionality. We create a local StreamingCon
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark._</span>
 <span class="k">import</span> <span class="nn">org.apache.spark.streaming._</span>
-<span class="k">import</span> <span class="nn">org.apache.spark.streaming.StreamingContext._</span> <span class="c1">// not necessary since Spark 1.3
-</span>
-<span class="c1">// Create a local StreamingContext with two working thread and batch interval of 1 second.
-// The master requires 2 cores to prevent a starvation scenario.
-</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.streaming.StreamingContext._</span> <span class="c1">// not necessary since Spark 1.3</span>
+
+<span class="c1">// Create a local StreamingContext with two working thread and batch interval of 1 second.</span>
+<span class="c1">// The master requires 2 cores to prevent a starvation scenario.</span>
+
 <span class="k">val</span> <span class="nv">conf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">SparkConf</span><span class="o">().</span><span class="py">setMaster</span><span class="o">(</span><span class="s">"local[2]"</span><span class="o">).</span><span class="py">setAppName</span><span class="o">(</span><span class="s">"NetworkWordCount"</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">ssc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StreamingContext</span><span class="o">(</span><span class="n">conf</span><span class="o">,</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span></code></pre></figure>
 
     <p>Using this context, we can create a DStream that represents streaming data from a TCP
 source, specified as hostname (e.g. <code>localhost</code>) and port (e.g. <code>9999</code>).</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Create a DStream that will connect to hostname:port, like localhost:9999
-</span><span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">socketTextStream</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">,</span> <span class="mi">9999</span><span class="o">)</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Create a DStream that will connect to hostname:port, like localhost:9999</span>
+<span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">socketTextStream</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">,</span> <span class="mi">9999</span><span class="o">)</span></code></pre></figure>
 
     <p>This <code>lines</code> DStream represents the stream of data that will be received from the data
 server. Each record in this DStream is a line of text. Next, we want to split the lines by
 space characters into words.</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Split each line into words
-</span><span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="nv">lines</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">))</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Split each line into words</span>
+<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="nv">lines</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">))</span></code></pre></figure>
 
     <p><code>flatMap</code> is a one-to-many DStream operation that creates a new DStream by
 generating multiple new records from each record in the source DStream. In this case,
 each line will be split into multiple words and the stream of words is represented as the
 <code>words</code> DStream.  Next, we want to count these words.</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.streaming.StreamingContext._</span> <span class="c1">// not necessary since Spark 1.3
-// Count each word in each batch
-</span><span class="k">val</span> <span class="nv">pairs</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">word</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">word</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.streaming.StreamingContext._</span> <span class="c1">// not necessary since Spark 1.3</span>
+<span class="c1">// Count each word in each batch</span>
+<span class="k">val</span> <span class="nv">pairs</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">word</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">word</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
 <span class="k">val</span> <span class="nv">wordCounts</span> <span class="k">=</span> <span class="nv">pairs</span><span class="o">.</span><span class="py">reduceByKey</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 
-<span class="c1">// Print the first ten elements of each RDD generated in this DStream to the console
-</span><span class="nv">wordCounts</span><span class="o">.</span><span class="py">print</span><span class="o">()</span></code></pre></figure>
+<span class="c1">// Print the first ten elements of each RDD generated in this DStream to the console</span>
+<span class="nv">wordCounts</span><span class="o">.</span><span class="py">print</span><span class="o">()</span></code></pre></figure>
 
     <p>The <code>words</code> DStream is further mapped (one-to-one transformation) to a DStream of <code>(word,
 1)</code> pairs, which is then reduced to get the frequency of words in each batch of data.
@@ -244,8 +251,8 @@ Finally, <code>wordCounts.print()</code> will print a few of the counts generate
 will perform when it is started, and no real processing has started yet. To start the processing
 after all the transformations have been setup, we finally call</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">ssc</span><span class="o">.</span><span class="py">start</span><span class="o">()</span>             <span class="c1">// Start the computation
-</span><span class="nv">ssc</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">()</span>  <span class="o">//</span> <span class="nc">Wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">computation</span> <span class="n">to</span> <span class="n">terminate</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">ssc</span><span class="o">.</span><span class="py">start</span><span class="o">()</span>             <span class="c1">// Start the computation</span>
+<span class="nv">ssc</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">()</span>  <span class="c1">// Wait for the computation to terminate</span></code></pre></figure>
 
     <p>The complete code can be found in the Spark Streaming example
 <a href="https://github.com/apache/spark/blob/v3.0.0/examples/src/main/scala/org/apache/spark/examples/streaming/NetworkWordCount.scala">NetworkWordCount</a>.
@@ -544,8 +551,8 @@ section for more details.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.streaming._</span>
 
-<span class="k">val</span> <span class="nv">sc</span> <span class="k">=</span> <span class="o">...</span>                <span class="c1">// existing SparkContext
-</span><span class="k">val</span> <span class="nv">ssc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StreamingContext</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span></code></pre></figure>
+<span class="k">val</span> <span class="nv">sc</span> <span class="k">=</span> <span class="o">...</span>                <span class="c1">// existing SparkContext</span>
+<span class="k">val</span> <span class="nv">ssc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StreamingContext</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -965,8 +972,8 @@ define the update function as:</p>
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="nf">updateFunction</span><span class="o">(</span><span class="n">newValues</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">runningCount</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="nv">newCount</span> <span class="k">=</span> <span class="o">...</span>  <span class="c1">// add the new values with the previous running count to get the new count
-</span>    <span class="nc">Some</span><span class="o">(</span><span class="n">newCount</span><span class="o">)</span>
+    <span class="k">val</span> <span class="nv">newCount</span> <span class="k">=</span> <span class="o">...</span>  <span class="c1">// add the new values with the previous running count to get the new count</span>
+    <span class="nc">Some</span><span class="o">(</span><span class="n">newCount</span><span class="o">)</span>
 <span class="o">}</span></code></pre></figure>
 
     <p>This is applied on a DStream containing words (say, the <code>pairs</code> DStream containing <code>(word,
@@ -1033,11 +1040,11 @@ spam information (maybe generated with Spark as well) and then filtering based o
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">spamInfoRDD</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">.</span><span class="py">newAPIHadoopRDD</span><span class="o">(...)</span> <span class="c1">// RDD containing spam information
-</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">spamInfoRDD</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">.</span><span class="py">newAPIHadoopRDD</span><span class="o">(...)</span> <span class="c1">// RDD containing spam information</span>
+
 <span class="k">val</span> <span class="nv">cleanedDStream</span> <span class="k">=</span> <span class="nv">wordCounts</span><span class="o">.</span><span class="py">transform</span> <span class="o">{</span> <span class="n">rdd</span> <span class="k">=&gt;</span>
-  <span class="nv">rdd</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">spamInfoRDD</span><span class="o">).</span><span class="py">filter</span><span class="o">(...)</span> <span class="c1">// join data stream with spam information to do data cleaning
-</span>  <span class="o">...</span>
+  <span class="nv">rdd</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">spamInfoRDD</span><span class="o">).</span><span class="py">filter</span><span class="o">(...)</span> <span class="c1">// join data stream with spam information to do data cleaning</span>
+  <span class="o">...</span>
 <span class="o">}</span></code></pre></figure>
 
   </div>
@@ -1100,8 +1107,8 @@ operation <code>reduceByKeyAndWindow</code>.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Reduce last 30 seconds of data, every 10 seconds
-</span><span class="k">val</span> <span class="nv">windowedWordCounts</span> <span class="k">=</span> <span class="nv">pairs</span><span class="o">.</span><span class="py">reduceByKeyAndWindow</span><span class="o">((</span><span class="n">a</span><span class="k">:</span><span class="kt">Int</span><span class="o">,</span><span class="n">b</span><span class="k">:</span><span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">),</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">30</span><span class="o">),</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">10</span><span class="o">))</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Reduce last 30 seconds of data, every 10 seconds</span>
+<span class="k">val</span> <span class="nv">windowedWordCounts</span> <span class="k">=</span> <span class="nv">pairs</span><span class="o">.</span><span class="py">reduceByKeyAndWindow</span><span class="o">((</span><span class="n">a</span><span class="k">:</span><span class="kt">Int</span><span class="o">,</span><span class="n">b</span><span class="k">:</span><span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">),</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">30</span><span class="o">),</span> <span class="nc">Seconds</span><span class="o">(</span><span class="mi">10</span><span class="o">))</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -1338,10 +1345,10 @@ For example (in Scala),</p>
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">dstream</span><span class="o">.</span><span class="py">foreachRDD</span> <span class="o">{</span> <span class="n">rdd</span> <span class="k">=&gt;</span>
-  <span class="k">val</span> <span class="nv">connection</span> <span class="k">=</span> <span class="nf">createNewConnection</span><span class="o">()</span>  <span class="c1">// executed at the driver
-</span>  <span class="nv">rdd</span><span class="o">.</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">record</span> <span class="k">=&gt;</span>
-    <span class="nv">connection</span><span class="o">.</span><span class="py">send</span><span class="o">(</span><span class="n">record</span><span class="o">)</span> <span class="c1">// executed at the worker
-</span>  <span class="o">}</span>
+  <span class="k">val</span> <span class="nv">connection</span> <span class="k">=</span> <span class="nf">createNewConnection</span><span class="o">()</span>  <span class="c1">// executed at the driver</span>
+  <span class="nv">rdd</span><span class="o">.</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">record</span> <span class="k">=&gt;</span>
+    <span class="nv">connection</span><span class="o">.</span><span class="py">send</span><span class="o">(</span><span class="n">record</span><span class="o">)</span> <span class="c1">// executed at the worker</span>
+  <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
   </div>
@@ -1466,11 +1473,11 @@ RDDs of multiple batches are pushed to the external system, thus further reducin
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">dstream</span><span class="o">.</span><span class="py">foreachRDD</span> <span class="o">{</span> <span class="n">rdd</span> <span class="k">=&gt;</span>
   <span class="nv">rdd</span><span class="o">.</span><span class="py">foreachPartition</span> <span class="o">{</span> <span class="n">partitionOfRecords</span> <span class="k">=&gt;</span>
-    <span class="c1">// ConnectionPool is a static, lazily initialized pool of connections
-</span>    <span class="k">val</span> <span class="nv">connection</span> <span class="k">=</span> <span class="nv">ConnectionPool</span><span class="o">.</span><span class="py">getConnection</span><span class="o">()</span>
+    <span class="c1">// ConnectionPool is a static, lazily initialized pool of connections</span>
+    <span class="k">val</span> <span class="nv">connection</span> <span class="k">=</span> <span class="nv">ConnectionPool</span><span class="o">.</span><span class="py">getConnection</span><span class="o">()</span>
     <span class="nv">partitionOfRecords</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">record</span> <span class="k">=&gt;</span> <span class="nv">connection</span><span class="o">.</span><span class="py">send</span><span class="o">(</span><span class="n">record</span><span class="o">))</span>
-    <span class="nv">ConnectionPool</span><span class="o">.</span><span class="py">returnConnection</span><span class="o">(</span><span class="n">connection</span><span class="o">)</span>  <span class="c1">// return to the pool for future reuse
-</span>  <span class="o">}</span>
+    <span class="nv">ConnectionPool</span><span class="o">.</span><span class="py">returnConnection</span><span class="o">(</span><span class="n">connection</span><span class="o">)</span>  <span class="c1">// return to the pool for future reuse</span>
+  <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
   </div>
@@ -1530,18 +1537,18 @@ RDDs of multiple batches are pushed to the external system, thus further reducin
 
 <span class="nv">words</span><span class="o">.</span><span class="py">foreachRDD</span> <span class="o">{</span> <span class="n">rdd</span> <span class="k">=&gt;</span>
 
-  <span class="c1">// Get the singleton instance of SparkSession
-</span>  <span class="k">val</span> <span class="nv">spark</span> <span class="k">=</span> <span class="nv">SparkSession</span><span class="o">.</span><span class="py">builder</span><span class="o">.</span><span class="py">config</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">.</span><span class="py">getConf</span><span class="o">).</span><span class="py">getOrCreate</span><span class="o">()</span>
+  <span class="c1">// Get the singleton instance of SparkSession</span>
+  <span class="k">val</span> <span class="nv">spark</span> <span class="k">=</span> <span class="nv">SparkSession</span><span class="o">.</span><span class="py">builder</span><span class="o">.</span><span class="py">config</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">.</span><span class="py">getConf</span><span class="o">).</span><span class="py">getOrCreate</span><span class="o">()</span>
   <span class="k">import</span> <span class="nn">spark.implicits._</span>
 
-  <span class="c1">// Convert RDD[String] to DataFrame
-</span>  <span class="k">val</span> <span class="nv">wordsDataFrame</span> <span class="k">=</span> <span class="nv">rdd</span><span class="o">.</span><span class="py">toDF</span><span class="o">(</span><span class="s">"word"</span><span class="o">)</span>
+  <span class="c1">// Convert RDD[String] to DataFrame</span>
+  <span class="k">val</span> <span class="nv">wordsDataFrame</span> <span class="k">=</span> <span class="nv">rdd</span><span class="o">.</span><span class="py">toDF</span><span class="o">(</span><span class="s">"word"</span><span class="o">)</span>
 
-  <span class="c1">// Create a temporary view
-</span>  <span class="nv">wordsDataFrame</span><span class="o">.</span><span class="py">createOrReplaceTempView</span><span class="o">(</span><span class="s">"words"</span><span class="o">)</span>
+  <span class="c1">// Create a temporary view</span>
+  <span class="nv">wordsDataFrame</span><span class="o">.</span><span class="py">createOrReplaceTempView</span><span class="o">(</span><span class="s">"words"</span><span class="o">)</span>
 
-  <span class="c1">// Do word count on DataFrame using SQL and print it
-</span>  <span class="k">val</span> <span class="nv">wordCountsDataFrame</span> <span class="k">=</span> 
+  <span class="c1">// Do word count on DataFrame using SQL and print it</span>
+  <span class="k">val</span> <span class="nv">wordCountsDataFrame</span> <span class="k">=</span> 
     <span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"select word, count(*) as total from words group by word"</span><span class="o">)</span>
   <span class="nv">wordCountsDataFrame</span><span class="o">.</span><span class="py">show</span><span class="o">()</span>
 <span class="o">}</span></code></pre></figure>
@@ -1732,24 +1739,24 @@ from the checkpoint data in the checkpoint directory.</li>
 
     <p>This behavior is made simple by using <code>StreamingContext.getOrCreate</code>. This is used as follows.</p>
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Function to create and setup a new StreamingContext
-</span><span class="k">def</span> <span class="nf">functionToCreateContext</span><span class="o">()</span><span class="k">:</span> <span class="kt">StreamingContext</span> <span class="o">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="nv">ssc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StreamingContext</span><span class="o">(...)</span>   <span class="c1">// new context
-</span>  <span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">socketTextStream</span><span class="o">(...)</span> <span class="c1">// create DStreams
-</span>  <span class="o">...</span>
-  <span class="nv">ssc</span><span class="o">.</span><span class="py">checkpoint</span><span class="o">(</span><span class="n">checkpointDirectory</span><span class="o">)</span>   <span class="c1">// set checkpoint directory
-</span>  <span class="n">ssc</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Function to create and setup a new StreamingContext</span>
+<span class="k">def</span> <span class="nf">functionToCreateContext</span><span class="o">()</span><span class="k">:</span> <span class="kt">StreamingContext</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">ssc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StreamingContext</span><span class="o">(...)</span>   <span class="c1">// new context</span>
+  <span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">ssc</span><span class="o">.</span><span class="py">socketTextStream</span><span class="o">(...)</span> <span class="c1">// create DStreams</span>
+  <span class="o">...</span>
+  <span class="nv">ssc</span><span class="o">.</span><span class="py">checkpoint</span><span class="o">(</span><span class="n">checkpointDirectory</span><span class="o">)</span>   <span class="c1">// set checkpoint directory</span>
+  <span class="n">ssc</span>
 <span class="o">}</span>
 
-<span class="c1">// Get StreamingContext from checkpoint data or create a new one
-</span><span class="k">val</span> <span class="nv">context</span> <span class="k">=</span> <span class="nv">StreamingContext</span><span class="o">.</span><span class="py">getOrCreate</span><span class="o">(</span><span class="n">checkpointDirectory</span><span class="o">,</span> <span class="n">functionToCreateContext</span> <span class="k">_</span><span class="o">)</span>
+<span class="c1">// Get StreamingContext from checkpoint data or create a new one</span>
+<span class="k">val</span> <span class="nv">context</span> <span class="k">=</span> <span class="nv">StreamingContext</span><span class="o">.</span><span class="py">getOrCreate</span><span class="o">(</span><span class="n">checkpointDirectory</span><span class="o">,</span> <span class="n">functionToCreateContext</span> <span class="k">_</span><span class="o">)</span>
 
-<span class="c1">// Do additional setup on context that needs to be done,
-// irrespective of whether it is being started or restarted
-</span><span class="n">context</span><span class="o">.</span> <span class="o">...</span>
+<span class="c1">// Do additional setup on context that needs to be done,</span>
+<span class="c1">// irrespective of whether it is being started or restarted</span>
+<span class="n">context</span><span class="o">.</span> <span class="o">...</span>
 
-<span class="c1">// Start the context
-</span><span class="nv">context</span><span class="o">.</span><span class="py">start</span><span class="o">()</span>
+<span class="c1">// Start the context</span>
+<span class="nv">context</span><span class="o">.</span><span class="py">start</span><span class="o">()</span>
 <span class="nv">context</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">()</span></code></pre></figure>
 
     <p>If the <code>checkpointDirectory</code> exists, then the context will be recreated from the checkpoint data.
@@ -1895,12 +1902,12 @@ This is shown in the following example.</p>
 <span class="o">}</span>
 
 <span class="nv">wordCounts</span><span class="o">.</span><span class="py">foreachRDD</span> <span class="o">{</span> <span class="o">(</span><span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)],</span> <span class="n">time</span><span class="k">:</span> <span class="kt">Time</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="c1">// Get or register the blacklist Broadcast
-</span>  <span class="k">val</span> <span class="nv">blacklist</span> <span class="k">=</span> <span class="nv">WordBlacklist</span><span class="o">.</span><span class="py">getInstance</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">)</span>
-  <span class="c1">// Get or register the droppedWordsCounter Accumulator
-</span>  <span class="k">val</span> <span class="nv">droppedWordsCounter</span> <span class="k">=</span> <span class="nv">DroppedWordsCounter</span><span class="o">.</span><span class="py">getInstance</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">)</span>
-  <span class="c1">// Use blacklist to drop words and use droppedWordsCounter to count them
-</span>  <span class="k">val</span> <span class="nv">counts</span> <span class="k">=</span> <span class="nv">rdd</span><span class="o">.</span><span class="py">filter</span> <span class="o">{</span> <span class="nf">case</span> <span class="o">(</span><span class="n">word</span><span class="o">,</span> <span class="n">count</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="c1">// Get or register the blacklist Broadcast</span>
+  <span class="k">val</span> <span class="nv">blacklist</span> <span class="k">=</span> <span class="nv">WordBlacklist</span><span class="o">.</span><span class="py">getInstance</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">)</span>
+  <span class="c1">// Get or register the droppedWordsCounter Accumulator</span>
+  <span class="k">val</span> <span class="nv">droppedWordsCounter</span> <span class="k">=</span> <span class="nv">DroppedWordsCounter</span><span class="o">.</span><span class="py">getInstance</span><span class="o">(</span><span class="nv">rdd</span><span class="o">.</span><span class="py">sparkContext</span><span class="o">)</span>
+  <span class="c1">// Use blacklist to drop words and use droppedWordsCounter to count them</span>
+  <span class="k">val</span> <span class="nv">counts</span> <span class="k">=</span> <span class="nv">rdd</span><span class="o">.</span><span class="py">filter</span> <span class="o">{</span> <span class="nf">case</span> <span class="o">(</span><span class="n">word</span><span class="o">,</span> <span class="n">count</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="nf">if</span> <span class="o">(</span><span class="nv">blacklist</span><span class="o">.</span><span class="py">value</span><span class="o">.</span><span class="py">contains</span><span class="o">(</span><span class="n">word</span><span class="o">))</span> <span class="o">{</span>
       <span class="nv">droppedWordsCounter</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="n">count</span><span class="o">)</span>
       <span class="kc">false</span>
@@ -2619,6 +2626,9 @@ and <a href="https://github.com/apache/spark/tree/master/examples/src/main/pytho
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

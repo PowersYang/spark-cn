@@ -1,0 +1,21 @@
+I"<ul id="markdown-toc">
+  <li><a href="#upgrading-from-core-24-to-30" id="markdown-toc-upgrading-from-core-24-to-30">Upgrading from Core 2.4 to 3.0</a></li>
+</ul>
+
+<h2 id="upgrading-from-core-24-to-30">Upgrading from Core 2.4 to 3.0</h2>
+
+<ul>
+  <li>
+    <p>In Spark 3.0, deprecated method <code>TaskContext.isRunningLocally</code> has been removed. Local execution was removed and it always has returned <code>false</code>.</p>
+  </li>
+  <li>
+    <p>In Spark 3.0, deprecated method <code>shuffleBytesWritten</code>, <code>shuffleWriteTime</code> and <code>shuffleRecordsWritten</code> in <code>ShuffleWriteMetrics</code> have been removed. Instead, use <code>bytesWritten</code>, <code>writeTime </code> and <code>recordsWritten</code> respectively.</p>
+  </li>
+  <li>
+    <p>In Spark 3.0, deprecated method <code>AccumulableInfo.apply</code> have been removed because creating <code>AccumulableInfo</code> is disallowed.</p>
+  </li>
+  <li>
+    <p>In Spark 3.0, event log file will be written as UTF-8 encoding, and Spark History Server will replay event log files as UTF-8 encoding. Previously Spark writes event log file as default charset of driver JVM process, so Spark History Server of Spark 2.x is needed to read the old event log files in case of incompatible encoding.</p>
+  </li>
+</ul>
+:ET

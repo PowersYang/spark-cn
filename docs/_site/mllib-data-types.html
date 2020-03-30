@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -390,12 +397,12 @@ using the factory methods implemented in
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.</span><span class="o">{</span><span class="nc">Vector</span><span class="o">,</span> <span class="nc">Vectors</span><span class="o">}</span>
 
-<span class="c1">// Create a dense vector (1.0, 0.0, 3.0).
-</span><span class="k">val</span> <span class="nv">dv</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)</span>
-<span class="c1">// Create a sparse vector (1.0, 0.0, 3.0) by specifying its indices and values corresponding to nonzero entries.
-</span><span class="k">val</span> <span class="nv">sv1</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">))</span>
-<span class="c1">// Create a sparse vector (1.0, 0.0, 3.0) by specifying its nonzero entries.
-</span><span class="k">val</span> <span class="nv">sv2</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">((</span><span class="mi">0</span><span class="o">,</span> <span class="mf">1.0</span><span class="o">),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)))</span></code></pre></figure>
+<span class="c1">// Create a dense vector (1.0, 0.0, 3.0).</span>
+<span class="k">val</span> <span class="nv">dv</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)</span>
+<span class="c1">// Create a sparse vector (1.0, 0.0, 3.0) by specifying its indices and values corresponding to nonzero entries.</span>
+<span class="k">val</span> <span class="nv">sv1</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">))</span>
+<span class="c1">// Create a sparse vector (1.0, 0.0, 3.0) by specifying its nonzero entries.</span>
+<span class="k">val</span> <span class="nv">sv2</span><span class="k">:</span> <span class="kt">Vector</span> <span class="o">=</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Seq</span><span class="o">((</span><span class="mi">0</span><span class="o">,</span> <span class="mf">1.0</span><span class="o">),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)))</span></code></pre></figure>
 
     <p><strong><em>Note:</em></strong>
 Scala imports <code>scala.collection.immutable.Vector</code> by default, so you have to import
@@ -482,11 +489,11 @@ For multiclass classification, labels should be class indices starting from zero
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.Vectors</span>
 <span class="k">import</span> <span class="nn">org.apache.spark.mllib.regression.LabeledPoint</span>
 
-<span class="c1">// Create a labeled point with a positive label and a dense feature vector.
-</span><span class="k">val</span> <span class="nv">pos</span> <span class="k">=</span> <span class="nc">LabeledPoint</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">))</span>
+<span class="c1">// Create a labeled point with a positive label and a dense feature vector.</span>
+<span class="k">val</span> <span class="nv">pos</span> <span class="k">=</span> <span class="nc">LabeledPoint</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">0.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">))</span>
 
-<span class="c1">// Create a labeled point with a negative label and a sparse feature vector.
-</span><span class="k">val</span> <span class="nv">neg</span> <span class="k">=</span> <span class="nc">LabeledPoint</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)))</span></code></pre></figure>
+<span class="c1">// Create a labeled point with a negative label and a sparse feature vector.</span>
+<span class="k">val</span> <span class="nv">neg</span> <span class="k">=</span> <span class="nc">LabeledPoint</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="nv">Vectors</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">)))</span></code></pre></figure>
 
   </div>
 
@@ -613,11 +620,11 @@ matrices. Remember, local matrices in MLlib are stored in column-major order.</p
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.</span><span class="o">{</span><span class="nc">Matrix</span><span class="o">,</span> <span class="nc">Matrices</span><span class="o">}</span>
 
-<span class="c1">// Create a dense matrix ((1.0, 2.0), (3.0, 4.0), (5.0, 6.0))
-</span><span class="k">val</span> <span class="nv">dm</span><span class="k">:</span> <span class="kt">Matrix</span> <span class="o">=</span> <span class="nv">Matrices</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">,</span> <span class="mf">5.0</span><span class="o">,</span> <span class="mf">2.0</span><span class="o">,</span> <span class="mf">4.0</span><span class="o">,</span> <span class="mf">6.0</span><span class="o">))</span>
+<span class="c1">// Create a dense matrix ((1.0, 2.0), (3.0, 4.0), (5.0, 6.0))</span>
+<span class="k">val</span> <span class="nv">dm</span><span class="k">:</span> <span class="kt">Matrix</span> <span class="o">=</span> <span class="nv">Matrices</span><span class="o">.</span><span class="py">dense</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mf">1.0</span><span class="o">,</span> <span class="mf">3.0</span><span class="o">,</span> <span class="mf">5.0</span><span class="o">,</span> <span class="mf">2.0</span><span class="o">,</span> <span class="mf">4.0</span><span class="o">,</span> <span class="mf">6.0</span><span class="o">))</span>
 
-<span class="c1">// Create a sparse matrix ((9.0, 0.0), (0.0, 8.0), (0.0, 6.0))
-</span><span class="k">val</span> <span class="nv">sm</span><span class="k">:</span> <span class="kt">Matrix</span> <span class="o">=</span> <span class="nv">Matrices</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">8</span><span class="o">))</span></code></pre></figure>
+<span class="c1">// Create a sparse matrix ((9.0, 0.0), (0.0, 8.0), (0.0, 6.0))</span>
+<span class="k">val</span> <span class="nv">sm</span><span class="k">:</span> <span class="kt">Matrix</span> <span class="o">=</span> <span class="nv">Matrices</span><span class="o">.</span><span class="py">sparse</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">8</span><span class="o">))</span></code></pre></figure>
 
   </div>
 
@@ -714,16 +721,16 @@ For <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition">singula
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.Vector</span>
 <span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.distributed.RowMatrix</span>
 
-<span class="k">val</span> <span class="nv">rows</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Vector</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of local vectors
-// Create a RowMatrix from an RDD[Vector].
-</span><span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">RowMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RowMatrix</span><span class="o">(</span><span class="n">rows</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">rows</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Vector</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of local vectors</span>
+<span class="c1">// Create a RowMatrix from an RDD[Vector].</span>
+<span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">RowMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RowMatrix</span><span class="o">(</span><span class="n">rows</span><span class="o">)</span>
 
-<span class="c1">// Get its size.
-</span><span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
+<span class="c1">// Get its size.</span>
+<span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
 <span class="k">val</span> <span class="nv">n</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numCols</span><span class="o">()</span>
 
-<span class="c1">// QR decomposition 
-</span><span class="k">val</span> <span class="nv">qrResult</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">tallSkinnyQR</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span></code></pre></figure>
+<span class="c1">// QR decomposition </span>
+<span class="k">val</span> <span class="nv">qrResult</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">tallSkinnyQR</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span></code></pre></figure>
 
   </div>
 
@@ -797,16 +804,16 @@ its row indices.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.distributed.</span><span class="o">{</span><span class="nc">IndexedRow</span><span class="o">,</span> <span class="nc">IndexedRowMatrix</span><span class="o">,</span> <span class="nc">RowMatrix</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="nv">rows</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">IndexedRow</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of indexed rows
-// Create an IndexedRowMatrix from an RDD[IndexedRow].
-</span><span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">IndexedRowMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IndexedRowMatrix</span><span class="o">(</span><span class="n">rows</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">rows</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">IndexedRow</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of indexed rows</span>
+<span class="c1">// Create an IndexedRowMatrix from an RDD[IndexedRow].</span>
+<span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">IndexedRowMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">IndexedRowMatrix</span><span class="o">(</span><span class="n">rows</span><span class="o">)</span>
 
-<span class="c1">// Get its size.
-</span><span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
+<span class="c1">// Get its size.</span>
+<span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
 <span class="k">val</span> <span class="nv">n</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numCols</span><span class="o">()</span>
 
-<span class="c1">// Drop its row indices.
-</span><span class="k">val</span> <span class="nv">rowMat</span><span class="k">:</span> <span class="kt">RowMatrix</span> <span class="o">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">toRowMatrix</span><span class="o">()</span></code></pre></figure>
+<span class="c1">// Drop its row indices.</span>
+<span class="k">val</span> <span class="nv">rowMat</span><span class="k">:</span> <span class="kt">RowMatrix</span> <span class="o">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">toRowMatrix</span><span class="o">()</span></code></pre></figure>
 
   </div>
 
@@ -900,16 +907,16 @@ with sparse rows by calling <code>toIndexedRowMatrix</code>.  Other computations
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.distributed.</span><span class="o">{</span><span class="nc">CoordinateMatrix</span><span class="o">,</span> <span class="nc">MatrixEntry</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="nv">entries</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">MatrixEntry</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of matrix entries
-// Create a CoordinateMatrix from an RDD[MatrixEntry].
-</span><span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">CoordinateMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CoordinateMatrix</span><span class="o">(</span><span class="n">entries</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">entries</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">MatrixEntry</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of matrix entries</span>
+<span class="c1">// Create a CoordinateMatrix from an RDD[MatrixEntry].</span>
+<span class="k">val</span> <span class="nv">mat</span><span class="k">:</span> <span class="kt">CoordinateMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CoordinateMatrix</span><span class="o">(</span><span class="n">entries</span><span class="o">)</span>
 
-<span class="c1">// Get its size.
-</span><span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
+<span class="c1">// Get its size.</span>
+<span class="k">val</span> <span class="nv">m</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numRows</span><span class="o">()</span>
 <span class="k">val</span> <span class="nv">n</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">numCols</span><span class="o">()</span>
 
-<span class="c1">// Convert it to an IndexRowMatrix whose rows are sparse vectors.
-</span><span class="k">val</span> <span class="nv">indexedRowMatrix</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">toIndexedRowMatrix</span><span class="o">()</span></code></pre></figure>
+<span class="c1">// Convert it to an IndexRowMatrix whose rows are sparse vectors.</span>
+<span class="k">val</span> <span class="nv">indexedRowMatrix</span> <span class="k">=</span> <span class="nv">mat</span><span class="o">.</span><span class="py">toIndexedRowMatrix</span><span class="o">()</span></code></pre></figure>
 
   </div>
 
@@ -1005,18 +1012,18 @@ Users may change the block size by supplying the values through <code>toBlockMat
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.mllib.linalg.distributed.</span><span class="o">{</span><span class="nc">BlockMatrix</span><span class="o">,</span> <span class="nc">CoordinateMatrix</span><span class="o">,</span> <span class="nc">MatrixEntry</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="nv">entries</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">MatrixEntry</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of (i, j, v) matrix entries
-// Create a CoordinateMatrix from an RDD[MatrixEntry].
-</span><span class="k">val</span> <span class="nv">coordMat</span><span class="k">:</span> <span class="kt">CoordinateMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CoordinateMatrix</span><span class="o">(</span><span class="n">entries</span><span class="o">)</span>
-<span class="c1">// Transform the CoordinateMatrix to a BlockMatrix
-</span><span class="k">val</span> <span class="nv">matA</span><span class="k">:</span> <span class="kt">BlockMatrix</span> <span class="o">=</span> <span class="nv">coordMat</span><span class="o">.</span><span class="py">toBlockMatrix</span><span class="o">().</span><span class="py">cache</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">entries</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">MatrixEntry</span><span class="o">]</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// an RDD of (i, j, v) matrix entries</span>
+<span class="c1">// Create a CoordinateMatrix from an RDD[MatrixEntry].</span>
+<span class="k">val</span> <span class="nv">coordMat</span><span class="k">:</span> <span class="kt">CoordinateMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CoordinateMatrix</span><span class="o">(</span><span class="n">entries</span><span class="o">)</span>
+<span class="c1">// Transform the CoordinateMatrix to a BlockMatrix</span>
+<span class="k">val</span> <span class="nv">matA</span><span class="k">:</span> <span class="kt">BlockMatrix</span> <span class="o">=</span> <span class="nv">coordMat</span><span class="o">.</span><span class="py">toBlockMatrix</span><span class="o">().</span><span class="py">cache</span><span class="o">()</span>
 
-<span class="c1">// Validate whether the BlockMatrix is set up properly. Throws an Exception when it is not valid.
-// Nothing happens if it is valid.
-</span><span class="nv">matA</span><span class="o">.</span><span class="py">validate</span><span class="o">()</span>
+<span class="c1">// Validate whether the BlockMatrix is set up properly. Throws an Exception when it is not valid.</span>
+<span class="c1">// Nothing happens if it is valid.</span>
+<span class="nv">matA</span><span class="o">.</span><span class="py">validate</span><span class="o">()</span>
 
-<span class="c1">// Calculate A^T A.
-</span><span class="k">val</span> <span class="nv">ata</span> <span class="k">=</span> <span class="nv">matA</span><span class="o">.</span><span class="py">transpose</span><span class="o">.</span><span class="py">multiply</span><span class="o">(</span><span class="n">matA</span><span class="o">)</span></code></pre></figure>
+<span class="c1">// Calculate A^T A.</span>
+<span class="k">val</span> <span class="nv">ata</span> <span class="k">=</span> <span class="nv">matA</span><span class="o">.</span><span class="py">transpose</span><span class="o">.</span><span class="py">multiply</span><span class="o">(</span><span class="n">matA</span><span class="o">)</span></code></pre></figure>
 
   </div>
 
@@ -1090,6 +1097,9 @@ can be created from an <code>RDD</code> of sub-matrix blocks, where a sub-matrix
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

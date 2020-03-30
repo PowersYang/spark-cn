@@ -1,4 +1,4 @@
-// Generated from /Users/ysir/Documents/GitHub/spark/sql/catalyst/src/main/antlr4/org/apache/spark/sql/catalyst/parser/SqlBase.g4 by ANTLR 4.7.1
+// Generated from /Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/antlr4/org/apache/spark/sql/catalyst/parser/SqlBase.g4 by ANTLR 4.7.1
 package org.apache.spark.sql.catalyst.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

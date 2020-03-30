@@ -1,0 +1,46 @@
+I"�<p>Spark SQL支持通过DataFrame接口对各种数据源进行操作。DataFrame可以使用关系转换进行操作，也可以用于创建临时视图。将DataFrame注册为临时视图使你可以对其数据运行SQL查询。本节介绍了使用Spark数据源加载和保存数据的一般方法，然后介绍了可用于内置数据源的特定选项。</p>
+
+<ul>
+  <li><a href="sql-data-sources-load-save-functions.html">通用 Load/Save 方法</a>
+    <ul>
+      <li><a href="sql-data-sources-load-save-functions.html#manually-specifying-options">手动指定选项</a></li>
+      <li><a href="sql-data-sources-load-save-functions.html#run-sql-on-files-directly">Run SQL on files directly</a></li>
+      <li><a href="sql-data-sources-load-save-functions.html#save-modes">Save Modes</a></li>
+      <li><a href="sql-data-sources-load-save-functions.html#saving-to-persistent-tables">Saving to Persistent Tables</a></li>
+      <li><a href="sql-data-sources-load-save-functions.html#bucketing-sorting-and-partitioning">Bucketing, Sorting and Partitioning</a></li>
+    </ul>
+  </li>
+  <li><a href="sql-data-sources-parquet.html">Parquet Files</a>
+    <ul>
+      <li><a href="sql-data-sources-parquet.html#loading-data-programmatically">Loading Data Programmatically</a></li>
+      <li><a href="sql-data-sources-parquet.html#partition-discovery">Partition Discovery</a></li>
+      <li><a href="sql-data-sources-parquet.html#schema-merging">Schema Merging</a></li>
+      <li><a href="sql-data-sources-parquet.html#hive-metastore-parquet-table-conversion">Hive metastore Parquet table conversion</a></li>
+      <li><a href="sql-data-sources-parquet.html#configuration">Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="sql-data-sources-orc.html">ORC Files</a></li>
+  <li><a href="sql-data-sources-json.html">JSON Files</a></li>
+  <li><a href="sql-data-sources-hive-tables.html">Hive Tables</a>
+    <ul>
+      <li><a href="sql-data-sources-hive-tables.html#specifying-storage-format-for-hive-tables">Specifying storage format for Hive tables</a></li>
+      <li><a href="sql-data-sources-hive-tables.html#interacting-with-different-versions-of-hive-metastore">Interacting with Different Versions of Hive Metastore</a></li>
+    </ul>
+  </li>
+  <li><a href="sql-data-sources-jdbc.html">JDBC To Other Databases</a></li>
+  <li><a href="sql-data-sources-avro.html">Avro Files</a>
+    <ul>
+      <li><a href="sql-data-sources-avro.html#deploying">Deploying</a></li>
+      <li><a href="sql-data-sources-avro.html#load-and-save-functions">Load and Save Functions</a></li>
+      <li><a href="sql-data-sources-avro.html#to_avro-and-from_avro">to_avro() and from_avro()</a></li>
+      <li><a href="sql-data-sources-avro.html#data-source-option">Data Source Option</a></li>
+      <li><a href="sql-data-sources-avro.html#configuration">Configuration</a></li>
+      <li><a href="sql-data-sources-avro.html#compatibility-with-databricks-spark-avro">Compatibility with Databricks spark-avro</a></li>
+      <li><a href="sql-data-sources-avro.html#supported-types-for-avro---spark-sql-conversion">Supported types for Avro -&gt; Spark SQL conversion</a></li>
+      <li><a href="sql-data-sources-avro.html#supported-types-for-spark-sql---avro-conversion">Supported types for Spark SQL -&gt; Avro conversion</a></li>
+    </ul>
+  </li>
+  <li><a href="sql-data-sources-binaryFile.html">Whole Binary Files</a></li>
+  <li><a href="sql-data-sources-troubleshooting.html">Troubleshooting</a></li>
+</ul>
+:ET

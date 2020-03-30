@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -368,8 +375,8 @@ Kafka key-value record will be augmented with some metadata, such as the ingesti
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.sql.avro.functions._</span>
 
-<span class="c1">// `from_avro` requires Avro schema in JSON string format.
-</span><span class="k">val</span> <span class="nv">jsonFormatSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">Files</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(</span><span class="nv">Paths</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"./examples/src/main/resources/user.avsc"</span><span class="o">)))</span>
+<span class="c1">// `from_avro` requires Avro schema in JSON string format.</span>
+<span class="k">val</span> <span class="nv">jsonFormatSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="nv">Files</span><span class="o">.</span><span class="py">readAllBytes</span><span class="o">(</span><span class="nv">Paths</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="s">"./examples/src/main/resources/user.avsc"</span><span class="o">)))</span>
 
 <span class="k">val</span> <span class="nv">df</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
@@ -378,13 +385,13 @@ Kafka key-value record will be augmented with some metadata, such as the ingesti
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"subscribe"</span><span class="o">,</span> <span class="s">"topic1"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">load</span><span class="o">()</span>
 
-<span class="c1">// 1. Decode the Avro data into a struct;
-// 2. Filter by column `favorite_color`;
-// 3. Encode the column `name` in Avro format.
-</span><span class="k">val</span> <span class="nv">output</span> <span class="k">=</span> <span class="n">df</span>
-  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="nf">from_avro</span><span class="o">(</span><span class="ss">'value,</span> <span class="n">jsonFormatSchema</span><span class="o">)</span> <span class="n">as</span> <span class="ss">'user)</span>
+<span class="c1">// 1. Decode the Avro data into a struct;</span>
+<span class="c1">// 2. Filter by column `favorite_color`;</span>
+<span class="c1">// 3. Encode the column `name` in Avro format.</span>
+<span class="k">val</span> <span class="nv">output</span> <span class="k">=</span> <span class="n">df</span>
+  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="nf">from_avro</span><span class="o">(</span><span class="ss">'value</span><span class="o">,</span> <span class="n">jsonFormatSchema</span><span class="o">)</span> <span class="n">as</span> <span class="ss">'user</span><span class="o">)</span>
   <span class="o">.</span><span class="py">where</span><span class="o">(</span><span class="s">"user.favorite_color == \"red\""</span><span class="o">)</span>
-  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="nf">to_avro</span><span class="o">(</span><span class="n">$</span><span class="s">"user.name"</span><span class="o">)</span> <span class="n">as</span> <span class="ss">'value)</span>
+  <span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="nf">to_avro</span><span class="o">(</span><span class="n">$</span><span class="s">"user.name"</span><span class="o">)</span> <span class="n">as</span> <span class="ss">'value</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="n">output</span>
   <span class="o">.</span><span class="py">writeStream</span>
@@ -720,6 +727,9 @@ All other union types are considered complex. They will be mapped to StructType 
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

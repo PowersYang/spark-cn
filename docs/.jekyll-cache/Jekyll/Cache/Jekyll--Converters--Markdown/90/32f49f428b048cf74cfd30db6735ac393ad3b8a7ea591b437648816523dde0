@@ -1,0 +1,43 @@
+I"A<h3 id="description">Description</h3>
+<p><code>MSCK REPAIR TABLE</code> recovers all the partitions in the directory of a table and updates the Hive metastore. When creating a table using <code>PARTITIONED BY</code> clause, partitions are generated and registered in the Hive metastore. However, if the partitioned table is created from existing data, partitions are not registered automatically in the Hive metastore. User needs to run <code>MSCK REPAIR TABLE</code> to register the partitions. <code>MSCK REPAIR TABLE</code> on a non-existent table or a table without partitions throws an exception. Another way to recover partitions is to use <code>ALTER TABLE RECOVER PARTITIONS</code>.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">MSCK</span> <span class="n">REPAIR</span> <span class="k">TABLE</span> <span class="k">table_name</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>table_name</em></code></dt>
+  <dd>Specifies the name of the table to be repaired.</dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"> <span class="c1">-- create a partitioned table from existing data /tmp/namesAndAges.parquet</span>
+ <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="p">(</span><span class="n">name</span> <span class="n">STRING</span><span class="p">,</span> <span class="n">age</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">USING</span> <span class="n">parquet</span> <span class="n">PARTITIONED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">age</span><span class="p">)</span>
+     <span class="k">location</span> <span class="nv">"/tmp/namesAndAges.parquet"</span><span class="p">;</span>
+
+ <span class="c1">-- SELECT * FROM t1 does not return results</span>
+ <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">t1</span><span class="p">;</span>
+
+ <span class="c1">-- run MSCK REPAIR TABLE to recovers all the partitions</span>
+ <span class="n">MSCK</span> <span class="n">REPAIR</span> <span class="k">TABLE</span> <span class="n">t1</span><span class="p">;</span>
+
+ <span class="c1">-- SELECT * FROM t1 returns results</span>
+ <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">t1</span><span class="p">;</span>
+
+     <span class="o">+</span> <span class="c1">-------------- + ------+</span>
+     <span class="o">|</span> <span class="n">name</span>           <span class="o">|</span> <span class="n">age</span>   <span class="o">|</span>
+     <span class="o">+</span> <span class="c1">-------------- + ------+</span>
+     <span class="o">|</span> <span class="n">Michael</span>        <span class="o">|</span> <span class="mi">20</span>    <span class="o">|</span>
+     <span class="o">+</span> <span class="c1">-------------- + ------+</span>
+     <span class="o">|</span> <span class="n">Justin</span>         <span class="o">|</span> <span class="mi">19</span>    <span class="o">|</span>
+     <span class="o">+</span> <span class="c1">-------------- + ----- +</span>
+     <span class="o">|</span> <span class="n">Andy</span>           <span class="o">|</span> <span class="mi">30</span>    <span class="o">|</span>
+     <span class="o">+</span> <span class="c1">-------------- + ----- +</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-ddl-alter-table.html">ALTER TABLE</a></li>
+</ul>
+:ET

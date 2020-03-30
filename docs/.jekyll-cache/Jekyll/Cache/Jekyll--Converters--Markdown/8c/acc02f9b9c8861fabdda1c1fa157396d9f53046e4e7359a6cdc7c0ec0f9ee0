@@ -1,0 +1,1337 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#起始点sparksession" id="markdown-toc-起始点sparksession">起始点：SparkSession</a></li>
+  <li><a href="#创建dataframe" id="markdown-toc-创建dataframe">创建DataFrame</a></li>
+  <li><a href="#无类型的dataset操作又名dataframe操作" id="markdown-toc-无类型的dataset操作又名dataframe操作">无类型的DataSet操作（又名DataFrame操作）</a></li>
+  <li><a href="#以编程方式运行sql查询" id="markdown-toc-以编程方式运行sql查询"><strong>以编程方式运行SQL查询</strong></a></li>
+  <li><a href="#全局临时视图" id="markdown-toc-全局临时视图">全局临时视图</a></li>
+  <li><a href="#创建dataset" id="markdown-toc-创建dataset">创建Dataset</a></li>
+  <li><a href="#rdd的互操作" id="markdown-toc-rdd的互操作">RDD的互操作</a>    <ul>
+      <li><a href="#使用反射推断结构" id="markdown-toc-使用反射推断结构">使用反射推断结构</a></li>
+      <li><a href="#以编程方式指定schema结构" id="markdown-toc-以编程方式指定schema结构">以编程方式指定Schema（结构）</a></li>
+    </ul>
+  </li>
+  <li><a href="#标量函数" id="markdown-toc-标量函数">标量函数</a></li>
+  <li><a href="#聚合" id="markdown-toc-聚合">聚合</a>    <ul>
+      <li><a href="#未类型化的用户定义的聚合函数" id="markdown-toc-未类型化的用户定义的聚合函数">未类型化的用户定义的聚合函数</a></li>
+      <li><a href="#类型安全的用户定义的聚合函数" id="markdown-toc-类型安全的用户定义的聚合函数">类型安全的用户定义的聚合函数</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="起始点sparksession">起始点：SparkSession</h2>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <p><a href="http://spark-cn.cn/api/scala/index.html#org.apache.spark.sql.SparkSession"><code>SparkSession</code></a>类是Spark中所有功能的入口点。要创建一个基本的<code>SparkSession</code>，只需使用<code>SparkSession.builder()</code>：</p>
+    <div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span>
+
+<span class="k">val</span> <span class="n">spark</span> <span class="k">=</span> <span class="nc">SparkSession</span>
+  <span class="o">.</span><span class="n">builder</span><span class="o">()</span>
+  <span class="o">.</span><span class="n">appName</span><span class="o">(</span><span class="s">&quot;Spark SQL basic example&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">config</span><span class="o">(</span><span class="s">&quot;spark.some.config.option&quot;</span><span class="o">,</span> <span class="s">&quot;some-value&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">getOrCreate</span><span class="o">()</span>
+
+<span class="c1">// For implicit conversions like converting RDDs to DataFrames</span>
+<span class="k">import</span> <span class="nn">spark.implicits._</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <p><a href="http://spark-cn.cn/api/java/index.html#org.apache.spark.sql.SparkSession"><code>SparkSession</code></a>类是Spark中所有功能的入口点。要创建一个基本的<code>SparkSession</code>，只需使用<code>SparkSession.builder()</code>：</p>
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span><span class="o">;</span>
+
+<span class="n">SparkSession</span> <span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span>
+  <span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">appName</span><span class="o">(</span><span class="s">&quot;Java Spark SQL basic example&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&quot;spark.some.config.option&quot;</span><span class="o">,</span> <span class="s">&quot;some-value&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">getOrCreate</span><span class="o">();</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <p><a href="http://spark-cn.cn/api/python/pyspark.sql.html#pyspark.sql.SparkSession"><code>SparkSession</code></a>类是Spark中所有功能的入口点。要创建一个基本的<code>SparkSession</code>，只需使用<code>SparkSession.builder</code>：</p>
+    <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span> \
+    <span class="o">.</span><span class="n">builder</span> \
+    <span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s2">&quot;Python Spark SQL basic example&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;spark.some.config.option&quot;</span><span class="p">,</span> <span class="s2">&quot;some-value&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="r">
+    <p><a href="http://spark-cn.cn/api/python/pyspark.sql.html#pyspark.sql.SparkSession"><code>SparkSession</code></a>类是Spark中所有功能的入口点。要创建一个基本的<code>SparkSession</code>，只需使用<code>SparkSession.builder</code>：</p>
+
+    <div class="highlight"><pre><span></span>sparkR.session<span class="p">(</span>appName <span class="o">=</span> <span class="s">&quot;R Spark SQL basic example&quot;</span><span class="p">,</span> sparkConfig <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>spark.some.config.option <span class="o">=</span> <span class="s">&quot;some-value&quot;</span><span class="p">))</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
+
+    <p>请注意，首次调用时，<code>sparkR.session()</code>会初始化全局<code>SparkSession</code>单实例，并始终为连续调用返回对此实例的引用。这样，用户只需初始化<code>SparkSession</code>一次，然后SparkR之类的函数<code>read.df</code>就可以隐式访问此全局实例，并且用户无需传递该<code>SparkSession</code>实例。</p>
+
+  </div>
+</div>
+
+<p>Spark 2.0中的<code>SparkSession</code>提供了对Hive的内置支持，包括使用HiveQL编写查询，访问Hive UDF以及从Hive表读取数据。要使用这些功能，你不需要安装Hive。</p>
+
+<h2 id="创建dataframe">创建DataFrame</h2>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <p>要使用 <code>SparkSession</code>，应用程序可以从<a href="sql-getting-started.html#interoperating-with-rdds">现有的<code>RDD</code></a>，Hive表或<a href="sql-data-sources.html">Spark数据源</a>创建DataFrame 。</p>
+
+    <p>例如，以下内容基于JSON文件的内容创建一个DataFrame：</p>
+
+    <div class="highlight"><pre><span></span><span class="k">val</span> <span class="n">df</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.json&quot;</span><span class="o">)</span>
+
+<span class="c1">// Displays the content of the DataFrame to stdout</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <p>要使用 <code>SparkSession</code>，应用程序可以从<a href="sql-getting-started.html#interoperating-with-rdds">现有的<code>RDD</code></a>，Hive表或<a href="sql-data-sources.html">Spark数据源</a>创建DataFrame 。</p>
+
+    <p>例如，以下内容基于JSON文件的内容创建一个DataFrame：</p>
+
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">read</span><span class="o">().</span><span class="na">json</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.json&quot;</span><span class="o">);</span>
+
+<span class="c1">// Displays the content of the DataFrame to stdout</span>
+<span class="n">df</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <p>要使用 <code>SparkSession</code>，应用程序可以从<a href="sql-getting-started.html#interoperating-with-rdds">现有的<code>RDD</code></a>，Hive表或<a href="sql-data-sources.html">Spark数据源</a>创建DataFrame 。</p>
+
+    <p>例如，以下内容基于JSON文件的内容创建一个DataFrame：</p>
+
+    <div class="highlight"><pre><span></span><span class="c1"># spark is an existing SparkSession</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="s2">&quot;examples/src/main/resources/people.json&quot;</span><span class="p">)</span>
+<span class="c1"># Displays the content of the DataFrame to stdout</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># | age|   name|</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># |null|Michael|</span>
+<span class="c1"># |  30|   Andy|</span>
+<span class="c1"># |  19| Justin|</span>
+<span class="c1"># +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="r">
+    <p>要使用 <code>SparkSession</code>，应用程序可以从<a href="sql-getting-started.html#interoperating-with-rdds">现有的<code>RDD</code></a>，Hive表或<a href="sql-data-sources.html">Spark数据源</a>创建DataFrame 。</p>
+
+    <p>例如，以下内容基于JSON文件的内容创建一个DataFrame：</p>
+
+    <div class="highlight"><pre><span></span>df <span class="o">&lt;-</span> read.json<span class="p">(</span><span class="s">&quot;examples/src/main/resources/people.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Displays the content of the DataFrame</span>
+<span class="kp">head</span><span class="p">(</span>df<span class="p">)</span>
+<span class="c1">##   age    name</span>
+<span class="c1">## 1  NA Michael</span>
+<span class="c1">## 2  30    Andy</span>
+<span class="c1">## 3  19  Justin</span>
+
+<span class="c1"># Another method to print the first few rows and optionally truncate the printing of long values</span>
+showDF<span class="p">(</span>df<span class="p">)</span>
+<span class="c1">## +----+-------+</span>
+<span class="c1">## | age|   name|</span>
+<span class="c1">## +----+-------+</span>
+<span class="c1">## |null|Michael|</span>
+<span class="c1">## |  30|   Andy|</span>
+<span class="c1">## |  19| Justin|</span>
+<span class="c1">## +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
+
+  </div>
+</div>
+
+<h2 id="无类型的dataset操作又名dataframe操作">无类型的DataSet操作（又名DataFrame操作）</h2>
+
+<p>DataFrames为<a href="api/scala/index.html#org.apache.spark.sql.Dataset">Scala</a>，<a href="api/java/index.html?org/apache/spark/sql/Dataset.html">Java</a>，<a href="api/python/pyspark.sql.html#pyspark.sql.DataFrame">Python</a>和<a href="api/R/SparkDataFrame.html">R中的</a>结构化数据操作提供了一种domain-specific的语言。</p>
+
+<p>正如前面所说的，Spark 2.0 中DataFrames 在 Scala 和 Java API 中，仅仅是多个 `Row 对象的 Dataset。这些操作也参考了与强类型的 Scala/Java Datasets 中的 “类型转换” 对应的 “无类型转换”。</p>
+
+<p>这里我们包括一些使用数据集进行结构化数据处理的基本示例：</p>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <div class="highlight"><pre><span></span><span class="c1">// This import is needed to use the $-notation</span>
+<span class="k">import</span> <span class="nn">spark.implicits._</span>
+<span class="c1">// Print the schema in a tree format</span>
+<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="o">()</span>
+<span class="c1">// root</span>
+<span class="c1">// |-- age: long (nullable = true)</span>
+<span class="c1">// |-- name: string (nullable = true)</span>
+
+<span class="c1">// Select only the &quot;name&quot; column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +-------+</span>
+<span class="c1">// |   name|</span>
+<span class="c1">// +-------+</span>
+<span class="c1">// |Michael|</span>
+<span class="c1">// |   Andy|</span>
+<span class="c1">// | Justin|</span>
+<span class="c1">// +-------+</span>
+
+<span class="c1">// Select everybody, but increment the age by 1</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="n">$</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="n">$</span><span class="s">&quot;age&quot;</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +-------+---------+</span>
+<span class="c1">// |   name|(age + 1)|</span>
+<span class="c1">// +-------+---------+</span>
+<span class="c1">// |Michael|     null|</span>
+<span class="c1">// |   Andy|       31|</span>
+<span class="c1">// | Justin|       20|</span>
+<span class="c1">// +-------+---------+</span>
+
+<span class="c1">// Select people older than 21</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="n">$</span><span class="s">&quot;age&quot;</span> <span class="o">&gt;</span> <span class="mi">21</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// |age|name|</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// | 30|Andy|</span>
+<span class="c1">// +---+----+</span>
+
+<span class="c1">// Count people by age</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupBy</span><span class="o">(</span><span class="s">&quot;age&quot;</span><span class="o">).</span><span class="n">count</span><span class="o">().</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-----+</span>
+<span class="c1">// | age|count|</span>
+<span class="c1">// +----+-----+</span>
+<span class="c1">// |  19|    1|</span>
+<span class="c1">// |null|    1|</span>
+<span class="c1">// |  30|    1|</span>
+<span class="c1">// +----+-----+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+
+    <p>有关可对数据集执行的操作类型的完整列表，请参阅<a href="api/scala/index.html#org.apache.spark.sql.Dataset">API文档</a>。</p>
+
+    <p>除了简单的列引用和表达式外，数据集还具有丰富的函数库，包括字符串处理，日期计算，通用数学运算等。完整列表可在<a href="api/scala/index.html#org.apache.spark.sql.functions$">DataFrame Function Reference中找到</a>。</p>
+
+  </div>
+
+<div data-lang="java">
+
+    <div class="highlight"><pre><span></span><span class="c1">// col(&quot;...&quot;) is preferable to df.col(&quot;...&quot;)</span>
+<span class="kn">import static</span> <span class="nn">org.apache.spark.sql.functions.col</span><span class="o">;</span>
+
+<span class="c1">// Print the schema in a tree format</span>
+<span class="n">df</span><span class="o">.</span><span class="na">printSchema</span><span class="o">();</span>
+<span class="c1">// root</span>
+<span class="c1">// |-- age: long (nullable = true)</span>
+<span class="c1">// |-- name: string (nullable = true)</span>
+
+<span class="c1">// Select only the &quot;name&quot; column</span>
+<span class="n">df</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +-------+</span>
+<span class="c1">// |   name|</span>
+<span class="c1">// +-------+</span>
+<span class="c1">// |Michael|</span>
+<span class="c1">// |   Andy|</span>
+<span class="c1">// | Justin|</span>
+<span class="c1">// +-------+</span>
+
+<span class="c1">// Select everybody, but increment the age by 1</span>
+<span class="n">df</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">col</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span> <span class="n">col</span><span class="o">(</span><span class="s">&quot;age&quot;</span><span class="o">).</span><span class="na">plus</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +-------+---------+</span>
+<span class="c1">// |   name|(age + 1)|</span>
+<span class="c1">// +-------+---------+</span>
+<span class="c1">// |Michael|     null|</span>
+<span class="c1">// |   Andy|       31|</span>
+<span class="c1">// | Justin|       20|</span>
+<span class="c1">// +-------+---------+</span>
+
+<span class="c1">// Select people older than 21</span>
+<span class="n">df</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">col</span><span class="o">(</span><span class="s">&quot;age&quot;</span><span class="o">).</span><span class="na">gt</span><span class="o">(</span><span class="mi">21</span><span class="o">)).</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// |age|name|</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// | 30|Andy|</span>
+<span class="c1">// +---+----+</span>
+
+<span class="c1">// Count people by age</span>
+<span class="n">df</span><span class="o">.</span><span class="na">groupBy</span><span class="o">(</span><span class="s">&quot;age&quot;</span><span class="o">).</span><span class="na">count</span><span class="o">().</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-----+</span>
+<span class="c1">// | age|count|</span>
+<span class="c1">// +----+-----+</span>
+<span class="c1">// |  19|    1|</span>
+<span class="c1">// |null|    1|</span>
+<span class="c1">// |  30|    1|</span>
+<span class="c1">// +----+-----+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+
+    <p>有关可对数据集执行的操作类型的完整列表，请参阅<a href="api/java/org/apache/spark/sql/Dataset.html">API文档</a>。</p>
+
+    <p>除了简单的列引用和表达式外，数据集还具有丰富的函数库，包括字符串处理，日期计算，通用数学运算等。完整列表可在<a href="api/java/org/apache/spark/sql/functions.html">DataFrame Function Reference中找到</a>。</p>
+
+  </div>
+
+<div data-lang="python">
+    <p>在Python中，可以通过属性（<code>df.age</code>）或通过索引（<code>df['age']</code>）访问DataFrame的列。尽管前者便于交互式数据操作，但强烈建议用户使用后者形式，这样不会破坏DataFrame的列名。</p>
+
+    <div class="highlight"><pre><span></span><span class="c1"># spark, df are from the previous example</span>
+<span class="c1"># Print the schema in a tree format</span>
+<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="c1"># root</span>
+<span class="c1"># |-- age: long (nullable = true)</span>
+<span class="c1"># |-- name: string (nullable = true)</span>
+
+<span class="c1"># Select only the &quot;name&quot; column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +-------+</span>
+<span class="c1"># |   name|</span>
+<span class="c1"># +-------+</span>
+<span class="c1"># |Michael|</span>
+<span class="c1"># |   Andy|</span>
+<span class="c1"># | Justin|</span>
+<span class="c1"># +-------+</span>
+
+<span class="c1"># Select everybody, but increment the age by 1</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +-------+---------+</span>
+<span class="c1"># |   name|(age + 1)|</span>
+<span class="c1"># +-------+---------+</span>
+<span class="c1"># |Michael|     null|</span>
+<span class="c1"># |   Andy|       31|</span>
+<span class="c1"># | Justin|       20|</span>
+<span class="c1"># +-------+---------+</span>
+
+<span class="c1"># Select people older than 21</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">21</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +---+----+</span>
+<span class="c1"># |age|name|</span>
+<span class="c1"># +---+----+</span>
+<span class="c1"># | 30|Andy|</span>
+<span class="c1"># +---+----+</span>
+
+<span class="c1"># Count people by age</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupBy</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +----+-----+</span>
+<span class="c1"># | age|count|</span>
+<span class="c1"># +----+-----+</span>
+<span class="c1"># |  19|    1|</span>
+<span class="c1"># |null|    1|</span>
+<span class="c1"># |  30|    1|</span>
+<span class="c1"># +----+-----+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+    <p>有关可在DataFrame上执行的操作类型的完整列表，请参阅<a href="api/python/pyspark.sql.html#pyspark.sql.DataFrame">API文档</a>。</p>
+
+    <p>除了简单的列引用和表达式外，DataFrames还具有丰富的函数库，包括字符串处理，日期计算，常用数学运算等。完整列表可在<a href="api/python/pyspark.sql.html#module-pyspark.sql.functions">DataFrame Function Reference中找到</a>。</p>
+
+  </div>
+
+<div data-lang="r">
+
+    <div class="highlight"><pre><span></span><span class="c1"># Create the DataFrame</span>
+df <span class="o">&lt;-</span> read.json<span class="p">(</span><span class="s">&quot;examples/src/main/resources/people.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Show the content of the DataFrame</span>
+<span class="kp">head</span><span class="p">(</span>df<span class="p">)</span>
+<span class="c1">##   age    name</span>
+<span class="c1">## 1  NA Michael</span>
+<span class="c1">## 2  30    Andy</span>
+<span class="c1">## 3  19  Justin</span>
+
+
+<span class="c1"># Print the schema in a tree format</span>
+printSchema<span class="p">(</span>df<span class="p">)</span>
+<span class="c1">## root</span>
+<span class="c1">## |-- age: long (nullable = true)</span>
+<span class="c1">## |-- name: string (nullable = true)</span>
+
+<span class="c1"># Select only the &quot;name&quot; column</span>
+<span class="kp">head</span><span class="p">(</span>select<span class="p">(</span>df<span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">))</span>
+<span class="c1">##      name</span>
+<span class="c1">## 1 Michael</span>
+<span class="c1">## 2    Andy</span>
+<span class="c1">## 3  Justin</span>
+
+<span class="c1"># Select everybody, but increment the age by 1</span>
+<span class="kp">head</span><span class="p">(</span>select<span class="p">(</span>df<span class="p">,</span> df<span class="o">$</span>name<span class="p">,</span> df<span class="o">$</span>age <span class="o">+</span> <span class="m">1</span><span class="p">))</span>
+<span class="c1">##      name (age + 1.0)</span>
+<span class="c1">## 1 Michael          NA</span>
+<span class="c1">## 2    Andy          31</span>
+<span class="c1">## 3  Justin          20</span>
+
+<span class="c1"># Select people older than 21</span>
+<span class="kp">head</span><span class="p">(</span>where<span class="p">(</span>df<span class="p">,</span> df<span class="o">$</span>age <span class="o">&gt;</span> <span class="m">21</span><span class="p">))</span>
+<span class="c1">##   age name</span>
+<span class="c1">## 1  30 Andy</span>
+
+<span class="c1"># Count people by age</span>
+<span class="kp">head</span><span class="p">(</span>count<span class="p">(</span>groupBy<span class="p">(</span>df<span class="p">,</span> <span class="s">&quot;age&quot;</span><span class="p">)))</span>
+<span class="c1">##   age count</span>
+<span class="c1">## 1  19     1</span>
+<span class="c1">## 2  NA     1</span>
+<span class="c1">## 3  30     1</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
+
+    <p>有关可在DataFrame上执行的操作类型的完整列表，请参阅<a href="api/python/pyspark.sql.html#pyspark.sql.DataFrame">API文档</a>。</p>
+
+    <p>除了简单的列引用和表达式外，DataFrames还具有丰富的函数库，包括字符串处理，日期计算，常用数学运算等。完整列表可在<a href="api/python/pyspark.sql.html#module-pyspark.sql.functions">DataFrame Function Reference中找到</a>。</p>
+
+  </div>
+
+</div>
+
+<h2 id="以编程方式运行sql查询"><strong>以编程方式运行SQL查询</strong></h2>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <p><code>SparkSession</code>中的<code>sql</code>函数可以让应用程序以编程的方式运行SQL查询，并将结果作为一个<code>DataFrame</code>返回。</p>
+
+    <div class="highlight"><pre><span></span><span class="c1">// Register the DataFrame as a SQL temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">sqlDF</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM people&quot;</span><span class="o">)</span>
+<span class="n">sqlDF</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <p><code>SparkSession</code>中的<code>sql</code>函数可以让应用程序以编程的方式运行SQL查询，并将结果作为一个<code>Dataset&lt;Row&gt;</code>返回。</p>
+
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+
+<span class="c1">// Register the DataFrame as a SQL temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="na">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">);</span>
+
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">sqlDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM people&quot;</span><span class="o">);</span>
+<span class="n">sqlDF</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <p><code>SparkSession</code>中的<code>sql</code>函数可以让应用程序以编程的方式运行SQL查询，并将结果作为一个<code>DataFrame</code>返回。</p>
+
+    <div class="highlight"><pre><span></span><span class="c1"># Register the DataFrame as a SQL temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;people&quot;</span><span class="p">)</span>
+
+<span class="n">sqlDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM people&quot;</span><span class="p">)</span>
+<span class="n">sqlDF</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># | age|   name|</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># |null|Michael|</span>
+<span class="c1"># |  30|   Andy|</span>
+<span class="c1"># |  19| Justin|</span>
+<span class="c1"># +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="r">
+    <p><code>SparkSession</code>中的<code>sql</code>函数可以让应用程序以编程的方式运行SQL查询，并将结果作为一个<code>SparkDataFrame</code>返回。</p>
+
+    <div class="highlight"><pre><span></span>df <span class="o">&lt;-</span> sql<span class="p">(</span><span class="s">&quot;SELECT * FROM table&quot;</span><span class="p">)</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/r/RSparkSQLExample.R" 中找到完整代码。</small></div>
+
+  </div>
+</div>
+
+<h2 id="全局临时视图">全局临时视图</h2>
+
+<p>Spark SQL中的临时视图是session作用域的，如果创建它的session终止了，临时表也就消失了。如果要在Spark应用程序终止之前让所有session之间共享一个临时视图并保持活跃状态，可以创建一个全局临时视图。全局临时视图是和系统保留数据库<code>global_temp</code>绑定的，我们在引用的时候必须加上<code>global_temp</code>，如： <code>SELECT * FROM global_temp.view1</code>。</p>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <div class="highlight"><pre><span></span><span class="c1">// Register the DataFrame as a global temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createGlobalTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">)</span>
+
+<span class="c1">// Global temporary view is tied to a system preserved database `global_temp`</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM global_temp.people&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+
+<span class="c1">// Global temporary view is cross-session</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">newSession</span><span class="o">().</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM global_temp.people&quot;</span><span class="o">).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <div class="highlight"><pre><span></span><span class="c1">// Register the DataFrame as a global temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="na">createGlobalTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">);</span>
+
+<span class="c1">// Global temporary view is tied to a system preserved database `global_temp`</span>
+<span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM global_temp.people&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+
+<span class="c1">// Global temporary view is cross-session</span>
+<span class="n">spark</span><span class="o">.</span><span class="na">newSession</span><span class="o">().</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT * FROM global_temp.people&quot;</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <div class="highlight"><pre><span></span><span class="c1"># Register the DataFrame as a global temporary view</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createGlobalTempView</span><span class="p">(</span><span class="s2">&quot;people&quot;</span><span class="p">)</span>
+
+<span class="c1"># Global temporary view is tied to a system preserved database `global_temp`</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM global_temp.people&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># | age|   name|</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># |null|Michael|</span>
+<span class="c1"># |  30|   Andy|</span>
+<span class="c1"># |  19| Justin|</span>
+<span class="c1"># +----+-------+</span>
+
+<span class="c1"># Global temporary view is cross-session</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">newSession</span><span class="p">()</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM global_temp.people&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># | age|   name|</span>
+<span class="c1"># +----+-------+</span>
+<span class="c1"># |null|Michael|</span>
+<span class="c1"># |  30|   Andy|</span>
+<span class="c1"># |  19| Justin|</span>
+<span class="c1"># +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="sql">
+
+    <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">GLOBAL</span> <span class="k">TEMPORARY</span> <span class="k">VIEW</span> <span class="n">temp_view</span> <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">FROM</span> <span class="n">tbl</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">global_temp</span><span class="p">.</span><span class="n">temp_view</span></code></pre></figure>
+
+  </div>
+</div>
+
+<h2 id="创建dataset">创建Dataset</h2>
+
+<p>Dataset与RDD相似，但是它们不是使用Java序列化或Kryo，而是使用专用的<a href="api/scala/index.html#org.apache.spark.sql.Encoder">Encoder</a>对对象进行序列化以进行网络处理或传输。虽然编码器和标准序列化都负责将对象转换为字节，但是编码器是动态生成的代码，并使用一种格式，该格式允许Spark执行许多操作，例如过滤，排序和哈希处理，而无需将字节反序列化为对象。</p>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <div class="highlight"><pre><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span>
+
+<span class="c1">// Encoders are created for case classes</span>
+<span class="k">val</span> <span class="n">caseClassDS</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Andy&quot;</span><span class="o">,</span> <span class="mi">32</span><span class="o">)).</span><span class="n">toDS</span><span class="o">()</span>
+<span class="n">caseClassDS</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+---+</span>
+<span class="c1">// |name|age|</span>
+<span class="c1">// +----+---+</span>
+<span class="c1">// |Andy| 32|</span>
+<span class="c1">// +----+---+</span>
+
+<span class="c1">// Encoders for most common types are automatically provided by importing spark.implicits._</span>
+<span class="k">val</span> <span class="n">primitiveDS</span> <span class="k">=</span> <span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">toDS</span><span class="o">()</span>
+<span class="n">primitiveDS</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">collect</span><span class="o">()</span> <span class="c1">// Returns: Array(2, 3, 4)</span>
+
+<span class="c1">// DataFrames can be converted to a Dataset by providing a class. Mapping will be done by name</span>
+<span class="k">val</span> <span class="n">path</span> <span class="k">=</span> <span class="s">&quot;examples/src/main/resources/people.json&quot;</span>
+<span class="k">val</span> <span class="n">peopleDS</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">Person</span><span class="o">]</span>
+<span class="n">peopleDS</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.api.java.function.MapFunction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoders</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Create an instance of a Bean class</span>
+<span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+<span class="n">person</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;Andy&quot;</span><span class="o">);</span>
+<span class="n">person</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="mi">32</span><span class="o">);</span>
+
+<span class="c1">// Encoders are created for Java beans</span>
+<span class="n">Encoder</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personEncoder</span> <span class="o">=</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">bean</span><span class="o">(</span><span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">javaBeanDS</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">createDataset</span><span class="o">(</span>
+  <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="n">person</span><span class="o">),</span>
+  <span class="n">personEncoder</span>
+<span class="o">);</span>
+<span class="n">javaBeanDS</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// |age|name|</span>
+<span class="c1">// +---+----+</span>
+<span class="c1">// | 32|Andy|</span>
+<span class="c1">// +---+----+</span>
+
+<span class="c1">// Encoders for most common types are provided in class Encoders</span>
+<span class="n">Encoder</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">integerEncoder</span> <span class="o">=</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">INT</span><span class="o">();</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">primitiveDS</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">createDataset</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="n">integerEncoder</span><span class="o">);</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">transformedDS</span> <span class="o">=</span> <span class="n">primitiveDS</span><span class="o">.</span><span class="na">map</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">MapFunction</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;)</span> <span class="n">value</span> <span class="o">-&gt;</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span>
+    <span class="n">integerEncoder</span><span class="o">);</span>
+<span class="n">transformedDS</span><span class="o">.</span><span class="na">collect</span><span class="o">();</span> <span class="c1">// Returns [2, 3, 4]</span>
+
+<span class="c1">// DataFrames can be converted to a Dataset by providing a class. Mapping based on name</span>
+<span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;examples/src/main/resources/people.json&quot;</span><span class="o">;</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">peopleDS</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">read</span><span class="o">().</span><span class="na">json</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="n">personEncoder</span><span class="o">);</span>
+<span class="n">peopleDS</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// | age|   name|</span>
+<span class="c1">// +----+-------+</span>
+<span class="c1">// |null|Michael|</span>
+<span class="c1">// |  30|   Andy|</span>
+<span class="c1">// |  19| Justin|</span>
+<span class="c1">// +----+-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+</div>
+
+<h2 id="rdd的互操作">RDD的互操作</h2>
+
+<p>Spark SQL支持两种将现有RDD转换为Dataset的方法。第一种方法使用反射来推断包含特定对象类型的RDD的Schema（结构）。这种基于反射的方法可以使代码更简洁，并且当你在编写Spark应用程序时已经了解Schema（结构）的话，可以很好地工作。</p>
+
+<p>创建Dataset的第二种方法是通过编程接口，该接口允许你构造一个Schema（结构），然后将其应用于现有的RDD。尽管此方法较为冗长，但可以让你在运行前知道列及其类型并构造Dataset。</p>
+
+<h3 id="使用反射推断结构">使用反射推断结构</h3>
+<div class="codetabs">
+
+<div data-lang="scala">
+    <p>Spark SQL 的 Scala 接口支持自动转换一个包含 case classes 的 RDD 为 DataFrame。Case class 定义了表的 Schema。Case class 的参数名使用反射读取并且成为了列名。Case class 也可以是嵌套的或者包含像 <code>Seq</code> 或者 <code>Array</code> 这样的复杂类型。这个 RDD 能够被隐式转换成一个 DataFrame 然后被注册为一个表。表可以用于后续的 SQL 语句。</p>
+
+    <div class="highlight"><pre><span></span><span class="c1">// For implicit conversions from RDDs to DataFrames</span>
+<span class="k">import</span> <span class="nn">spark.implicits._</span>
+
+<span class="c1">// Create an RDD of Person objects from a text file, convert it to a Dataframe</span>
+<span class="k">val</span> <span class="n">peopleDF</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+  <span class="o">.</span><span class="n">textFile</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.txt&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">attributes</span> <span class="k">=&gt;</span> <span class="nc">Person</span><span class="o">(</span><span class="n">attributes</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">attributes</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">trim</span><span class="o">.</span><span class="n">toInt</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">toDF</span><span class="o">()</span>
+<span class="c1">// Register the DataFrame as a temporary view</span>
+<span class="n">peopleDF</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">)</span>
+
+<span class="c1">// SQL statements can be run by using the sql methods provided by Spark</span>
+<span class="k">val</span> <span class="n">teenagersDF</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT name, age FROM people WHERE age BETWEEN 13 AND 19&quot;</span><span class="o">)</span>
+
+<span class="c1">// The columns of a row in the result can be accessed by field index</span>
+<span class="n">teenagersDF</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">teenager</span> <span class="k">=&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">teenager</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |       value|</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |Name: Justin|</span>
+<span class="c1">// +------------+</span>
+
+<span class="c1">// or by field name</span>
+<span class="n">teenagersDF</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">teenager</span> <span class="k">=&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">teenager</span><span class="o">.</span><span class="n">getAs</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="s">&quot;name&quot;</span><span class="o">)).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |       value|</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |Name: Justin|</span>
+<span class="c1">// +------------+</span>
+
+<span class="c1">// No pre-defined encoders for Dataset[Map[K,V]], define explicitly</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">mapEncoder</span> <span class="k">=</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="nc">Encoders</span><span class="o">.</span><span class="n">kryo</span><span class="o">[</span><span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]]</span>
+<span class="c1">// Primitive types and case classes can be also defined as</span>
+<span class="c1">// implicit val stringIntMapEncoder: Encoder[Map[String, Any]] = ExpressionEncoder()</span>
+
+<span class="c1">// row.getValuesMap[T] retrieves multiple columns at once into a Map[String, T]</span>
+<span class="n">teenagersDF</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">teenager</span> <span class="k">=&gt;</span> <span class="n">teenager</span><span class="o">.</span><span class="n">getValuesMap</span><span class="o">[</span><span class="kt">Any</span><span class="o">](</span><span class="nc">List</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">,</span> <span class="s">&quot;age&quot;</span><span class="o">))).</span><span class="n">collect</span><span class="o">()</span>
+<span class="c1">// Array(Map(&quot;name&quot; -&gt; &quot;Justin&quot;, &quot;age&quot; -&gt; 19))</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <p>Spark SQL支持将<a href="http://stackoverflow.com/questions/3295496/what-is-a-javabean-exactly">JavaBean</a>的RDD自动转换为DataFrame。<code>BeanInfo</code>通过反射创建并定义了表的结构（Schema）。当前，Spark SQL不支持包含<code>Map</code>的JavaBean 。 不过支持嵌套JavaBean和<code>List</code>或<code>Array</code>。你可以通过一个实现Serializable，并具有其所有字段getter和setter方法的类来创建JavaBean。</p>
+
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">org.apache.spark.api.java.JavaRDD</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.api.java.function.Function</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.api.java.function.MapFunction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoders</span><span class="o">;</span>
+
+<span class="c1">// Create an RDD of Person objects from a text file</span>
+<span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">peopleRDD</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">read</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">textFile</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.txt&quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">javaRDD</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">line</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">);</span>
+    <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+    <span class="n">person</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="n">person</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="na">trim</span><span class="o">()));</span>
+    <span class="k">return</span> <span class="n">person</span><span class="o">;</span>
+  <span class="o">});</span>
+
+<span class="c1">// Apply a schema to an RDD of JavaBeans to get a DataFrame</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">peopleDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">createDataFrame</span><span class="o">(</span><span class="n">peopleRDD</span><span class="o">,</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// Register the DataFrame as a temporary view</span>
+<span class="n">peopleDF</span><span class="o">.</span><span class="na">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">);</span>
+
+<span class="c1">// SQL statements can be run by using the sql methods provided by spark</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">teenagersDF</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT name FROM people WHERE age BETWEEN 13 AND 19&quot;</span><span class="o">);</span>
+
+<span class="c1">// The columns of a row in the result can be accessed by field index</span>
+<span class="n">Encoder</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">stringEncoder</span> <span class="o">=</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">STRING</span><span class="o">();</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">teenagerNamesByIndexDF</span> <span class="o">=</span> <span class="n">teenagersDF</span><span class="o">.</span><span class="na">map</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">MapFunction</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;)</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">row</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span>
+    <span class="n">stringEncoder</span><span class="o">);</span>
+<span class="n">teenagerNamesByIndexDF</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |       value|</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |Name: Justin|</span>
+<span class="c1">// +------------+</span>
+
+<span class="c1">// or by field name</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">teenagerNamesByFieldDF</span> <span class="o">=</span> <span class="n">teenagersDF</span><span class="o">.</span><span class="na">map</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">MapFunction</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;)</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">row</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">getAs</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span>
+    <span class="n">stringEncoder</span><span class="o">);</span>
+<span class="n">teenagerNamesByFieldDF</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |       value|</span>
+<span class="c1">// +------------+</span>
+<span class="c1">// |Name: Justin|</span>
+<span class="c1">// +------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <p>Spark SQL可以将Row对象的RDD转换为DataFrame，从而推断数据类型。通过将key/value对的list作为kwargs传递给Row类来构造Row对象。key定义表的列名，并且通过对整个数据集进行采样来推断类型，类似于对JSON文件执行的推断。</p>
+
+    <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">Row</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+
+<span class="c1"># Load a text file and convert each line to a Row.</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;examples/src/main/resources/people.txt&quot;</span><span class="p">)</span>
+<span class="n">parts</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+<span class="n">people</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">Row</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">age</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+
+<span class="c1"># Infer the schema, and register the DataFrame as a table.</span>
+<span class="n">schemaPeople</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+<span class="n">schemaPeople</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;people&quot;</span><span class="p">)</span>
+
+<span class="c1"># SQL can be run over DataFrames that have been registered as a table.</span>
+<span class="n">teenagers</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM people WHERE age &gt;= 13 AND age &lt;= 19&quot;</span><span class="p">)</span>
+
+<span class="c1"># The results of SQL queries are Dataframe objects.</span>
+<span class="c1"># rdd returns the content as an :class:`pyspark.RDD` of :class:`Row`.</span>
+<span class="n">teenNames</span> <span class="o">=</span> <span class="n">teenagers</span><span class="o">.</span><span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="s2">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">teenNames</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="c1"># Name: Justin</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+</div>
+
+<h3 id="以编程方式指定schema结构">以编程方式指定Schema（结构）</h3>
+
+<div class="codetabs">
+
+<div data-lang="scala">
+    <p>如果 case class 不能够在执行之前被定义（例如，records 记录的结构在一个 string 字符串中被编码了，或者一个 text 文本 dataset 为不同用户解析的结果不一样），那么可以通过下面三步创建<code>DataFrame</code>：</p>
+
+    <ol>
+      <li>从原始RDD创建 <code>Row</code>  组成的RDD；</li>
+      <li>创建一个匹配了用<code>StructType</code> 表示的schema，<code>StructType</code>和在步骤1中创建的RDD的<code>Row</code>相匹配。</li>
+      <li>通过 <code>SparkSession</code> 提供的 <code>createDataFrame</code> 方法将 Schema 应用到 RDD 的 RowS（行）。</li>
+    </ol>
+
+    <p>如：</p>
+
+    <div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">org.apache.spark.sql.Row</span>
+
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.types._</span>
+
+<span class="c1">// Create an RDD</span>
+<span class="k">val</span> <span class="n">peopleRDD</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span><span class="o">.</span><span class="n">textFile</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.txt&quot;</span><span class="o">)</span>
+
+<span class="c1">// The schema is encoded in a string</span>
+<span class="k">val</span> <span class="n">schemaString</span> <span class="k">=</span> <span class="s">&quot;name age&quot;</span>
+
+<span class="c1">// Generate the schema based on the string of schema</span>
+<span class="k">val</span> <span class="n">fields</span> <span class="k">=</span> <span class="n">schemaString</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">fieldName</span> <span class="k">=&gt;</span> <span class="nc">StructField</span><span class="o">(</span><span class="n">fieldName</span><span class="o">,</span> <span class="nc">StringType</span><span class="o">,</span> <span class="n">nullable</span> <span class="k">=</span> <span class="kc">true</span><span class="o">))</span>
+<span class="k">val</span> <span class="n">schema</span> <span class="k">=</span> <span class="nc">StructType</span><span class="o">(</span><span class="n">fields</span><span class="o">)</span>
+
+<span class="c1">// Convert records of the RDD (people) to Rows</span>
+<span class="k">val</span> <span class="n">rowRDD</span> <span class="k">=</span> <span class="n">peopleRDD</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">attributes</span> <span class="k">=&gt;</span> <span class="nc">Row</span><span class="o">(</span><span class="n">attributes</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">attributes</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">trim</span><span class="o">))</span>
+
+<span class="c1">// Apply the schema to the RDD</span>
+<span class="k">val</span> <span class="n">peopleDF</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="o">(</span><span class="n">rowRDD</span><span class="o">,</span> <span class="n">schema</span><span class="o">)</span>
+
+<span class="c1">// Creates a temporary view using the DataFrame</span>
+<span class="n">peopleDF</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">)</span>
+
+<span class="c1">// SQL can be run over a temporary view created using DataFrames</span>
+<span class="k">val</span> <span class="n">results</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT name FROM people&quot;</span><span class="o">)</span>
+
+<span class="c1">// The results of SQL queries are DataFrames and support all the normal RDD operations</span>
+<span class="c1">// The columns of a row in the result can be accessed by field index or by field name</span>
+<span class="n">results</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">attributes</span> <span class="k">=&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">attributes</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +-------------+</span>
+<span class="c1">// |        value|</span>
+<span class="c1">// +-------------+</span>
+<span class="c1">// |Name: Michael|</span>
+<span class="c1">// |   Name: Andy|</span>
+<span class="c1">// | Name: Justin|</span>
+<span class="c1">// +-------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="java">
+    <p>当无法提前定义JavaBean类时（例如，records 记录的结构在一个 string 字符串中被编码了，或者一个 text 文本 dataset 为不同用户解析的结果不一样），那么可以通过下面三步创建 <code>Dataset&lt;Row&gt;</code> ：</p>
+
+    <ol>
+      <li>从原始RDD创建 <code>Row</code>  组成的RDD；</li>
+      <li>创建一个匹配了用<code>StructType</code> 表示的schema，<code>StructType</code>和在步骤1中创建的RDD的<code>Row</code>相匹配。</li>
+      <li>通过 <code>SparkSession</code> 提供的 <code>createDataFrame</code> 方法将 Schema 应用到 RDD 的 RowS（行）。</li>
+    </ol>
+
+    <p>如：</p>
+
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.api.java.JavaRDD</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.api.java.function.Function</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.DataTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.StructField</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.StructType</span><span class="o">;</span>
+
+<span class="c1">// Create an RDD</span>
+<span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">peopleRDD</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">sparkContext</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">textFile</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/people.txt&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="o">.</span><span class="na">toJavaRDD</span><span class="o">();</span>
+
+<span class="c1">// The schema is encoded in a string</span>
+<span class="n">String</span> <span class="n">schemaString</span> <span class="o">=</span> <span class="s">&quot;name age&quot;</span><span class="o">;</span>
+
+<span class="c1">// Generate the schema based on the string of schema</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">StructField</span><span class="o">&gt;</span> <span class="n">fields</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">fieldName</span> <span class="o">:</span> <span class="n">schemaString</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">))</span> <span class="o">{</span>
+  <span class="n">StructField</span> <span class="n">field</span> <span class="o">=</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructField</span><span class="o">(</span><span class="n">fieldName</span><span class="o">,</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">StringType</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+  <span class="n">fields</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">field</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">StructType</span> <span class="n">schema</span> <span class="o">=</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructType</span><span class="o">(</span><span class="n">fields</span><span class="o">);</span>
+
+<span class="c1">// Convert records of the RDD (people) to Rows</span>
+<span class="n">JavaRDD</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">rowRDD</span> <span class="o">=</span> <span class="n">peopleRDD</span><span class="o">.</span><span class="na">map</span><span class="o">((</span><span class="n">Function</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Row</span><span class="o">&gt;)</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="o">{</span>
+  <span class="n">String</span><span class="o">[]</span> <span class="n">attributes</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">);</span>
+  <span class="k">return</span> <span class="n">RowFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">attributes</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="n">attributes</span><span class="o">[</span><span class="mi">1</span><span class="o">].</span><span class="na">trim</span><span class="o">());</span>
+<span class="o">});</span>
+
+<span class="c1">// Apply the schema to the RDD</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">peopleDataFrame</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">createDataFrame</span><span class="o">(</span><span class="n">rowRDD</span><span class="o">,</span> <span class="n">schema</span><span class="o">);</span>
+
+<span class="c1">// Creates a temporary view using the DataFrame</span>
+<span class="n">peopleDataFrame</span><span class="o">.</span><span class="na">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;people&quot;</span><span class="o">);</span>
+
+<span class="c1">// SQL can be run over a temporary view created using DataFrames</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT name FROM people&quot;</span><span class="o">);</span>
+
+<span class="c1">// The results of SQL queries are DataFrames and support all the normal RDD operations</span>
+<span class="c1">// The columns of a row in the result can be accessed by field index or by field name</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">namesDS</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="na">map</span><span class="o">(</span>
+    <span class="o">(</span><span class="n">MapFunction</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;)</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s">&quot;Name: &quot;</span> <span class="o">+</span> <span class="n">row</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span>
+    <span class="n">Encoders</span><span class="o">.</span><span class="na">STRING</span><span class="o">());</span>
+<span class="n">namesDS</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +-------------+</span>
+<span class="c1">// |        value|</span>
+<span class="c1">// +-------------+</span>
+<span class="c1">// |Name: Michael|</span>
+<span class="c1">// |   Name: Andy|</span>
+<span class="c1">// | Name: Justin|</span>
+<span class="c1">// +-------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java" 中找到完整代码。</small></div>
+  </div>
+
+<div data-lang="python">
+    <p>当无法提前定义字典的kwargs 时（例如，records 记录的结构在一个 string 字符串中被编码了，或者一个 text 文本 dataset 为不同用户解析的结果不一样），那么可以通过下面三步创建 <code>Dataset&lt;Row&gt;</code> ：</p>
+
+    <ol>
+      <li>从原始RDD创建 <code>Row</code>  组成的RDD；</li>
+      <li>创建一个匹配了用<code>StructType</code> 表示的schema，<code>StructType</code>和在步骤1中创建的RDD的<code>Row</code>相匹配。</li>
+      <li>通过 <code>SparkSession</code> 提供的 <code>createDataFrame</code> 方法将 Schema 应用到 RDD 的 RowS（行）。</li>
+    </ol>
+
+    <p>如：</p>
+
+    <div class="highlight"><pre><span></span><span class="c1"># Import data types</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sparkContext</span>
+
+<span class="c1"># Load a text file and convert each line to a Row.</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s2">&quot;examples/src/main/resources/people.txt&quot;</span><span class="p">)</span>
+<span class="n">parts</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+<span class="c1"># Each line is converted to a tuple.</span>
+<span class="n">people</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+<span class="c1"># The schema is encoded in a string.</span>
+<span class="n">schemaString</span> <span class="o">=</span> <span class="s2">&quot;name age&quot;</span>
+
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">StructField</span><span class="p">(</span><span class="n">field_name</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="n">schemaString</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+
+<span class="c1"># Apply the schema to the RDD.</span>
+<span class="n">schemaPeople</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">people</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+
+<span class="c1"># Creates a temporary view using the DataFrame</span>
+<span class="n">schemaPeople</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s2">&quot;people&quot;</span><span class="p">)</span>
+
+<span class="c1"># SQL can be run over DataFrames that have been registered as a table.</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s2">&quot;SELECT name FROM people&quot;</span><span class="p">)</span>
+
+<span class="n">results</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># +-------+</span>
+<span class="c1"># |   name|</span>
+<span class="c1"># +-------+</span>
+<span class="c1"># |Michael|</span>
+<span class="c1"># |   Andy|</span>
+<span class="c1"># | Justin|</span>
+<span class="c1"># +-------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/python/sql/basic.py" 中找到完整代码。</small></div>
+  </div>
+
+</div>
+
+<h2 id="标量函数">标量函数</h2>
+<p>(to be filled soon)</p>
+
+<h2 id="聚合">聚合</h2>
+
+<p>Spark提供了一些 <a href="api/scala/index.html#org.apache.spark.sql.functions$">内置的 DataFrames 函数</a> 如 <code>count()</code>, <code>countDistinct()</code>, <code>avg()</code>, <code>max()</code>, `min()
+等。虽然这些函数是为DataFrame设计的，但Spark SQL在<a href="api/scala/index.html#org.apache.spark.sql.expressions.scalalang.typed$">Scala</a>和<a href="api/java/org/apache/spark/sql/expressions/javalang/typed.html">Java</a>中也提供了这些函数type-safe的版本，可以使其通过强类型的Dataset工作。此外，除了内置的函数，用户还可以自定义相关函数。</p>
+
+<h3 id="未类型化的用户定义的聚合函数">未类型化的用户定义的聚合函数</h3>
+
+<p>用户必须继承<a href="api/scala/index.html#org.apache.spark.sql.expressions.UserDefinedAggregateFunction">UserDefinedAggregateFunction</a> 抽象类以实现自定义无类型的聚合函数。例如，用户定义的平均值如下所示：</p>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">org.apache.spark.sql.</span><span class="o">{</span><span class="nc">Row</span><span class="o">,</span> <span class="nc">SparkSession</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.expressions.MutableAggregationBuffer</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.expressions.UserDefinedAggregateFunction</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.types._</span>
+
+<span class="k">object</span> <span class="nc">MyAverage</span> <span class="k">extends</span> <span class="nc">UserDefinedAggregateFunction</span> <span class="o">{</span>
+  <span class="c1">// Data types of input arguments of this aggregate function</span>
+  <span class="k">def</span> <span class="n">inputSchema</span><span class="k">:</span> <span class="kt">StructType</span> <span class="o">=</span> <span class="nc">StructType</span><span class="o">(</span><span class="nc">StructField</span><span class="o">(</span><span class="s">&quot;inputColumn&quot;</span><span class="o">,</span> <span class="nc">LongType</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span><span class="o">)</span>
+  <span class="c1">// Data types of values in the aggregation buffer</span>
+  <span class="k">def</span> <span class="n">bufferSchema</span><span class="k">:</span> <span class="kt">StructType</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nc">StructType</span><span class="o">(</span><span class="nc">StructField</span><span class="o">(</span><span class="s">&quot;sum&quot;</span><span class="o">,</span> <span class="nc">LongType</span><span class="o">)</span> <span class="o">::</span> <span class="nc">StructField</span><span class="o">(</span><span class="s">&quot;count&quot;</span><span class="o">,</span> <span class="nc">LongType</span><span class="o">)</span> <span class="o">::</span> <span class="nc">Nil</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="c1">// The data type of the returned value</span>
+  <span class="k">def</span> <span class="n">dataType</span><span class="k">:</span> <span class="kt">DataType</span> <span class="o">=</span> <span class="nc">DoubleType</span>
+  <span class="c1">// Whether this function always returns the same output on the identical input</span>
+  <span class="k">def</span> <span class="n">deterministic</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+  <span class="c1">// Initializes the given aggregation buffer. The buffer itself is a `Row` that in addition to</span>
+  <span class="c1">// standard methods like retrieving a value at an index (e.g., get(), getBoolean()), provides</span>
+  <span class="c1">// the opportunity to update its values. Note that arrays and maps inside the buffer are still</span>
+  <span class="c1">// immutable.</span>
+  <span class="k">def</span> <span class="n">initialize</span><span class="o">(</span><span class="n">buffer</span><span class="k">:</span> <span class="kt">MutableAggregationBuffer</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">buffer</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">=</span> <span class="mi">0L</span>
+    <span class="n">buffer</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">=</span> <span class="mi">0L</span>
+  <span class="o">}</span>
+  <span class="c1">// Updates the given aggregation buffer `buffer` with new input data from `input`</span>
+  <span class="k">def</span> <span class="n">update</span><span class="o">(</span><span class="n">buffer</span><span class="k">:</span> <span class="kt">MutableAggregationBuffer</span><span class="o">,</span> <span class="n">input</span><span class="k">:</span> <span class="kt">Row</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">input</span><span class="o">.</span><span class="n">isNullAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">buffer</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">input</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+      <span class="n">buffer</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="c1">// Merges two aggregation buffers and stores the updated buffer values back to `buffer1`</span>
+  <span class="k">def</span> <span class="n">merge</span><span class="o">(</span><span class="n">buffer1</span><span class="k">:</span> <span class="kt">MutableAggregationBuffer</span><span class="o">,</span> <span class="n">buffer2</span><span class="k">:</span> <span class="kt">Row</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">buffer1</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="k">=</span> <span class="n">buffer1</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">buffer2</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="n">buffer1</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">=</span> <span class="n">buffer1</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">buffer2</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+  <span class="o">}</span>
+  <span class="c1">// Calculates the final result</span>
+  <span class="k">def</span> <span class="n">evaluate</span><span class="o">(</span><span class="n">buffer</span><span class="k">:</span> <span class="kt">Row</span><span class="o">)</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">toDouble</span> <span class="o">/</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Register the function to access it</span>
+<span class="n">spark</span><span class="o">.</span><span class="n">udf</span><span class="o">.</span><span class="n">register</span><span class="o">(</span><span class="s">&quot;myAverage&quot;</span><span class="o">,</span> <span class="nc">MyAverage</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">df</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/employees.json&quot;</span><span class="o">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;employees&quot;</span><span class="o">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |   name|salary|</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |Michael|  3000|</span>
+<span class="c1">// |   Andy|  4500|</span>
+<span class="c1">// | Justin|  3500|</span>
+<span class="c1">// |  Berta|  4000|</span>
+<span class="c1">// +-------+------+</span>
+
+<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="o">(</span><span class="s">&quot;SELECT myAverage(salary) as average_salary FROM employees&quot;</span><span class="o">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |average_salary|</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |        3750.0|</span>
+<span class="c1">// +--------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedUntypedAggregation.scala" 中找到完整代码。</small></div>
+  </div>
+<div data-lang="java">
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Row</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.expressions.MutableAggregationBuffer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.expressions.UserDefinedAggregateFunction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.DataType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.DataTypes</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.StructField</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.types.StructType</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyAverage</span> <span class="kd">extends</span> <span class="n">UserDefinedAggregateFunction</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="n">StructType</span> <span class="n">inputSchema</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">StructType</span> <span class="n">bufferSchema</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">MyAverage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">StructField</span><span class="o">&gt;</span> <span class="n">inputFields</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">inputFields</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructField</span><span class="o">(</span><span class="s">&quot;inputColumn&quot;</span><span class="o">,</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">LongType</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+    <span class="n">inputSchema</span> <span class="o">=</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructType</span><span class="o">(</span><span class="n">inputFields</span><span class="o">);</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">StructField</span><span class="o">&gt;</span> <span class="n">bufferFields</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">bufferFields</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructField</span><span class="o">(</span><span class="s">&quot;sum&quot;</span><span class="o">,</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">LongType</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+    <span class="n">bufferFields</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructField</span><span class="o">(</span><span class="s">&quot;count&quot;</span><span class="o">,</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">LongType</span><span class="o">,</span> <span class="kc">true</span><span class="o">));</span>
+    <span class="n">bufferSchema</span> <span class="o">=</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">createStructType</span><span class="o">(</span><span class="n">bufferFields</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// Data types of input arguments of this aggregate function</span>
+  <span class="kd">public</span> <span class="n">StructType</span> <span class="nf">inputSchema</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">inputSchema</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// Data types of values in the aggregation buffer</span>
+  <span class="kd">public</span> <span class="n">StructType</span> <span class="nf">bufferSchema</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">bufferSchema</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// The data type of the returned value</span>
+  <span class="kd">public</span> <span class="n">DataType</span> <span class="nf">dataType</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">DataTypes</span><span class="o">.</span><span class="na">DoubleType</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// Whether this function always returns the same output on the identical input</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">deterministic</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// Initializes the given aggregation buffer. The buffer itself is a `Row` that in addition to</span>
+  <span class="c1">// standard methods like retrieving a value at an index (e.g., get(), getBoolean()), provides</span>
+  <span class="c1">// the opportunity to update its values. Note that arrays and maps inside the buffer are still</span>
+  <span class="c1">// immutable.</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">MutableAggregationBuffer</span> <span class="n">buffer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="n">L</span><span class="o">);</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="n">L</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// Updates the given aggregation buffer `buffer` with new input data from `input`</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">MutableAggregationBuffer</span> <span class="n">buffer</span><span class="o">,</span> <span class="n">Row</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">input</span><span class="o">.</span><span class="na">isNullAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">{</span>
+      <span class="kt">long</span> <span class="n">updatedSum</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">input</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+      <span class="kt">long</span> <span class="n">updatedCount</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+      <span class="n">buffer</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">updatedSum</span><span class="o">);</span>
+      <span class="n">buffer</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">updatedCount</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="c1">// Merges two aggregation buffers and stores the updated buffer values back to `buffer1`</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">merge</span><span class="o">(</span><span class="n">MutableAggregationBuffer</span> <span class="n">buffer1</span><span class="o">,</span> <span class="n">Row</span> <span class="n">buffer2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">mergedSum</span> <span class="o">=</span> <span class="n">buffer1</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">buffer2</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="kt">long</span> <span class="n">mergedCount</span> <span class="o">=</span> <span class="n">buffer1</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">buffer2</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">buffer1</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">mergedSum</span><span class="o">);</span>
+    <span class="n">buffer1</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">mergedCount</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// Calculates the final result</span>
+  <span class="kd">public</span> <span class="n">Double</span> <span class="nf">evaluate</span><span class="o">(</span><span class="n">Row</span> <span class="n">buffer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">/</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Register the function to access it</span>
+<span class="n">spark</span><span class="o">.</span><span class="na">udf</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="s">&quot;myAverage&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">MyAverage</span><span class="o">());</span>
+
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">read</span><span class="o">().</span><span class="na">json</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/employees.json&quot;</span><span class="o">);</span>
+<span class="n">df</span><span class="o">.</span><span class="na">createOrReplaceTempView</span><span class="o">(</span><span class="s">&quot;employees&quot;</span><span class="o">);</span>
+<span class="n">df</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |   name|salary|</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |Michael|  3000|</span>
+<span class="c1">// |   Andy|  4500|</span>
+<span class="c1">// | Justin|  3500|</span>
+<span class="c1">// |  Berta|  4000|</span>
+<span class="c1">// +-------+------+</span>
+
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">sql</span><span class="o">(</span><span class="s">&quot;SELECT myAverage(salary) as average_salary FROM employees&quot;</span><span class="o">);</span>
+<span class="n">result</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |average_salary|</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |        3750.0|</span>
+<span class="c1">// +--------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedUntypedAggregation.java" 中找到完整代码。</small></div>
+  </div>
+</div>
+
+<h3 id="类型安全的用户定义的聚合函数">类型安全的用户定义的聚合函数</h3>
+
+<p>用户定义的强类型Dataset的<a href="api/scala/index.html#org.apache.spark.sql.expressions.Aggregator">聚合</a>围绕<a href="api/scala/index.html#org.apache.spark.sql.expressions.Aggregator">Aggregator</a>抽象类展开。例如，类型安全的用户定义的平均值如下所示：</p>
+
+<div class="codetabs">
+<div data-lang="scala">
+    <div class="highlight"><pre><span></span><span class="k">import</span> <span class="nn">org.apache.spark.sql.</span><span class="o">{</span><span class="nc">Encoder</span><span class="o">,</span> <span class="nc">Encoders</span><span class="o">,</span> <span class="nc">SparkSession</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.expressions.Aggregator</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Employee</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">salary</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Average</span><span class="o">(</span><span class="k">var</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="k">var</span> <span class="n">count</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span>
+
+<span class="k">object</span> <span class="nc">MyAverage</span> <span class="k">extends</span> <span class="nc">Aggregator</span><span class="o">[</span><span class="kt">Employee</span>, <span class="kt">Average</span>, <span class="kt">Double</span><span class="o">]</span> <span class="o">{</span>
+  <span class="c1">// A zero value for this aggregation. Should satisfy the property that any b + zero = b</span>
+  <span class="k">def</span> <span class="n">zero</span><span class="k">:</span> <span class="kt">Average</span> <span class="o">=</span> <span class="nc">Average</span><span class="o">(</span><span class="mi">0L</span><span class="o">,</span> <span class="mi">0L</span><span class="o">)</span>
+  <span class="c1">// Combine two values to produce a new value. For performance, the function may modify `buffer`</span>
+  <span class="c1">// and return it instead of constructing a new object</span>
+  <span class="k">def</span> <span class="n">reduce</span><span class="o">(</span><span class="n">buffer</span><span class="k">:</span> <span class="kt">Average</span><span class="o">,</span> <span class="n">employee</span><span class="k">:</span> <span class="kt">Employee</span><span class="o">)</span><span class="k">:</span> <span class="kt">Average</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">sum</span> <span class="o">+=</span> <span class="n">employee</span><span class="o">.</span><span class="n">salary</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">buffer</span>
+  <span class="o">}</span>
+  <span class="c1">// Merge two intermediate values</span>
+  <span class="k">def</span> <span class="n">merge</span><span class="o">(</span><span class="n">b1</span><span class="k">:</span> <span class="kt">Average</span><span class="o">,</span> <span class="n">b2</span><span class="k">:</span> <span class="kt">Average</span><span class="o">)</span><span class="k">:</span> <span class="kt">Average</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">b1</span><span class="o">.</span><span class="n">sum</span> <span class="o">+=</span> <span class="n">b2</span><span class="o">.</span><span class="n">sum</span>
+    <span class="n">b1</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">b2</span><span class="o">.</span><span class="n">count</span>
+    <span class="n">b1</span>
+  <span class="o">}</span>
+  <span class="c1">// Transform the output of the reduction</span>
+  <span class="k">def</span> <span class="n">finish</span><span class="o">(</span><span class="n">reduction</span><span class="k">:</span> <span class="kt">Average</span><span class="o">)</span><span class="k">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="n">reduction</span><span class="o">.</span><span class="n">sum</span><span class="o">.</span><span class="n">toDouble</span> <span class="o">/</span> <span class="n">reduction</span><span class="o">.</span><span class="n">count</span>
+  <span class="c1">// Specifies the Encoder for the intermediate value type</span>
+  <span class="k">def</span> <span class="n">bufferEncoder</span><span class="k">:</span> <span class="kt">Encoder</span><span class="o">[</span><span class="kt">Average</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Encoders</span><span class="o">.</span><span class="n">product</span>
+  <span class="c1">// Specifies the Encoder for the final output value type</span>
+  <span class="k">def</span> <span class="n">outputEncoder</span><span class="k">:</span> <span class="kt">Encoder</span><span class="o">[</span><span class="kt">Double</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Encoders</span><span class="o">.</span><span class="n">scalaDouble</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">ds</span> <span class="k">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">json</span><span class="o">(</span><span class="s">&quot;examples/src/main/resources/employees.json&quot;</span><span class="o">).</span><span class="n">as</span><span class="o">[</span><span class="kt">Employee</span><span class="o">]</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |   name|salary|</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |Michael|  3000|</span>
+<span class="c1">// |   Andy|  4500|</span>
+<span class="c1">// | Justin|  3500|</span>
+<span class="c1">// |  Berta|  4000|</span>
+<span class="c1">// +-------+------+</span>
+
+<span class="c1">// Convert the function to a `TypedColumn` and give it a name</span>
+<span class="k">val</span> <span class="n">averageSalary</span> <span class="k">=</span> <span class="nc">MyAverage</span><span class="o">.</span><span class="n">toColumn</span><span class="o">.</span><span class="n">name</span><span class="o">(</span><span class="s">&quot;average_salary&quot;</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">select</span><span class="o">(</span><span class="n">averageSalary</span><span class="o">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">show</span><span class="o">()</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |average_salary|</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |        3750.0|</span>
+<span class="c1">// +--------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedTypedAggregation.scala" 中找到完整代码。</small></div>
+  </div>
+<div data-lang="java">
+    <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Dataset</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.Encoders</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.SparkSession</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.TypedColumn</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.spark.sql.expressions.Aggregator</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Employee</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">long</span> <span class="n">salary</span><span class="o">;</span>
+
+  <span class="c1">// Constructors, getters, setters...</span>
+
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Average</span> <span class="kd">implements</span> <span class="n">Serializable</span>  <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">long</span> <span class="n">sum</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">long</span> <span class="n">count</span><span class="o">;</span>
+
+  <span class="c1">// Constructors, getters, setters...</span>
+
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyAverage</span> <span class="kd">extends</span> <span class="n">Aggregator</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">,</span> <span class="n">Average</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="c1">// A zero value for this aggregation. Should satisfy the property that any b + zero = b</span>
+  <span class="kd">public</span> <span class="n">Average</span> <span class="nf">zero</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">Average</span><span class="o">(</span><span class="mi">0</span><span class="n">L</span><span class="o">,</span> <span class="mi">0</span><span class="n">L</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// Combine two values to produce a new value. For performance, the function may modify `buffer`</span>
+  <span class="c1">// and return it instead of constructing a new object</span>
+  <span class="kd">public</span> <span class="n">Average</span> <span class="nf">reduce</span><span class="o">(</span><span class="n">Average</span> <span class="n">buffer</span><span class="o">,</span> <span class="n">Employee</span> <span class="n">employee</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">newSum</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getSum</span><span class="o">()</span> <span class="o">+</span> <span class="n">employee</span><span class="o">.</span><span class="na">getSalary</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">newCount</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">getCount</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="na">setSum</span><span class="o">(</span><span class="n">newSum</span><span class="o">);</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="na">setCount</span><span class="o">(</span><span class="n">newCount</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">buffer</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// Merge two intermediate values</span>
+  <span class="kd">public</span> <span class="n">Average</span> <span class="nf">merge</span><span class="o">(</span><span class="n">Average</span> <span class="n">b1</span><span class="o">,</span> <span class="n">Average</span> <span class="n">b2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">mergedSum</span> <span class="o">=</span> <span class="n">b1</span><span class="o">.</span><span class="na">getSum</span><span class="o">()</span> <span class="o">+</span> <span class="n">b2</span><span class="o">.</span><span class="na">getSum</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">mergedCount</span> <span class="o">=</span> <span class="n">b1</span><span class="o">.</span><span class="na">getCount</span><span class="o">()</span> <span class="o">+</span> <span class="n">b2</span><span class="o">.</span><span class="na">getCount</span><span class="o">();</span>
+    <span class="n">b1</span><span class="o">.</span><span class="na">setSum</span><span class="o">(</span><span class="n">mergedSum</span><span class="o">);</span>
+    <span class="n">b1</span><span class="o">.</span><span class="na">setCount</span><span class="o">(</span><span class="n">mergedCount</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">b1</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// Transform the output of the reduction</span>
+  <span class="kd">public</span> <span class="n">Double</span> <span class="nf">finish</span><span class="o">(</span><span class="n">Average</span> <span class="n">reduction</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">((</span><span class="kt">double</span><span class="o">)</span> <span class="n">reduction</span><span class="o">.</span><span class="na">getSum</span><span class="o">())</span> <span class="o">/</span> <span class="n">reduction</span><span class="o">.</span><span class="na">getCount</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="c1">// Specifies the Encoder for the intermediate value type</span>
+  <span class="kd">public</span> <span class="n">Encoder</span><span class="o">&lt;</span><span class="n">Average</span><span class="o">&gt;</span> <span class="nf">bufferEncoder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">bean</span><span class="o">(</span><span class="n">Average</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// Specifies the Encoder for the final output value type</span>
+  <span class="kd">public</span> <span class="n">Encoder</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="nf">outputEncoder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">DOUBLE</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">Encoder</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">employeeEncoder</span> <span class="o">=</span> <span class="n">Encoders</span><span class="o">.</span><span class="na">bean</span><span class="o">(</span><span class="n">Employee</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;examples/src/main/resources/employees.json&quot;</span><span class="o">;</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="na">read</span><span class="o">().</span><span class="na">json</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="na">as</span><span class="o">(</span><span class="n">employeeEncoder</span><span class="o">);</span>
+<span class="n">ds</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |   name|salary|</span>
+<span class="c1">// +-------+------+</span>
+<span class="c1">// |Michael|  3000|</span>
+<span class="c1">// |   Andy|  4500|</span>
+<span class="c1">// | Justin|  3500|</span>
+<span class="c1">// |  Berta|  4000|</span>
+<span class="c1">// +-------+------+</span>
+
+<span class="n">MyAverage</span> <span class="n">myAverage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyAverage</span><span class="o">();</span>
+<span class="c1">// Convert the function to a `TypedColumn` and give it a name</span>
+<span class="n">TypedColumn</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">averageSalary</span> <span class="o">=</span> <span class="n">myAverage</span><span class="o">.</span><span class="na">toColumn</span><span class="o">().</span><span class="na">name</span><span class="o">(</span><span class="s">&quot;average_salary&quot;</span><span class="o">);</span>
+<span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="n">averageSalary</span><span class="o">);</span>
+<span class="n">result</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |average_salary|</span>
+<span class="c1">// +--------------+</span>
+<span class="c1">// |        3750.0|</span>
+<span class="c1">// +--------------+</span>
+</pre></div>
+    <div><small>可以在Spark仓库的 "examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedTypedAggregation.java" 中找到完整代码。</small></div>
+  </div>
+</div>
+:ET

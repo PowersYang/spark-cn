@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -1075,11 +1082,11 @@ distribution <code>N(0, 1)</code>, and then map it to <code>N(1, 4)</code>.</p>
 
 <span class="k">val</span> <span class="nv">sc</span><span class="k">:</span> <span class="kt">SparkContext</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="c1">// Generate a random double RDD that contains 1 million i.i.d. values drawn from the
-// standard normal distribution `N(0, 1)`, evenly distributed in 10 partitions.
-</span><span class="k">val</span> <span class="nv">u</span> <span class="k">=</span> <span class="nf">normalRDD</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="mi">1000000L</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
-<span class="c1">// Apply a transform to get a random double RDD following `N(1, 4)`.
-</span><span class="k">val</span> <span class="nv">v</span> <span class="k">=</span> <span class="nv">u</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span><span class="o">)</span></code></pre></figure>
+<span class="c1">// Generate a random double RDD that contains 1 million i.i.d. values drawn from the</span>
+<span class="c1">// standard normal distribution `N(0, 1)`, evenly distributed in 10 partitions.</span>
+<span class="k">val</span> <span class="nv">u</span> <span class="k">=</span> <span class="nf">normalRDD</span><span class="o">(</span><span class="n">sc</span><span class="o">,</span> <span class="mi">1000000L</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+<span class="c1">// Apply a transform to get a random double RDD following `N(1, 4)`.</span>
+<span class="k">val</span> <span class="nv">v</span> <span class="k">=</span> <span class="nv">u</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span><span class="o">)</span></code></pre></figure>
 
   </div>
 
@@ -1220,6 +1227,9 @@ to do so.</p>
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

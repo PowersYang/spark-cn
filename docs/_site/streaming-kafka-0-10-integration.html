@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -228,11 +235,11 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Import dependencies and create kafka params as in Create Direct Stream above
-</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Import dependencies and create kafka params as in Create Direct Stream above</span>
+
 <span class="k">val</span> <span class="nv">offsetRanges</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">(</span>
-  <span class="c1">// topic, partition, inclusive starting offset, exclusive ending offset
-</span>  <span class="nc">OffsetRange</span><span class="o">(</span><span class="s">"test"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">),</span>
+  <span class="c1">// topic, partition, inclusive starting offset, exclusive ending offset</span>
+  <span class="nc">OffsetRange</span><span class="o">(</span><span class="s">"test"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">),</span>
   <span class="nc">OffsetRange</span><span class="o">(</span><span class="s">"test"</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">100</span><span class="o">)</span>
 <span class="o">)</span>
 
@@ -306,8 +313,8 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">stream</span><span class="o">.</span><span class="py">foreachRDD</span> <span class="o">{</span> <span class="n">rdd</span> <span class="k">=&gt;</span>
   <span class="k">val</span> <span class="nv">offsetRanges</span> <span class="k">=</span> <span class="nv">rdd</span><span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">HasOffsetRanges</span><span class="o">].</span><span class="py">offsetRanges</span>
 
-  <span class="c1">// some time later, after outputs have completed
-</span>  <span class="nv">stream</span><span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">CanCommitOffsets</span><span class="o">].</span><span class="py">commitAsync</span><span class="o">(</span><span class="n">offsetRanges</span><span class="o">)</span>
+  <span class="c1">// some time later, after outputs have completed</span>
+  <span class="nv">stream</span><span class="o">.</span><span class="py">asInstanceOf</span><span class="o">[</span><span class="kt">CanCommitOffsets</span><span class="o">].</span><span class="py">commitAsync</span><span class="o">(</span><span class="n">offsetRanges</span><span class="o">)</span>
 <span class="o">}</span></code></pre></figure>
 
     <p>As with HasOffsetRanges, the cast to CanCommitOffsets will only succeed if called on the result of createDirectStream, not after transformations.  The commitAsync call is threadsafe, but must occur after outputs if you want meaningful semantics.</p>
@@ -330,10 +337,10 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// The details depend on your data store, but the general idea looks like this
-</span>
-<span class="c1">// begin from the the offsets committed to the database
-</span><span class="k">val</span> <span class="nv">fromOffsets</span> <span class="k">=</span> <span class="nv">selectOffsetsFromYourDatabase</span><span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="n">resultSet</span> <span class="k">=&gt;</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// The details depend on your data store, but the general idea looks like this</span>
+
+<span class="c1">// begin from the the offsets committed to the database</span>
+<span class="k">val</span> <span class="nv">fromOffsets</span> <span class="k">=</span> <span class="nv">selectOffsetsFromYourDatabase</span><span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="n">resultSet</span> <span class="k">=&gt;</span>
   <span class="k">new</span> <span class="nc">TopicPartition</span><span class="o">(</span><span class="nv">resultSet</span><span class="o">.</span><span class="py">string</span><span class="o">(</span><span class="s">"topic"</span><span class="o">),</span> <span class="nv">resultSet</span><span class="o">.</span><span class="py">int</span><span class="o">(</span><span class="s">"partition"</span><span class="o">))</span> <span class="o">-&gt;</span> <span class="nv">resultSet</span><span class="o">.</span><span class="py">long</span><span class="o">(</span><span class="s">"offset"</span><span class="o">)</span>
 <span class="o">}.</span><span class="py">toMap</span>
 
@@ -348,14 +355,14 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
 
   <span class="k">val</span> <span class="nv">results</span> <span class="k">=</span> <span class="nf">yourCalculation</span><span class="o">(</span><span class="n">rdd</span><span class="o">)</span>
 
-  <span class="c1">// begin your transaction
-</span>
-  <span class="c1">// update results
-</span>  <span class="c1">// update offsets where the end of existing offsets matches the beginning of this batch of offsets
-</span>  <span class="c1">// assert that offsets were updated correctly
-</span>
-  <span class="c1">// end your transaction
-</span><span class="o">}</span></code></pre></figure>
+  <span class="c1">// begin your transaction</span>
+
+  <span class="c1">// update results</span>
+  <span class="c1">// update offsets where the end of existing offsets matches the beginning of this batch of offsets</span>
+  <span class="c1">// assert that offsets were updated correctly</span>
+
+  <span class="c1">// end your transaction</span>
+<span class="o">}</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -398,8 +405,8 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">kafkaParams</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Object</span><span class="o">](</span>
-  <span class="c1">// the usual params, make sure to change the port in bootstrap.servers if 9092 is not TLS
-</span>  <span class="s">"security.protocol"</span> <span class="o">-&gt;</span> <span class="s">"SSL"</span><span class="o">,</span>
+  <span class="c1">// the usual params, make sure to change the port in bootstrap.servers if 9092 is not TLS</span>
+  <span class="s">"security.protocol"</span> <span class="o">-&gt;</span> <span class="s">"SSL"</span><span class="o">,</span>
   <span class="s">"ssl.truststore.location"</span> <span class="o">-&gt;</span> <span class="s">"/some-directory/kafka.client.truststore.jks"</span><span class="o">,</span>
   <span class="s">"ssl.truststore.password"</span> <span class="o">-&gt;</span> <span class="s">"test1234"</span><span class="o">,</span>
   <span class="s">"ssl.keystore.location"</span> <span class="o">-&gt;</span> <span class="s">"/some-directory/kafka.client.keystore.jks"</span><span class="o">,</span>
@@ -442,6 +449,9 @@ Note that the example sets enable.auto.commit to false, for discussion see <a hr
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

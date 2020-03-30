@@ -1,0 +1,66 @@
+I"é<h3 id="description">Description</h3>
+<p>The <code>INSERT OVERWRITE DIRECTORY</code> statement overwrites the existing data in the directory with the new values using Spark native format. The inserted rows can be specified by value expressions or result from a query.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="p">[</span> <span class="k">LOCAL</span> <span class="p">]</span> <span class="n">DIRECTORY</span> <span class="p">[</span> <span class="n">directory_path</span> <span class="p">]</span>
+    <span class="k">USING</span> <span class="n">file_format</span> <span class="p">[</span> <span class="k">OPTIONS</span> <span class="p">(</span> <span class="k">key</span> <span class="o">=</span> <span class="n">val</span> <span class="p">[</span> <span class="p">,</span> <span class="p">...</span> <span class="p">]</span> <span class="p">)</span> <span class="p">]</span>
+    <span class="err">{</span> <span class="err">{</span> <span class="k">VALUES</span> <span class="p">(</span> <span class="err">{</span> <span class="n">value</span> <span class="o">|</span> <span class="k">NULL</span> <span class="err">}</span> <span class="p">[</span> <span class="p">,</span> <span class="p">...</span> <span class="p">]</span> <span class="p">)</span> <span class="p">[</span> <span class="p">,</span> <span class="p">(</span> <span class="p">...</span> <span class="p">)</span> <span class="p">]</span> <span class="err">}</span> <span class="o">|</span> <span class="n">query</span> <span class="err">}</span></code></pre></figure>
+
+<h3 id="parameters">Parameters</h3>
+<dl>
+  <dt><code><em>directory_path</em></code></dt>
+  <dd>
+  Specifies the destination directory. It can also be specified in <code>OPTIONS</code> using <code>path</code>. The <code>LOCAL</code> keyword is used to specify that the directory is on the local file system.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>file_format</em></code></dt>
+  <dd>
+  Specifies the file format to use for the insert. Valid options are <code>TEXT</code>, <code>CSV</code>, <code>JSON</code>, <code>JDBC</code>, <code>PARQUET</code>, <code>ORC</code>, <code>HIVE</code>, <code>DELTA</code>, <code>LIBSVM</code>, or a fully qualified class name of a custom implementation of <code>org.apache.spark.sql.sources.DataSourceRegister</code>.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>OPTIONS ( key = val [ , ... ] )</em></code></dt>
+  <dd>Specifies one or more table property key and value pairs.</dd>
+</dl>
+
+<dl>
+  <dt><code><em>VALUES ( { value | NULL } [ , ... ] ) [ , ( ... ) ]</em></code></dt>
+  <dd>
+  Specifies the values to be inserted. Either an explicitly specified value or a NULL can be inserted. A comma must be used to seperate each value in the clause. More than one set of values can be specified to insert multiple rows.
+  </dd>
+</dl>
+
+<dl>
+  <dt><code><em>query</em></code></dt>
+  <dd>A query that produces the rows to be inserted. It can be in one of following formats:
+    <ul>
+      <li>a <code>SELECT</code> statement</li>
+      <li>a <code>TABLE</code> statement</li>
+      <li>a <code>FROM</code> statement</li>
+    </ul>
+   </dd>
+</dl>
+
+<h3 id="examples">Examples</h3>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="n">DIRECTORY</span> <span class="s1">'/tmp/destination'</span>
+    <span class="k">USING</span> <span class="n">parquet</span>
+    <span class="k">OPTIONS</span> <span class="p">(</span><span class="n">col1</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col2</span> <span class="mi">2</span><span class="p">,</span> <span class="n">col3</span> <span class="s1">'test'</span><span class="p">)</span>
+    <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">test_table</span><span class="p">;</span>
+
+<span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="n">DIRECTORY</span>
+    <span class="k">USING</span> <span class="n">parquet</span>
+    <span class="k">OPTIONS</span> <span class="p">(</span><span class="s1">'path'</span> <span class="s1">'/tmp/destination'</span><span class="p">,</span> <span class="n">col1</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col2</span> <span class="mi">2</span><span class="p">,</span> <span class="n">col3</span> <span class="s1">'test'</span><span class="p">)</span>
+    <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">test_table</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="related-statements">Related Statements</h3>
+<ul>
+  <li><a href="sql-ref-syntax-dml-insert-into.html">INSERT INTO statement</a></li>
+  <li><a href="sql-ref-syntax-dml-insert-overwrite-table.html">INSERT OVERWRITE statement</a></li>
+  <li><a href="sql-ref-syntax-dml-insert-overwrite-directory-hive.html">INSERT OVERWRITE DIRECTORY with Hive format statement</a></li>
+</ul>
+:ET

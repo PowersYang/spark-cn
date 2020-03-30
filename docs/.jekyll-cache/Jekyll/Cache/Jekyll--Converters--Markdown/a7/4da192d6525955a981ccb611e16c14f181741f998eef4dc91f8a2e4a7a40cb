@@ -1,0 +1,12 @@
+I";<p>This page documents sections of the migration guide for each component in order
+for users to migrate effectively.</p>
+
+<ul>
+  <li><a href="core-migration-guide.html">Spark Core</a></li>
+  <li><a href="sql-migration-guide.html">SQL, Datasets, and DataFrame</a></li>
+  <li><a href="ss-migration-guide.html">Structured Streaming</a></li>
+  <li><a href="ml-migration-guide.html">MLlib (Machine Learning)</a></li>
+  <li><a href="pyspark-migration-guide.html">PySpark (Python on Spark)</a></li>
+  <li><a href="sparkr-migration-guide.html">SparkR (R on Spark)</a></li>
+</ul>
+:ET

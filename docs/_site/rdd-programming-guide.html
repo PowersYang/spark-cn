@@ -28,8 +28,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -753,8 +760,8 @@ the code below:</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">var</span> <span class="n">counter</span> <span class="k">=</span> <span class="mi">0</span>
 <span class="k">var</span> <span class="n">rdd</span> <span class="k">=</span> <span class="nv">sc</span><span class="o">.</span><span class="py">parallelize</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
-<span class="c1">// Wrong: Don't do this!!
-</span><span class="nv">rdd</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">counter</span> <span class="o">+=</span> <span class="n">x</span><span class="o">)</span>
+<span class="c1">// Wrong: Don't do this!!</span>
+<span class="nv">rdd</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">counter</span> <span class="o">+=</span> <span class="n">x</span><span class="o">)</span>
 
 <span class="nf">println</span><span class="o">(</span><span class="s">"Counter value: "</span> <span class="o">+</span> <span class="n">counter</span><span class="o">)</span></code></pre></figure>
 
@@ -1207,10 +1214,10 @@ the code below:</p>
   <span class="o">...</span>
 <span class="o">}</span>
 
-<span class="c1">// Then, create an Accumulator of this type:
-</span><span class="k">val</span> <span class="nv">myVectorAcc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">VectorAccumulatorV2</span>
-<span class="c1">// Then, register it into spark context:
-</span><span class="nv">sc</span><span class="o">.</span><span class="py">register</span><span class="o">(</span><span class="n">myVectorAcc</span><span class="o">,</span> <span class="s">"MyVectorAcc1"</span><span class="o">)</span></code></pre></figure>
+<span class="c1">// Then, create an Accumulator of this type:</span>
+<span class="k">val</span> <span class="nv">myVectorAcc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">VectorAccumulatorV2</span>
+<span class="c1">// Then, register it into spark context:</span>
+<span class="nv">sc</span><span class="o">.</span><span class="py">register</span><span class="o">(</span><span class="n">myVectorAcc</span><span class="o">,</span> <span class="s">"MyVectorAcc1"</span><span class="o">)</span></code></pre></figure>
 
     <p>注意，当程序员定义自己的AccumulatorV2类型时，结果类型可能与所添加元素的类型不同。</p>
 
@@ -1300,7 +1307,7 @@ the code below:</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">accum</span> <span class="k">=</span> <span class="nv">sc</span><span class="o">.</span><span class="py">longAccumulator</span>
 <span class="nv">data</span><span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span> <span class="nv">accum</span><span class="o">.</span><span class="py">add</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="n">x</span> <span class="o">}</span>
-<span class="o">//</span> <span class="nc">Here</span><span class="o">,</span> <span class="n">accum</span> <span class="n">is</span> <span class="n">still</span> <span class="mi">0</span> <span class="n">because</span> <span class="n">no</span> <span class="n">actions</span> <span class="n">have</span> <span class="n">caused</span> <span class="n">the</span> <span class="n">map</span> <span class="n">operation</span> <span class="n">to</span> <span class="n">be</span> <span class="n">computed</span><span class="o">.</span></code></pre></figure>
+<span class="c1">// Here, accum is still 0 because no actions have caused the map operation to be computed.</span></code></pre></figure>
 
   </div>
 
@@ -1362,6 +1369,9 @@ the code below:</p>
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>

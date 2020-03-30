@@ -1,16 +1,16 @@
-[0m[[0minfo[0m] [0mscalastyle using config /Users/ysir/Documents/GitHub/spark/scalastyle-on-compile.generated.xml[0m
+[0m[[0minfo[0m] [0mscalastyle using config /Users/PowerYang/Documents/GitHub/spark-cn/scalastyle-on-compile.generated.xml[0m
 [0m[[0mdebug[0m] [0mStarting scalastyle[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/SparkILoop.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/SparkILoop.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/Signaling.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/Signaling.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/Main.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/Main.scala[0m
-[0m[[0mdebug[0m] [0mstart file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/ExecutorClassLoader.scala[0m
-[0m[[0mdebug[0m] [0mend file /Users/ysir/Documents/GitHub/spark/repl/src/main/scala/org/apache/spark/repl/ExecutorClassLoader.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/SparkILoop.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/SparkILoop.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/Signaling.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/Signaling.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/Main.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/Main.scala[0m
+[0m[[0mdebug[0m] [0mstart file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/ExecutorClassLoader.scala[0m
+[0m[[0mdebug[0m] [0mend file /Users/PowerYang/Documents/GitHub/spark-cn/repl/src/main/scala/org/apache/spark/repl/ExecutorClassLoader.scala[0m
 [0m[[0minfo[0m] [0mscalastyle Processed 4 file(s)[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 errors[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 warnings[0m
 [0m[[0minfo[0m] [0mscalastyle Found 0 infos[0m
 [0m[[0minfo[0m] [0mscalastyle Finished in 0 ms[0m
-[0m[[32msuccess[0m] [0mcreated output: /Users/ysir/Documents/GitHub/spark/repl/target[0m
+[0m[[32msuccess[0m] [0mcreated output: /Users/PowerYang/Documents/GitHub/spark-cn/repl/target[0m

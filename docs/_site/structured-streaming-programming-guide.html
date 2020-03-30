@@ -26,8 +26,15 @@
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
 
         <link rel="stylesheet" href="css/pygments-default.css">
-
-        
+        <script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?28c62599e8090f6dc0686988c5f2eb13";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>
 
     </head>
     <body>
@@ -248,18 +255,18 @@ And if you <a href="https://spark.apache.org/downloads.html">download Spark</a>,
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Create DataFrame representing the stream of input lines from connection to localhost:9999
-</span><span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Create DataFrame representing the stream of input lines from connection to localhost:9999</span>
+<span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"socket"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"host"</span><span class="o">,</span> <span class="s">"localhost"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"port"</span><span class="o">,</span> <span class="mi">9999</span><span class="o">)</span>
   <span class="o">.</span><span class="py">load</span><span class="o">()</span>
 
-<span class="c1">// Split the lines into words
-</span><span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="nv">lines</span><span class="o">.</span><span class="py">as</span><span class="o">[</span><span class="kt">String</span><span class="o">].</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">))</span>
+<span class="c1">// Split the lines into words</span>
+<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="nv">lines</span><span class="o">.</span><span class="py">as</span><span class="o">[</span><span class="kt">String</span><span class="o">].</span><span class="py">flatMap</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">split</span><span class="o">(</span><span class="s">" "</span><span class="o">))</span>
 
-<span class="c1">// Generate running word count
-</span><span class="k">val</span> <span class="nv">wordCounts</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"value"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span></code></pre></figure>
+<span class="c1">// Generate running word count</span>
+<span class="k">val</span> <span class="nv">wordCounts</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"value"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span></code></pre></figure>
 
     <p>This <code>lines</code> DataFrame represents an unbounded table containing the streaming text data. This table contains one column of strings named &#8220;value&#8221;, and each line in the streaming text data becomes a row in the table. Note, that this is not currently receiving any data as we are just setting up the transformation, and have not yet started it. Next, we have converted the DataFrame to a  Dataset of String using <code>.as[String]</code>, so that we can apply the <code>flatMap</code> operation to split each line into multiple words. The resultant <code>words</code> Dataset contains all the words. Finally, we have defined the <code>wordCounts</code> DataFrame by grouping by the unique values in the Dataset and counting them. Note that this is a streaming DataFrame which represents the running word counts of the stream.</p>
 
@@ -329,8 +336,8 @@ And if you <a href="https://spark.apache.org/downloads.html">download Spark</a>,
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Start running the query that prints the running counts to the console
-</span><span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nv">wordCounts</span><span class="o">.</span><span class="py">writeStream</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// Start running the query that prints the running counts to the console</span>
+<span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nv">wordCounts</span><span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">outputMode</span><span class="o">(</span><span class="s">"complete"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
@@ -747,25 +754,25 @@ Here are the details of all the sources in Spark.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">spark</span><span class="k">:</span> <span class="kt">SparkSession</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="c1">// Read text from socket
-</span><span class="k">val</span> <span class="nv">socketDF</span> <span class="k">=</span> <span class="n">spark</span>
+<span class="c1">// Read text from socket</span>
+<span class="k">val</span> <span class="nv">socketDF</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"socket"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"host"</span><span class="o">,</span> <span class="s">"localhost"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"port"</span><span class="o">,</span> <span class="mi">9999</span><span class="o">)</span>
   <span class="o">.</span><span class="py">load</span><span class="o">()</span>
 
-<span class="nv">socketDF</span><span class="o">.</span><span class="py">isStreaming</span>    <span class="c1">// Returns True for DataFrames that have streaming sources
-</span>
+<span class="nv">socketDF</span><span class="o">.</span><span class="py">isStreaming</span>    <span class="c1">// Returns True for DataFrames that have streaming sources</span>
+
 <span class="nv">socketDF</span><span class="o">.</span><span class="py">printSchema</span>
 
-<span class="c1">// Read all the csv files written atomically in a directory
-</span><span class="k">val</span> <span class="nv">userSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StructType</span><span class="o">().</span><span class="py">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"string"</span><span class="o">).</span><span class="py">add</span><span class="o">(</span><span class="s">"age"</span><span class="o">,</span> <span class="s">"integer"</span><span class="o">)</span>
+<span class="c1">// Read all the csv files written atomically in a directory</span>
+<span class="k">val</span> <span class="nv">userSchema</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">StructType</span><span class="o">().</span><span class="py">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"string"</span><span class="o">).</span><span class="py">add</span><span class="o">(</span><span class="s">"age"</span><span class="o">,</span> <span class="s">"integer"</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">csvDF</span> <span class="k">=</span> <span class="n">spark</span>
   <span class="o">.</span><span class="py">readStream</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"sep"</span><span class="o">,</span> <span class="s">";"</span><span class="o">)</span>
-  <span class="o">.</span><span class="py">schema</span><span class="o">(</span><span class="n">userSchema</span><span class="o">)</span>      <span class="c1">// Specify schema of the csv files
-</span>  <span class="o">.</span><span class="py">csv</span><span class="o">(</span><span class="s">"/path/to/directory"</span><span class="o">)</span>    <span class="o">//</span> <span class="nc">Equivalent</span> <span class="n">to</span> <span class="nf">format</span><span class="o">(</span><span class="s">"csv"</span><span class="o">).</span><span class="py">load</span><span class="o">(</span><span class="s">"/path/to/directory"</span><span class="o">)</span></code></pre></figure>
+  <span class="o">.</span><span class="py">schema</span><span class="o">(</span><span class="n">userSchema</span><span class="o">)</span>      <span class="c1">// Specify schema of the csv files</span>
+  <span class="o">.</span><span class="py">csv</span><span class="o">(</span><span class="s">"/path/to/directory"</span><span class="o">)</span>    <span class="c1">// Equivalent to format("csv").load("/path/to/directory")</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -856,19 +863,19 @@ Here are the details of all the sources in Spark.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">DeviceData</span><span class="o">(</span><span class="n">device</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">deviceType</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">signal</span><span class="k">:</span> <span class="kt">Double</span><span class="o">,</span> <span class="n">time</span><span class="k">:</span> <span class="kt">DateTime</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="nv">df</span><span class="k">:</span> <span class="kt">DataFrame</span> <span class="o">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame with IOT device data with schema { device: string, deviceType: string, signal: double, time: string }
-</span><span class="k">val</span> <span class="nv">ds</span><span class="k">:</span> <span class="kt">Dataset</span><span class="o">[</span><span class="kt">DeviceData</span><span class="o">]</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">as</span><span class="o">[</span><span class="kt">DeviceData</span><span class="o">]</span>    <span class="c1">// streaming Dataset with IOT device data
-</span>
-<span class="c1">// Select the devices which have signal more than 10
-</span><span class="nv">df</span><span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">where</span><span class="o">(</span><span class="s">"signal &gt; 10"</span><span class="o">)</span>      <span class="c1">// using untyped APIs   
-</span><span class="nv">ds</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">signal</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">device</span><span class="o">)</span>         <span class="c1">// using typed APIs
-</span>
-<span class="c1">// Running count of the number of updates for each device type
-</span><span class="nv">df</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"deviceType"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span>                          <span class="c1">// using untyped API
-</span>
-<span class="c1">// Running average signal for each device type
-</span><span class="k">import</span> <span class="nn">org.apache.spark.sql.expressions.scalalang.typed</span>
-<span class="nv">ds</span><span class="o">.</span><span class="py">groupByKey</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">deviceType</span><span class="o">).</span><span class="py">agg</span><span class="o">(</span><span class="nv">typed</span><span class="o">.</span><span class="py">avg</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">signal</span><span class="o">))</span>    <span class="o">//</span> <span class="n">using</span> <span class="n">typed</span> <span class="nc">API</span></code></pre></figure>
+<span class="k">val</span> <span class="nv">df</span><span class="k">:</span> <span class="kt">DataFrame</span> <span class="o">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame with IOT device data with schema { device: string, deviceType: string, signal: double, time: string }</span>
+<span class="k">val</span> <span class="nv">ds</span><span class="k">:</span> <span class="kt">Dataset</span><span class="o">[</span><span class="kt">DeviceData</span><span class="o">]</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">as</span><span class="o">[</span><span class="kt">DeviceData</span><span class="o">]</span>    <span class="c1">// streaming Dataset with IOT device data</span>
+
+<span class="c1">// Select the devices which have signal more than 10</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">where</span><span class="o">(</span><span class="s">"signal &gt; 10"</span><span class="o">)</span>      <span class="c1">// using untyped APIs   </span>
+<span class="nv">ds</span><span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">signal</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">device</span><span class="o">)</span>         <span class="c1">// using typed APIs</span>
+
+<span class="c1">// Running count of the number of updates for each device type</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"deviceType"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span>                          <span class="c1">// using untyped API</span>
+
+<span class="c1">// Running average signal for each device type</span>
+<span class="k">import</span> <span class="nn">org.apache.spark.sql.expressions.scalalang.typed</span>
+<span class="nv">ds</span><span class="o">.</span><span class="py">groupByKey</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">deviceType</span><span class="o">).</span><span class="py">agg</span><span class="o">(</span><span class="nv">typed</span><span class="o">.</span><span class="py">avg</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">signal</span><span class="o">))</span>    <span class="c1">// using typed API</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -933,7 +940,7 @@ Here are the details of all the sources in Spark.</p>
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">df</span><span class="o">.</span><span class="py">createOrReplaceTempView</span><span class="o">(</span><span class="s">"updates"</span><span class="o">)</span>
-<span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"select count(*) from updates"</span><span class="o">)</span>  <span class="o">//</span> <span class="n">returns</span> <span class="n">another</span> <span class="n">streaming</span> <span class="nc">DF</span></code></pre></figure>
+<span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"select count(*) from updates"</span><span class="o">)</span>  <span class="c1">// returns another streaming DF</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -998,10 +1005,10 @@ Here are the details of all the sources in Spark.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">spark.implicits._</span>
 
-<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame of schema { timestamp: Timestamp, word: String }
-</span>
-<span class="c1">// Group the data by window and word and compute the count of each group
-</span><span class="k">val</span> <span class="nv">windowedCounts</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span>
+<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame of schema { timestamp: Timestamp, word: String }</span>
+
+<span class="c1">// Group the data by window and word and compute the count of each group</span>
+<span class="k">val</span> <span class="nv">windowedCounts</span> <span class="k">=</span> <span class="nv">words</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span>
   <span class="nf">window</span><span class="o">(</span><span class="n">$</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="s">"10 minutes"</span><span class="o">,</span> <span class="s">"5 minutes"</span><span class="o">),</span>
   <span class="n">$</span><span class="s">"word"</span>
 <span class="o">).</span><span class="py">count</span><span class="o">()</span></code></pre></figure>
@@ -1074,10 +1081,10 @@ easily define watermarking on the previous example using <code>withWatermark()</
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">spark.implicits._</span>
 
-<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame of schema { timestamp: Timestamp, word: String }
-</span>
-<span class="c1">// Group the data by window and word and compute the count of each group
-</span><span class="k">val</span> <span class="nv">windowedCounts</span> <span class="k">=</span> <span class="n">words</span>
+<span class="k">val</span> <span class="nv">words</span> <span class="k">=</span> <span class="o">...</span> <span class="c1">// streaming DataFrame of schema { timestamp: Timestamp, word: String }</span>
+
+<span class="c1">// Group the data by window and word and compute the count of each group</span>
+<span class="k">val</span> <span class="nv">windowedCounts</span> <span class="k">=</span> <span class="n">words</span>
     <span class="o">.</span><span class="py">withWatermark</span><span class="o">(</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="s">"10 minutes"</span><span class="o">)</span>
     <span class="o">.</span><span class="py">groupBy</span><span class="o">(</span>
         <span class="nf">window</span><span class="o">(</span><span class="n">$</span><span class="s">"timestamp"</span><span class="o">,</span> <span class="s">"10 minutes"</span><span class="o">,</span> <span class="s">"5 minutes"</span><span class="o">),</span>
@@ -1229,8 +1236,8 @@ type of outer joins) between a streaming and a static DataFrame/Dataset. Here is
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">staticDf</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">read</span><span class="o">.</span> <span class="o">...</span>
 <span class="k">val</span> <span class="nv">streamingDf</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span><span class="o">.</span> <span class="o">...</span>
 
-<span class="nv">streamingDf</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">staticDf</span><span class="o">,</span> <span class="s">"type"</span><span class="o">)</span>          <span class="c1">// inner equi-join with a static DF
-</span><span class="nv">streamingDf</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">staticDf</span><span class="o">,</span> <span class="s">"type"</span><span class="o">,</span> <span class="s">"right_join"</span><span class="o">)</span>  <span class="o">//</span> <span class="n">right</span> <span class="n">outer</span> <span class="n">join</span> <span class="k">with</span> <span class="n">a</span> <span class="n">static</span> <span class="nc">DF</span>  </code></pre></figure>
+<span class="nv">streamingDf</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">staticDf</span><span class="o">,</span> <span class="s">"type"</span><span class="o">)</span>          <span class="c1">// inner equi-join with a static DF</span>
+<span class="nv">streamingDf</span><span class="o">.</span><span class="py">join</span><span class="o">(</span><span class="n">staticDf</span><span class="o">,</span> <span class="s">"type"</span><span class="o">,</span> <span class="s">"right_join"</span><span class="o">)</span>  <span class="c1">// right outer join with a static DF  </span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -1336,12 +1343,12 @@ after the corresponding impression.</p>
 <span class="k">val</span> <span class="nv">impressions</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span><span class="o">.</span> <span class="o">...</span>
 <span class="k">val</span> <span class="nv">clicks</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span><span class="o">.</span> <span class="o">...</span>
 
-<span class="c1">// Apply watermarks on event-time columns
-</span><span class="k">val</span> <span class="nv">impressionsWithWatermark</span> <span class="k">=</span> <span class="nv">impressions</span><span class="o">.</span><span class="py">withWatermark</span><span class="o">(</span><span class="s">"impressionTime"</span><span class="o">,</span> <span class="s">"2 hours"</span><span class="o">)</span>
+<span class="c1">// Apply watermarks on event-time columns</span>
+<span class="k">val</span> <span class="nv">impressionsWithWatermark</span> <span class="k">=</span> <span class="nv">impressions</span><span class="o">.</span><span class="py">withWatermark</span><span class="o">(</span><span class="s">"impressionTime"</span><span class="o">,</span> <span class="s">"2 hours"</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">clicksWithWatermark</span> <span class="k">=</span> <span class="nv">clicks</span><span class="o">.</span><span class="py">withWatermark</span><span class="o">(</span><span class="s">"clickTime"</span><span class="o">,</span> <span class="s">"3 hours"</span><span class="o">)</span>
 
-<span class="c1">// Join with event-time constraints
-</span><span class="nv">impressionsWithWatermark</span><span class="o">.</span><span class="py">join</span><span class="o">(</span>
+<span class="c1">// Join with event-time constraints</span>
+<span class="nv">impressionsWithWatermark</span><span class="o">.</span><span class="py">join</span><span class="o">(</span>
   <span class="n">clicksWithWatermark</span><span class="o">,</span>
   <span class="nf">expr</span><span class="o">(</span><span class="s">"""
     clickAdId = impressionAdId AND
@@ -1440,8 +1447,8 @@ there will be an additional parameter specifying it to be an outer-join.</p>
     clickTime &gt;= impressionTime AND
     clickTime &lt;= impressionTime + interval 1 hour
     """</span><span class="o">),</span>
-  <span class="n">joinType</span> <span class="k">=</span> <span class="s">"leftOuter"</span>      <span class="c1">// can be "inner", "leftOuter", "rightOuter"
-</span> <span class="o">)</span></code></pre></figure>
+  <span class="n">joinType</span> <span class="k">=</span> <span class="s">"leftOuter"</span>      <span class="c1">// can be "inner", "leftOuter", "rightOuter"</span>
+ <span class="o">)</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -1636,13 +1643,13 @@ what cannot be used.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">streamingDf</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span><span class="o">.</span> <span class="o">...</span>  <span class="c1">// columns: guid, eventTime, ...
-</span>
-<span class="c1">// Without watermark using guid column
-</span><span class="nv">streamingDf</span><span class="o">.</span><span class="py">dropDuplicates</span><span class="o">(</span><span class="s">"guid"</span><span class="o">)</span>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">streamingDf</span> <span class="k">=</span> <span class="nv">spark</span><span class="o">.</span><span class="py">readStream</span><span class="o">.</span> <span class="o">...</span>  <span class="c1">// columns: guid, eventTime, ...</span>
 
-<span class="c1">// With watermark using guid and eventTime columns
-</span><span class="n">streamingDf</span>
+<span class="c1">// Without watermark using guid column</span>
+<span class="nv">streamingDf</span><span class="o">.</span><span class="py">dropDuplicates</span><span class="o">(</span><span class="s">"guid"</span><span class="o">)</span>
+
+<span class="c1">// With watermark using guid and eventTime columns</span>
+<span class="n">streamingDf</span>
   <span class="o">.</span><span class="py">withWatermark</span><span class="o">(</span><span class="s">"eventTime"</span><span class="o">,</span> <span class="s">"10 seconds"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">dropDuplicates</span><span class="o">(</span><span class="s">"guid"</span><span class="o">,</span> <span class="s">"eventTime"</span><span class="o">)</span></code></pre></figure>
 
@@ -1931,8 +1938,8 @@ Here is the compatibility matrix.</p>
 </ul>
 
 <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">writeStream</span>
-    <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"parquet"</span><span class="o">)</span>        <span class="c1">// can be "orc", "json", "csv", etc.
-</span>    <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"path"</span><span class="o">,</span> <span class="s">"path/to/destination/dir"</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"parquet"</span><span class="o">)</span>        <span class="c1">// can be "orc", "json", "csv", etc.</span>
+    <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"path"</span><span class="o">,</span> <span class="s">"path/to/destination/dir"</span><span class="o">)</span>
     <span class="o">.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
 
 <ul>
@@ -2053,42 +2060,42 @@ Here are the details of all the sinks in Spark.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// ========== DF with no aggregations ==========
-</span><span class="k">val</span> <span class="nv">noAggDF</span> <span class="k">=</span> <span class="nv">deviceDataDf</span><span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">where</span><span class="o">(</span><span class="s">"signal &gt; 10"</span><span class="o">)</span>   
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// ========== DF with no aggregations ==========</span>
+<span class="k">val</span> <span class="nv">noAggDF</span> <span class="k">=</span> <span class="nv">deviceDataDf</span><span class="o">.</span><span class="py">select</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">where</span><span class="o">(</span><span class="s">"signal &gt; 10"</span><span class="o">)</span>   
 
-<span class="c1">// Print new data to console
-</span><span class="n">noAggDF</span>
+<span class="c1">// Print new data to console</span>
+<span class="n">noAggDF</span>
   <span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// Write new data to Parquet files
-</span><span class="n">noAggDF</span>
+<span class="c1">// Write new data to Parquet files</span>
+<span class="n">noAggDF</span>
   <span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"parquet"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"checkpointLocation"</span><span class="o">,</span> <span class="s">"path/to/checkpoint/dir"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"path"</span><span class="o">,</span> <span class="s">"path/to/destination/dir"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// ========== DF with aggregation ==========
-</span><span class="k">val</span> <span class="nv">aggDF</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span>
+<span class="c1">// ========== DF with aggregation ==========</span>
+<span class="k">val</span> <span class="nv">aggDF</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">groupBy</span><span class="o">(</span><span class="s">"device"</span><span class="o">).</span><span class="py">count</span><span class="o">()</span>
 
-<span class="c1">// Print updated aggregations to console
-</span><span class="n">aggDF</span>
+<span class="c1">// Print updated aggregations to console</span>
+<span class="n">aggDF</span>
   <span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">outputMode</span><span class="o">(</span><span class="s">"complete"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// Have all the aggregates in an in-memory table
-</span><span class="n">aggDF</span>
+<span class="c1">// Have all the aggregates in an in-memory table</span>
+<span class="n">aggDF</span>
   <span class="o">.</span><span class="py">writeStream</span>
-  <span class="o">.</span><span class="py">queryName</span><span class="o">(</span><span class="s">"aggregates"</span><span class="o">)</span>    <span class="c1">// this query name will be the table name
-</span>  <span class="o">.</span><span class="py">outputMode</span><span class="o">(</span><span class="s">"complete"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">queryName</span><span class="o">(</span><span class="s">"aggregates"</span><span class="o">)</span>    <span class="c1">// this query name will be the table name</span>
+  <span class="o">.</span><span class="py">outputMode</span><span class="o">(</span><span class="s">"complete"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"memory"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"select * from aggregates"</span><span class="o">).</span><span class="py">show</span><span class="o">()</span>   <span class="o">//</span> <span class="n">interactively</span> <span class="n">query</span> <span class="n">in</span><span class="o">-</span><span class="n">memory</span> <span class="n">table</span></code></pre></figure>
+<span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"select * from aggregates"</span><span class="o">).</span><span class="py">show</span><span class="o">()</span>   <span class="c1">// interactively query in-memory table</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -2215,8 +2222,8 @@ It takes two parameters: a DataFrame or Dataset that has the output data of a mi
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">streamingDF</span><span class="o">.</span><span class="py">writeStream</span><span class="o">.</span><span class="py">foreachBatch</span> <span class="o">{</span> <span class="o">(</span><span class="n">batchDF</span><span class="k">:</span> <span class="kt">DataFrame</span><span class="o">,</span> <span class="n">batchId</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="c1">// Transform and write batchDF 
-</span><span class="o">}.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
+  <span class="c1">// Transform and write batchDF </span>
+<span class="o">}.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -2261,9 +2268,9 @@ you should cache the output DataFrame/Dataset, write it to multiple locations, a
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">streamingDF</span><span class="o">.</span><span class="py">writeStream</span><span class="o">.</span><span class="py">foreachBatch</span> <span class="o">{</span> <span class="o">(</span><span class="n">batchDF</span><span class="k">:</span> <span class="kt">DataFrame</span><span class="o">,</span> <span class="n">batchId</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span> <span class="k">=&gt;</span>
   <span class="nv">batchDF</span><span class="o">.</span><span class="py">persist</span><span class="o">()</span>
-  <span class="nv">batchDF</span><span class="o">.</span><span class="py">write</span><span class="o">.</span><span class="py">format</span><span class="o">(...).</span><span class="py">save</span><span class="o">(...)</span>  <span class="c1">// location 1
-</span>  <span class="nv">batchDF</span><span class="o">.</span><span class="py">write</span><span class="o">.</span><span class="py">format</span><span class="o">(...).</span><span class="py">save</span><span class="o">(...)</span>  <span class="c1">// location 2
-</span>  <span class="nv">batchDF</span><span class="o">.</span><span class="py">unpersist</span><span class="o">()</span>
+  <span class="nv">batchDF</span><span class="o">.</span><span class="py">write</span><span class="o">.</span><span class="py">format</span><span class="o">(...).</span><span class="py">save</span><span class="o">(...)</span>  <span class="c1">// location 1</span>
+  <span class="nv">batchDF</span><span class="o">.</span><span class="py">write</span><span class="o">.</span><span class="py">format</span><span class="o">(...).</span><span class="py">save</span><span class="o">(...)</span>  <span class="c1">// location 2</span>
+  <span class="nv">batchDF</span><span class="o">.</span><span class="py">unpersist</span><span class="o">()</span>
 <span class="o">}</span></code></pre></figure>
 
   </div>
@@ -2298,16 +2305,16 @@ Since Spark 2.4, <code>foreach</code> is available in Scala, Java and Python.</p
   <span class="k">new</span> <span class="nc">ForeachWriter</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span>
 
     <span class="k">def</span> <span class="nf">open</span><span class="o">(</span><span class="n">partitionId</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">version</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="c1">// Open connection
-</span>    <span class="o">}</span>
+      <span class="c1">// Open connection</span>
+    <span class="o">}</span>
 
     <span class="k">def</span> <span class="nf">process</span><span class="o">(</span><span class="n">record</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="c1">// Write string to connection
-</span>    <span class="o">}</span>
+      <span class="c1">// Write string to connection</span>
+    <span class="o">}</span>
 
     <span class="k">def</span> <span class="nf">close</span><span class="o">(</span><span class="n">errorOrNull</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="c1">// Close the connection
-</span>    <span class="o">}</span>
+      <span class="c1">// Close the connection</span>
+    <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">).</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
 
@@ -2489,25 +2496,25 @@ Here are the different kinds of triggers that are supported.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">org.apache.spark.sql.streaming.Trigger</span>
 
-<span class="c1">// Default trigger (runs micro-batch as soon as it can)
-</span><span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
+<span class="c1">// Default trigger (runs micro-batch as soon as it can)</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// ProcessingTime trigger with two-seconds micro-batch interval
-</span><span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
+<span class="c1">// ProcessingTime trigger with two-seconds micro-batch interval</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">trigger</span><span class="o">(</span><span class="nv">Trigger</span><span class="o">.</span><span class="py">ProcessingTime</span><span class="o">(</span><span class="s">"2 seconds"</span><span class="o">))</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// One-time trigger
-</span><span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
+<span class="c1">// One-time trigger</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">trigger</span><span class="o">(</span><span class="nv">Trigger</span><span class="o">.</span><span class="py">Once</span><span class="o">())</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span>
 
-<span class="c1">// Continuous trigger with one-second checkpointing interval
-</span><span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
+<span class="c1">// Continuous trigger with one-second checkpointing interval</span>
+<span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">trigger</span><span class="o">(</span><span class="nv">Trigger</span><span class="o">.</span><span class="py">Continuous</span><span class="o">(</span><span class="s">"1 second"</span><span class="o">))</span>
   <span class="o">.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
@@ -2589,25 +2596,25 @@ Here are the different kinds of triggers that are supported.</p>
 <div class="codetabs">
 <div data-lang="scala">
 
-    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span><span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">).</span><span class="py">start</span><span class="o">()</span>   <span class="c1">// get the query object
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">id</span>          <span class="c1">// get the unique identifier of the running query that persists across restarts from checkpoint data
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">runId</span>       <span class="c1">// get the unique id of this run of the query, which will be generated at every start/restart
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">name</span>        <span class="c1">// get the name of the auto-generated or user-specified name
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">explain</span><span class="o">()</span>   <span class="c1">// print detailed explanations of the query
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">stop</span><span class="o">()</span>      <span class="c1">// stop the query
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">()</span>   <span class="c1">// block until query is terminated, with stop() or with error
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">exception</span>       <span class="c1">// the exception if the query has been terminated with error
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">recentProgress</span>  <span class="c1">// an array of the most recent progress updates for this query
-</span>
-<span class="nv">query</span><span class="o">.</span><span class="py">lastProgress</span>    <span class="o">//</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">progress</span> <span class="n">update</span> <span class="n">of</span> <span class="k">this</span> <span class="n">streaming</span> <span class="n">query</span></code></pre></figure>
+    <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nv">df</span><span class="o">.</span><span class="py">writeStream</span><span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"console"</span><span class="o">).</span><span class="py">start</span><span class="o">()</span>   <span class="c1">// get the query object</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">id</span>          <span class="c1">// get the unique identifier of the running query that persists across restarts from checkpoint data</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">runId</span>       <span class="c1">// get the unique id of this run of the query, which will be generated at every start/restart</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">name</span>        <span class="c1">// get the name of the auto-generated or user-specified name</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">explain</span><span class="o">()</span>   <span class="c1">// print detailed explanations of the query</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">stop</span><span class="o">()</span>      <span class="c1">// stop the query</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">()</span>   <span class="c1">// block until query is terminated, with stop() or with error</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">exception</span>       <span class="c1">// the exception if the query has been terminated with error</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">recentProgress</span>  <span class="c1">// an array of the most recent progress updates for this query</span>
+
+<span class="nv">query</span><span class="o">.</span><span class="py">lastProgress</span>    <span class="c1">// the most recent progress update of this streaming query</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -2682,11 +2689,11 @@ that can be used to manage the currently active queries.</p>
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="nv">spark</span><span class="k">:</span> <span class="kt">SparkSession</span> <span class="o">=</span> <span class="o">...</span>
 
-<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">active</span>    <span class="c1">// get the list of currently active streaming queries
-</span>
-<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>   <span class="c1">// get a query object by its unique id
-</span>
-<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">awaitAnyTermination</span><span class="o">()</span>   <span class="o">//</span> <span class="n">block</span> <span class="n">until</span> <span class="n">any</span> <span class="n">one</span> <span class="n">of</span> <span class="n">them</span> <span class="n">terminates</span></code></pre></figure>
+<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">active</span>    <span class="c1">// get the list of currently active streaming queries</span>
+
+<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>   <span class="c1">// get a query object by its unique id</span>
+
+<span class="nv">spark</span><span class="o">.</span><span class="py">streams</span><span class="o">.</span><span class="py">awaitAnyTermination</span><span class="o">()</span>   <span class="c1">// block until any one of them terminates</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -3009,8 +3016,8 @@ stopped and when there is progress made in an active query. Here is an example,<
 <div data-lang="scala">
 
     <figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nv">spark</span><span class="o">.</span><span class="py">conf</span><span class="o">.</span><span class="py">set</span><span class="o">(</span><span class="s">"spark.sql.streaming.metricsEnabled"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">)</span>
-<span class="c1">// or
-</span><span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"SET spark.sql.streaming.metricsEnabled=true"</span><span class="o">)</span></code></pre></figure>
+<span class="c1">// or</span>
+<span class="nv">spark</span><span class="o">.</span><span class="py">sql</span><span class="o">(</span><span class="s">"SET spark.sql.streaming.metricsEnabled=true"</span><span class="o">)</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -3215,8 +3222,8 @@ restarts as the binary state will always be restored successfully.</p>
   <span class="o">.</span><span class="py">format</span><span class="o">(</span><span class="s">"kafka"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"kafka.bootstrap.servers"</span><span class="o">,</span> <span class="s">"host1:port1,host2:port2"</span><span class="o">)</span>
   <span class="o">.</span><span class="py">option</span><span class="o">(</span><span class="s">"topic"</span><span class="o">,</span> <span class="s">"topic1"</span><span class="o">)</span>
-  <span class="o">.</span><span class="py">trigger</span><span class="o">(</span><span class="nv">Trigger</span><span class="o">.</span><span class="py">Continuous</span><span class="o">(</span><span class="s">"1 second"</span><span class="o">))</span>  <span class="c1">// only change in query
-</span>  <span class="o">.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
+  <span class="o">.</span><span class="py">trigger</span><span class="o">(</span><span class="nv">Trigger</span><span class="o">.</span><span class="py">Continuous</span><span class="o">(</span><span class="s">"1 second"</span><span class="o">))</span>  <span class="c1">// only change in query</span>
+  <span class="o">.</span><span class="py">start</span><span class="o">()</span></code></pre></figure>
 
   </div>
 <div data-lang="java">
@@ -3360,6 +3367,9 @@ examples.
                 </div>
             
              <!-- /container -->
+        </div>
+        <div style="margin-top: 80px;">
+            <center><a href="http://www.beian.miit.gov.cn">陇ICP备19002509号-2</a></center>
         </div>
 
         <script src="js/vendor/jquery-3.4.1.min.js"></script>
