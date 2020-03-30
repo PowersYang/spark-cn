@@ -4,7 +4,7 @@
 		module="spark-token-provider-kafka-0-10_2.12"
 		revision="3.0.0-SNAPSHOT"
 		status="integration"
-		publication="20200330101928"
+		publication="20200330171629"
 	>
 		<description>
 		spark-token-provider-kafka-0-10

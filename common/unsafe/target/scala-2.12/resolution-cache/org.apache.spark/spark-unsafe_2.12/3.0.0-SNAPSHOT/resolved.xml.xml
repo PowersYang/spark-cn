@@ -4,7 +4,7 @@
 		module="spark-unsafe_2.12"
 		revision="3.0.0-SNAPSHOT"
 		status="integration"
-		publication="20200330101914"
+		publication="20200330171626"
 	>
 		<description>
 		spark-unsafe

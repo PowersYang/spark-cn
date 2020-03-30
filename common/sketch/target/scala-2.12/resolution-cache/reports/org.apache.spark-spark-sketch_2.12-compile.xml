@@ -7,10 +7,10 @@
 		revision="3.0.0-SNAPSHOT"
 		conf="compile"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20200330101919"/>
+		date="20200330171625"/>
 	<dependencies>
 		<module organisation="org.apache.spark" name="spark-tags_2.12">
-			<revision name="3.0.0-SNAPSHOT" status="integration" pubdate="20200330101910" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
+			<revision name="3.0.0-SNAPSHOT" status="integration" pubdate="20200330171615" resolver="inter-project" artresolver="inter-project" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="1">
 				<metadata-artifact status="failed" details="" size="0" time="0" searched="false"/>
 				<caller organisation="org.apache.spark" name="spark-sketch_2.12" conf="compile" rev="3.0.0-SNAPSHOT" rev-constraint-default="3.0.0-SNAPSHOT" rev-constraint-dynamic="3.0.0-SNAPSHOT" callerrev="3.0.0-SNAPSHOT"/>
 				<artifacts>

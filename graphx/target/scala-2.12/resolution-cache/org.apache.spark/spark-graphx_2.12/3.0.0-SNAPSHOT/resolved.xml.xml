@@ -4,7 +4,7 @@
 		module="spark-graphx_2.12"
 		revision="3.0.0-SNAPSHOT"
 		status="integration"
-		publication="20200330101958"
+		publication="20200330171649"
 	>
 		<description>
 		spark-graphx

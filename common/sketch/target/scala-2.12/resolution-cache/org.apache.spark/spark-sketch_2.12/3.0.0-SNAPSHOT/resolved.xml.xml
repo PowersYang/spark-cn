@@ -4,7 +4,7 @@
 		module="spark-sketch_2.12"
 		revision="3.0.0-SNAPSHOT"
 		status="integration"
-		publication="20200330101919"
+		publication="20200330171625"
 	>
 		<description>
 		spark-sketch

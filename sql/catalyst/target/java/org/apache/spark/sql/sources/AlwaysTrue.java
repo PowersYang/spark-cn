@@ -1,0 +1,18 @@
+package org.apache.spark.sql.sources;
+/**
+ * A filter that always evaluates to <code>true</code>.
+ */
+public  class AlwaysTrue extends org.apache.spark.sql.sources.Filter implements scala.Product, scala.Serializable {
+  static protected  java.lang.String[] findReferences (Object value)  { throw new RuntimeException(); }
+  static public  org.apache.spark.sql.sources.AlwaysTrue copy ()  { throw new RuntimeException(); }
+  static public  java.lang.String productPrefix ()  { throw new RuntimeException(); }
+  static public  int productArity ()  { throw new RuntimeException(); }
+  static public  Object productElement (int x$1)  { throw new RuntimeException(); }
+  static public  scala.collection.Iterator<java.lang.Object> productIterator ()  { throw new RuntimeException(); }
+  static public  boolean canEqual (Object x$1)  { throw new RuntimeException(); }
+  static public  int hashCode ()  { throw new RuntimeException(); }
+  static public  java.lang.String toString ()  { throw new RuntimeException(); }
+  static public  boolean equals (Object x$1)  { throw new RuntimeException(); }
+  public   AlwaysTrue ()  { throw new RuntimeException(); }
+  public  java.lang.String[] references ()  { throw new RuntimeException(); }
+}

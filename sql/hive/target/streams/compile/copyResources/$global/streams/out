@@ -1,0 +1,5 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/src/main/resources/META-INF,/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/target/scala-2.12/classes/META-INF)[0m
+[0m[[0mdebug[0m] [0m	(/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/src/main/resources/META-INF/services,/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/target/scala-2.12/classes/META-INF/services)[0m
+[0m[[0mdebug[0m] [0m	(/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/src/main/resources/META-INF/services/org.apache.spark.security.HadoopDelegationTokenProvider,/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/target/scala-2.12/classes/META-INF/services/org.apache.spark.security.HadoopDelegationTokenProvider)[0m
+[0m[[0mdebug[0m] [0m	(/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/src/main/resources/META-INF/services/org.apache.spark.sql.sources.DataSourceRegister,/Users/PowerYang/Documents/GitHub/spark-cn/sql/hive/target/scala-2.12/classes/META-INF/services/org.apache.spark.sql.sources.DataSourceRegister)[0m

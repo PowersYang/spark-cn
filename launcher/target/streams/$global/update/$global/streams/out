@@ -1,4 +1,7 @@
 [0m[[0minfo[0m] [0mUpdating {file:/Users/PowerYang/Documents/GitHub/spark-cn/}launcher...[0m
+[0m[[0mdebug[0m] [0mno default cache defined: set to /Users/PowerYang/.ivy2/cache[0m
+[0m[[0mdebug[0m] [0mno default cache defined: set to /Users/PowerYang/.ivy2/cache[0m
+[0m[[0mdebug[0m] [0mno default cache defined: set to /Users/PowerYang/.ivy2/cache[0m
 [0m[[0mdebug[0m] [0m:: resolving dependencies :: org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT[0m
 [0m[[0mdebug[0m] [0m	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool][0m
 [0m[[0mdebug[0m] [0m	validate = true[0m
@@ -9789,7 +9792,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#scala-compiler;2.12.10!scala-compiler.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.12!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 4604ms :: artifacts dl 101ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 4901ms :: artifacts dl 53ms[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT compile produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT runtime produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT test produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-test.xml[0m
@@ -9803,5 +9806,5 @@
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT docs produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-docs.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT pom produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-pom.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-launcher_2.12;3.0.0-SNAPSHOT scala-tool produced in /Users/PowerYang/Documents/GitHub/spark-cn/launcher/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-launcher_2.12-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (4604ms resolve - 101ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (4901ms resolve - 53ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

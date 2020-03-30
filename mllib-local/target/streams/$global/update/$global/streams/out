@@ -6541,7 +6541,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] jline#jline;2.14.6!jline.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.12!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 3225ms :: artifacts dl 68ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 2015ms :: artifacts dl 40ms[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT compile produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT runtime produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT test produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-test.xml[0m
@@ -6555,5 +6555,5 @@
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT docs produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-docs.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT pom produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-pom.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-mllib-local_2.12;3.0.0-SNAPSHOT scala-tool produced in /Users/PowerYang/Documents/GitHub/spark-cn/mllib-local/target/scala-2.12/resolution-cache/reports/org.apache.spark-spark-mllib-local_2.12-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (3225ms resolve - 68ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (2015ms resolve - 40ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

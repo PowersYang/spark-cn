@@ -1,0 +1,15 @@
+[0m[[33mwarn[0m] [0m/Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/json/JSONOptions.scala:137: Java enum ALLOW_NUMERIC_LEADING_ZEROS in Java enum Feature is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    factory.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, allowNumericLeadingZeros)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/json/JSONOptions.scala:138: Java enum ALLOW_NON_NUMERIC_NUMBERS in Java enum Feature is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    factory.configure(JsonParser.Feature.ALLOW_NON_NUMERIC_NUMBERS, allowNonNumericNumbers)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/json/JSONOptions.scala:139: Java enum ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER in Java enum Feature is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    factory.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER,[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/json/JSONOptions.scala:141: Java enum ALLOW_UNQUOTED_CONTROL_CHARS in Java enum Feature is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m    factory.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, allowUnquotedControlChars)[0m
+[0m[[33mwarn[0m] [0m[0m
+[0m[[33mwarn[0m] [0m/Users/PowerYang/Documents/GitHub/spark-cn/sql/catalyst/src/main/scala/org/apache/spark/sql/catalyst/expressions/jsonExpressions.scala:105: Java enum ALLOW_UNQUOTED_CONTROL_CHARS in Java enum Feature is deprecated: see corresponding Javadoc for more information.[0m
+[0m[[33mwarn[0m] [0m  jsonFactory.enable(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS)[0m
+[0m[[33mwarn[0m] [0m[0m
